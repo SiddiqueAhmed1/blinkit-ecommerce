@@ -4,6 +4,7 @@ import { createTransport } from "nodemailer";
 import mailTemplate from "../template/mailTemplate.js";
 import { generateAccessToken } from "../utils/generateAccessToken.js";
 import { generateRefreshToken } from "../utils/generateRefereshToken.js";
+import { fileUploadCloudinary } from "../utils/cloudinary.js";
 
 // create user
 const userRegister = async (req, res) => {
@@ -155,10 +156,25 @@ export const getAllUser = async (req, res) => {
 
 export const avatarUpload = async (req, res) => {
   try {
-    const file = req.file;
-    
+    const userFile = req.file;
+    const userId = req.user.id;
 
-    
+    if (!userFile) {
+      return res.status(400).json({ message: "file not uploaded" });
+    }
+
+    const upload = await fileUploadCloudinary(userFile.path);
+
+    const avatarUrl = upload?.secure_url;
+
+    const user = await userModel.findByIdAndUpdate(
+      userId,
+      { avatar: avatarUrl },
+      { new: true }
+    );
+    res
+      .status(200)
+      .json({ message: "avatar uploaded successfully", data: user });
   } catch (error) {
     return res.status(500).json({ message: error.message, error });
   }
