@@ -5,6 +5,7 @@ import mailTemplate from "../template/mailTemplate.js";
 import { generateAccessToken } from "../utils/generateAccessToken.js";
 import { generateRefreshToken } from "../utils/generateRefereshToken.js";
 import { fileUploadCloudinary } from "../utils/cloudinary.js";
+import mongoose from "mongoose";
 
 // create user
 const userRegister = async (req, res) => {
@@ -154,30 +155,72 @@ export const getAllUser = async (req, res) => {
   return res.status(200).json({ message: allUser });
 };
 
+// avatar upload
 export const avatarUpload = async (req, res) => {
   try {
     const userFile = req.file;
     const userId = req.user.id;
 
     if (!userFile) {
-      return res.status(400).json({ message: "file not uploaded" });
+      return res.status(400).json({ message: "File not uploaded" });
     }
 
-    const upload = await fileUploadCloudinary(userFile.path);
+    // Upload file to Cloudinary
+    const uploadFile = await fileUploadCloudinary(userFile, "avatar");
 
-    const avatarUrl = upload?.secure_url;
+    const avatarUrl = uploadFile?.secure_url;
+
+    if (!avatarUrl) {
+      return res
+        .status(400)
+        .json({ message: "Failed to upload file to Cloudinary" });
+    }
+
+    // Update user avatar in the database
 
     const user = await userModel.findByIdAndUpdate(
       userId,
       { avatar: avatarUrl },
       { new: true }
     );
-    res
-      .status(200)
-      .json({ message: "avatar uploaded successfully", data: user });
+
+    if (!user) {
+      console.log("User not found.");
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    return res.status(200).json({
+      message: "User avatar uploaded successfully",
+      data: user,
+    });
   } catch (error) {
-    return res.status(500).json({ message: error.message, error });
+    return res.status(500).json({ message: "Internal server error", error });
   }
 };
+
+export const updateUserDetails = async (req, res) => {
+  const { name, email, mobile } = req.body;
+
+  //validation
+  if (!name || !email || !mobile) {
+    return res.status(404).json({
+      message: "All fields are required",
+      success: false,
+      error: true,
+    });
+  }
+};
+
+const existUser = await userModel.findOne({ email });
+
+if (!existUser) {
+  return res.status(400).json({ message: "Email address is wrong" });
+}
+
+const updateUser = await userModel.findByIdAndUpdate(
+  existUser._id,
+  { name, email, mobile },
+  { new: true }
+);
 
 export default userRegister;
