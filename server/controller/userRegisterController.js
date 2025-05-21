@@ -5,7 +5,6 @@ import mailTemplate from "../template/mailTemplate.js";
 import { generateAccessToken } from "../utils/generateAccessToken.js";
 import { generateRefreshToken } from "../utils/generateRefereshToken.js";
 import { fileUploadCloudinary } from "../utils/cloudinary.js";
-import mongoose from "mongoose";
 
 // create user
 const userRegister = async (req, res) => {
@@ -200,6 +199,7 @@ export const avatarUpload = async (req, res) => {
 
 export const updateUserDetails = async (req, res) => {
   const { name, email, mobile } = req.body;
+  const user = req.user;
 
   //validation
   if (!name || !email || !mobile) {
@@ -209,18 +209,35 @@ export const updateUserDetails = async (req, res) => {
       error: true,
     });
   }
+
+  const existUser = await userModel.findById({ _id: user.id });
+
+  if (!existUser) {
+    return res.status(400).json({ message: "Email is wrong" });
+  }
+
+  // check email
+  if (existUser.email === email) {
+    return res.status(400).json({ message: "email already exist" });
+  }
+
+  const updateUser = await userModel.findByIdAndUpdate(
+    user.id,
+    {
+      ...(name && { name }),
+      ...(email && { email }),
+      ...(mobile && { mobile }),
+    },
+    { new: true }
+  );
+
+  if (!updateUser) {
+    return res.status(400).json({ message: "update not done" });
+  }
+
+  res
+    .status(200)
+    .json({ message: "Data updated succesfully", data: updateUser });
 };
-
-const existUser = await userModel.findOne({ email });
-
-if (!existUser) {
-  return res.status(400).json({ message: "Email address is wrong" });
-}
-
-const updateUser = await userModel.findByIdAndUpdate(
-  existUser._id,
-  { name, email, mobile },
-  { new: true }
-);
 
 export default userRegister;

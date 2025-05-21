@@ -1,15 +1,16 @@
-import color from "colors";
+import colors from "colors"; // should be 'colors', not 'color'
 import mongoose from "mongoose";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const mongoDb = async () => {
   try {
-    const connect = await mongoose.connect(
-      "mongodb+srv://siddiqueahmed2721:GUvuDkSYSykLT212@mern-stack-cluster.iofoqcy.mongodb.net/blinkit"
-    );
-    console.log(`mongodb connection done`.bgGreen.black);
+    const connect = await mongoose.connect(process.env.mongodb_url2);
+    console.log("MongoDB connection successful".bgGreen.black);
   } catch (error) {
-    console.log("mongodb connection failed".bgRed.black);
-    error.message;
+    console.log("MongoDB connection failed".bgRed.black);
+    console.error(error.message.red);
   }
 };
 
