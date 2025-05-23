@@ -3,6 +3,7 @@ import { authMiddleware } from "../middleware/authMiddleware.js";
 import upload from "../middleware/multer.js";
 import userRegister, {
   avatarUpload,
+  forgotPasswordOtp,
   getAllUser,
   updateUserDetails,
   userLogin,
@@ -19,7 +20,7 @@ userRouter.post("/login", userLogin);
 userRouter.get("/register", getAllUser);
 userRouter.get("/logout", authMiddleware, userLogout);
 userRouter.put("/avatar", authMiddleware, upload, avatarUpload);
-userRouter.put('/user-details', authMiddleware, updateUserDetails)
-
+userRouter.put("/update-user-details", authMiddleware, updateUserDetails);
+userRouter.post("/forgotPasswordOtp", forgotPasswordOtp);
 
 export default userRouter;
