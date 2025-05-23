@@ -5,6 +5,7 @@ import mailTemplate from "../template/mailTemplate.js";
 import { generateAccessToken } from "../utils/generateAccessToken.js";
 import { generateRefreshToken } from "../utils/generateRefereshToken.js";
 import { fileUploadCloudinary } from "../utils/cloudinary.js";
+import { otpTemplate } from "../template/otpTemplate.js";
 
 // create user
 const userRegister = async (req, res) => {
@@ -197,12 +198,13 @@ export const avatarUpload = async (req, res) => {
   }
 };
 
+// update user details with login
 export const updateUserDetails = async (req, res) => {
-  const { name, email, mobile } = req.body;
+  const { name, email, mobile, password } = req.body;
   const user = req.user;
 
   //validation
-  if (!name || !email || !mobile) {
+  if (!name || !email || !mobile || !password) {
     return res.status(404).json({
       message: "All fields are required",
       success: false,
@@ -221,12 +223,16 @@ export const updateUserDetails = async (req, res) => {
     return res.status(400).json({ message: "email already exist" });
   }
 
+  // password hash
+  const hashPass = await bcrypt.hash(password, 10);
+
   const updateUser = await userModel.findByIdAndUpdate(
     user.id,
     {
       ...(name && { name }),
       ...(email && { email }),
       ...(mobile && { mobile }),
+      ...(password && { password: hashPass }),
     },
     { new: true }
   );
@@ -238,6 +244,61 @@ export const updateUserDetails = async (req, res) => {
   res
     .status(200)
     .json({ message: "Data updated succesfully", data: updateUser });
+};
+
+// forgot password
+export const forgotPasswordOtp = async (req, res) => {
+  try {
+    const { email } = req.body;
+
+    /// validation
+    if (!email) {
+      return res.status(400).json({ message: "email is required" });
+    }
+
+    // find email in database
+    const existEmail = await userModel.findOne({ email });
+    if (!existEmail) {
+      return res.status(400).json({ message: "Email not matched" });
+    }
+
+    // create transport
+    const transport = createTransport({
+      port: process.env.MAIL_PORT,
+      host: process.env.MAIL_HOST,
+      auth: {
+        user: process.env.MAIL_ADDRESS,
+        pass: process.env.MAIL_PASS,
+      },
+    });
+
+    const otp = generateOtp();
+    const expiryTime = new Date.now() + 60 * 60 * 1000; // 1hr
+
+    // email send nodemailer
+    transport.sendMail({
+      from: `<Blinkit>`,
+      to: email,
+      subject: "Forgot Password OTP",
+      html: otpTemplate(existEmail.name, otp),
+    });
+
+    // update otp to database
+    const updateOtp = await userModel.findByIdAndUpdate(
+      existEmail._id,
+      {
+        forgot_password_otp: otp,
+        forgot_password_expiry: expiryTime,
+      },
+      { new: true }
+    );
+
+    res
+      .status(200)
+      .json({ message: "OTP Updated successfully", data: updateOtp });
+  } catch (error) {
+    return res.status(400).json({ message: error.message, error });
+  }
 };
 
 export default userRegister;
