@@ -9,6 +9,7 @@ import userRegister, {
   userLogin,
   userLogout,
   verifyEmail,
+  verifyForgotPasswordOtp,
 } from "../controller/userRegisterController.js";
 
 // create router
@@ -21,6 +22,7 @@ userRouter.get("/register", getAllUser);
 userRouter.get("/logout", authMiddleware, userLogout);
 userRouter.put("/avatar", authMiddleware, upload, avatarUpload);
 userRouter.put("/update-user-details", authMiddleware, updateUserDetails);
-userRouter.post("/forgotPasswordOtp", forgotPasswordOtp);
+userRouter.put("/forgotPasswordOtp", forgotPasswordOtp);
+userRouter.put("/verifyForgotPasswordOtp", verifyForgotPasswordOtp);
 
 export default userRouter;

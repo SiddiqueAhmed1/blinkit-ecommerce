@@ -6,6 +6,7 @@ import { generateAccessToken } from "../utils/generateAccessToken.js";
 import { generateRefreshToken } from "../utils/generateRefereshToken.js";
 import { fileUploadCloudinary } from "../utils/cloudinary.js";
 import { otpTemplate } from "../template/otpTemplate.js";
+import generateOtp from "../utils/generateOtp.js";
 
 // create user
 const userRegister = async (req, res) => {
@@ -258,6 +259,7 @@ export const forgotPasswordOtp = async (req, res) => {
 
     // find email in database
     const existEmail = await userModel.findOne({ email });
+
     if (!existEmail) {
       return res.status(400).json({ message: "Email not matched" });
     }
@@ -273,7 +275,7 @@ export const forgotPasswordOtp = async (req, res) => {
     });
 
     const otp = generateOtp();
-    const expiryTime = new Date.now() + 60 * 60 * 1000; // 1hr
+    const expiryTime = Date.now() + 60 * 60 * 1000; // 1hr
 
     // email send nodemailer
     transport.sendMail({
@@ -293,12 +295,45 @@ export const forgotPasswordOtp = async (req, res) => {
       { new: true }
     );
 
-    res
-      .status(200)
-      .json({ message: "OTP Updated successfully", data: updateOtp });
+    res.status(200).json({ message: "OTP send successfully", data: updateOtp });
   } catch (error) {
     return res.status(400).json({ message: error.message, error });
   }
+};
+
+// verify forgot password otp
+export const verifyForgotPasswordOtp = async (req, res) => {
+  const { email, otp } = req.body;
+
+  /// validation
+  if (!email || !otp) {
+    return res.status(400).json({ message: "email & otp required" });
+  }
+
+  // email exist or not
+  const existEmail = await userModel.findOne({ email });
+  if (!existEmail) {
+    return res
+      .status(400)
+      .json({ message: "Email address wrong", success: false, error: true });
+  }
+
+  // otp expiry check
+  const currentTime = new Date();
+
+  if (existEmail.forgot_password_expiry < currentTime) {
+    return res
+      .status(400)
+      .json({ message: "OTP has expired", success: false, error: true });
+  }
+
+  /// check otp validation
+  if (otp !== existEmail.forgot_password_otp) {
+    return res.status(400).json({ message: "OTP is wrong", success: false });
+  }
+
+  // If matched, go forward
+  return res.status(200).json({ message: "OTP is correct", success: true });
 };
 
 export default userRegister;
