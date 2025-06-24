@@ -336,4 +336,49 @@ export const verifyForgotPasswordOtp = async (req, res) => {
   return res.status(200).json({ message: "OTP is correct", success: true });
 };
 
+// reset password
+export const resetPassWord = async (req, res) => {
+  const { email, newPass, confirmNewPass } = req.body;
+
+  // validation
+  if (!email || !newPass || !confirmNewPass) {
+    return res.status(400).json({
+      message: "All fields are required",
+      success: false,
+      error: true,
+    });
+  }
+
+  const userExist = await userModel.findOne({ email }); // check user exist
+  if (!userExist) {
+    return res
+      .status(400)
+      .json({ message: "user not found", success: false, error: true });
+  }
+
+  // check newPass & confirmPass
+  if (newPass !== confirmNewPass) {
+    return res
+      .status(400)
+      .json({ message: "New pasword & confirm password must be equal" });
+  }
+
+  // password hashing before send to database
+  const hashPass = bcrypt.hash(newPass, 10);
+
+  // update password to databae
+  const updatePass = await userModel.findByIdAndUpdate(
+    userExist._id,
+    { password: hashPass },
+    { new: true }
+  );
+
+  return res
+    .status(200)
+    .json({ message: " Password Changed Successfully", data: updatePass });
+};
+
+// refresh token
+export const refreshToken = () => {};
+
 export default userRegister;

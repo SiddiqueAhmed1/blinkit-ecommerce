@@ -5,6 +5,7 @@ import userRegister, {
   avatarUpload,
   forgotPasswordOtp,
   getAllUser,
+  resetPassWord,
   updateUserDetails,
   userLogin,
   userLogout,
@@ -24,5 +25,6 @@ userRouter.put("/avatar", authMiddleware, upload, avatarUpload);
 userRouter.put("/update-user-details", authMiddleware, updateUserDetails);
 userRouter.put("/forgotPasswordOtp", forgotPasswordOtp);
 userRouter.put("/verifyForgotPasswordOtp", verifyForgotPasswordOtp);
+userRouter.put("/resetPassword", resetPassWord);
 
 export default userRouter;
