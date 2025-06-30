@@ -6,7 +6,7 @@ import { FaRegUser } from "react-icons/fa";
 const Header = () => {
   return (
     <>
-      <header className="sticky top-0 w-full shadow pb-3 lg:pb-0">
+      <header className="sticky top-0 w-full shadow pb-3 lg:pb-0 bg-white">
         <div className="max-w-[1300px] m-auto flex justify-between items-center p-2">
           <div className="header-left lg:w-[25%]">
             <Link to={"/"} className="inline-block">
@@ -22,7 +22,7 @@ const Header = () => {
             <Search />
           </div>
           <div className="lg:w-[25%]">
-            <button className="lg:hidden mr-5">
+            <button className="lg:hidden mr-5 text-neutral-600">
               <FaRegUser size={25} />
             </button>
             <div className="header-login  hidden lg:flex gap-15">

@@ -1,10 +1,12 @@
-import { IoSearchOutline } from "react-icons/io5";
-import { useLocation, useNavigate } from "react-router-dom";
+import { IoArrowBack, IoSearchOutline } from "react-icons/io5";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { TypeAnimation } from "react-type-animation";
+import useMobile from "../hooks/useMobile";
 
 const Search = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const [isMobile] = useMobile();
 
   const isSearchPage = location.pathname === "/search";
 
@@ -12,20 +14,25 @@ const Search = () => {
     navigate("/search");
   };
 
+  if (isMobile) {
+    console.log("mobile", isMobile);
+  }
+
   return (
     <>
+      {/* for desktop version */}
       <div
         onClick={redirectSearchPage}
-        className="lg:block  hidden header-search cursor-text w-full border-2 border-gray-200 rounded-[10px] bg-neutral-50 h-14 px-5"
+        className="lg:block  hidden header-search cursor-text w-full border-2 border-gray-200 focus-within:border-amber-500 rounded-[10px] bg-neutral-50 h-14 px-5 group "
       >
-        <div className="flex w-full h-full items-center gap-4">
-          <span className="text-2xl">
+        <div className="flex w-full h-full items-center gap-4 ">
+          <span className="text-2xl group-focus-within:text-amber-500">
             <IoSearchOutline />
           </span>
           {!isSearchPage ? (
             // not in search page
             <div>
-              <p className="text-[9px] text-neutral-700 ">
+              <p>
                 <TypeAnimation
                   sequence={[
                     // Same substring at the start will only be typed once, initially
@@ -39,7 +46,6 @@ const Search = () => {
                     1000,
                   ]}
                   speed={50}
-                  style={{ fontSize: "2em" }}
                   repeat={Infinity}
                 />
               </p>
@@ -49,24 +55,34 @@ const Search = () => {
               <input
                 autoFocus
                 type="text"
-                className=" h-full w-full border-0 outline-none bg-transparent"
+                className=" h-full w-full border-0 outline-none bg-transparent "
                 placeholder="Search for atta dal and more"
               />
             </div>
           )}
         </div>
       </div>
-      <div
-        onClick={redirectSearchPage}
-        className="lg:hidden  header-search cursor-text sm:w-[100%] lg:w-[50%] border-2 border-gray-200 rounded-[10px] bg-neutral-50 h-14 px-5"
-      >
-        <div className="flex w-full h-full items-center gap-4">
-          <span className="text-2xl">
-            <IoSearchOutline />
-          </span>
+
+      {/* for mobile version */}
+      <div className="lg:hidden  header-search cursor-text sm:w-[100%] lg:w-[50%] border-2 border-gray-200 rounded-[10px] bg-neutral-50 h-14 px-5 focus-within:border-amber-500 group">
+        <div className="flex w-full h-full items-center gap-3">
+          {isMobile && isSearchPage ? (
+            <Link
+              // onClick={(e) => e.stopPropagation()}
+              to={"/"}
+              className="text-2xl group-focus-within:text-amber-500"
+            >
+              <IoArrowBack />
+            </Link>
+          ) : (
+            <span className="text-2xl">
+              <IoSearchOutline />
+            </span>
+          )}
+
           {!isSearchPage ? (
             // not in search page
-            <div>
+            <div onClick={redirectSearchPage}>
               <p className="text-[9px] text-neutral-700 ">
                 <TypeAnimation
                   sequence={[
