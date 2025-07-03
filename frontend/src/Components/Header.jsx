@@ -29,11 +29,11 @@ const Header = () => {
               <button className="text-xl">
                 <a href="">Login</a>
               </button>
-              <button className="bg-gray-300 flex p-4 gap-2 rounded-[10px] items-center cursor-not-allowed">
-                <span className="text-3xl cursor-not-allowed text-white transform hover:scale-150">
+              <button className="bg-green-700 flex px-8 py-2 gap-2 rounded-[10px] items-center cursor-not-allowed w-[100%]">
+                <span className="text-3xl cursor-not-allowed text-white transform animate-bounce">
                   <IoCartOutline />
                 </span>
-                <p className="text-white font-extrabold">My Cart</p>
+                <p className="text-white font-semibold w-[100%]">My Cart</p>
               </button>
             </div>
           </div>
