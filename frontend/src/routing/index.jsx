@@ -4,6 +4,8 @@ import { createBrowserRouter } from "react-router-dom";
 import Service from "../pages/Service";
 import App from "../App";
 import SearchPage from "../pages/SearchPage";
+import Register from "../pages/Register";
+import Login from "../pages/Login";
 
 const browserRouter = createBrowserRouter([
   {
@@ -26,6 +28,14 @@ const browserRouter = createBrowserRouter([
       {
         path: "/search",
         element: <SearchPage />,
+      },
+      {
+        path: "/register",
+        element: <Register />,
+      },
+      {
+        path: "/login",
+        element: <Login />,
       },
     ],
   },

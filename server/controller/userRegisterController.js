@@ -17,14 +17,15 @@ const userRegister = async (req, res) => {
     return res.status(400).json({ message: "All fields are required" });
   }
 
-  const transport = createTransport({
-    port: process.env.MAIL_PORT,
-    host: process.env.MAIL_HOST,
-    auth: {
-      user: process.env.MAIL_ADDRESS,
-      pass: process.env.MAIL_PASS,
-    },
-  });
+  // // create transport for email
+  // const transport = createTransport({
+  //   port: process.env.MAIL_PORT,
+  //   host: process.env.MAIL_HOST,
+  //   auth: {
+  //     user: process.env.MAIL_ADDRESS,
+  //     pass: process.env.MAIL_PASS,
+  //   },
+  // });
 
   // find existing user
   const existUser = await userModel.findOne({ email });
@@ -40,15 +41,15 @@ const userRegister = async (req, res) => {
     const user = await userModel.create({ name, email, password: hashPass });
 
     // verify email link
-    const verifyEmailUrl = `${process.env.FRONT_END}/verify_email?code=${user?._id}`;
+    // const verifyEmailUrl = `${process.env.FRONT_END}/verify_email?code=${user?._id}`;
 
-    // email send nodemailer
-    transport.sendMail({
-      from: `<Blinkit>`,
-      to: email,
-      subject: "Blinkit Ecommrce App",
-      html: mailTemplate({ name, email, verifyEmailUrl: verifyEmailUrl }),
-    });
+    // // email send nodemailer
+    // transport.sendMail({
+    //   from: `<Blinkit>`,
+    //   to: email,
+    //   subject: "Blinkit Ecommrce App",
+    //   html: mailTemplate({ name, email, verifyEmailUrl: verifyEmailUrl }),
+    // });
 
     return res.status(202).json({ message: user });
   }
@@ -70,7 +71,7 @@ export const userLogin = async (req, res) => {
       return res.status(400).json({ message: "Invalid email address" });
     }
 
-    // Validate password
+    // Validate password from frontend to database
     const checkPass = await bcrypt.compare(password, userExist.password);
     if (!checkPass) {
       return res.status(400).json({ message: "Password is incorrect" });
@@ -153,7 +154,7 @@ export const verifyEmail = async (req, res) => {
 export const getAllUser = async (req, res) => {
   const allUser = await userModel.find();
 
-  return res.status(200).json({ message: allUser });
+  return res.status(200).json(allUser);
 };
 
 // avatar upload

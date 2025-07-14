@@ -1,9 +1,9 @@
 import express from "express";
 import dotenv from "dotenv";
-import color from "colors";
 import mongoDb from "../server/config/mongoDB.js";
 import userRouter from "./routing/userRouter.js";
 import cookieParser from "cookie-parser";
+import cors from "cors";
 
 // dotenv config
 dotenv.config();
@@ -15,11 +15,12 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+app.use(cors());
 
 const port = process.env.PORT;
 
 // app router
-app.use("/api", userRouter);
+app.use("/api/v1", userRouter);
 
 // server listen
 app.listen(port, () => {

@@ -7,7 +7,7 @@ const Header = () => {
   return (
     <>
       <header className="sticky top-0 w-full shadow pb-3 lg:pb-0 bg-white">
-        <div className="max-w-[1300px] m-auto flex justify-between items-center p-2">
+        <div className="lg:max-w-[1300px] xl:max-w-[1600px] m-auto flex justify-between items-center p-2">
           <div className="header-left lg:w-[25%]">
             <Link to={"/"} className="inline-block">
               <img
@@ -27,7 +27,7 @@ const Header = () => {
             </button>
             <div className="header-login  hidden lg:flex gap-15">
               <button className="text-xl">
-                <a href="">Login</a>
+                <Link to={"/login"}>Login</Link>
               </button>
               <button className="bg-green-700 flex px-8 py-2 gap-2 rounded-[10px] items-center cursor-not-allowed w-[100%]">
                 <span className="text-3xl cursor-not-allowed text-white transform animate-bounce">

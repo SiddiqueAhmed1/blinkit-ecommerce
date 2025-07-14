@@ -19,7 +19,7 @@ const userRouter = express.Router();
 userRouter.post("/register", userRegister);
 userRouter.post("/verify-email", verifyEmail);
 userRouter.post("/login", userLogin);
-userRouter.get("/register", getAllUser);
+userRouter.get("/user", getAllUser);
 userRouter.get("/logout", authMiddleware, userLogout);
 userRouter.put("/avatar", authMiddleware, upload, avatarUpload);
 userRouter.put("/update-user-details", authMiddleware, updateUserDetails);
