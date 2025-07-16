@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { IoEye, IoEyeOff } from "react-icons/io5";
-import toast from "react-hot-toast";
+import { toast } from "react-toastify";
 import axios, { all } from "axios";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -36,22 +36,16 @@ const Register = () => {
 
     if (!input.name || !input.email || !input.password || !input.confPassword) {
       return toast.error("All fields are required!", {
-        style: {
-          borderRadius: "10px",
-          background: "#333",
-          color: "#fff",
-        },
+        position: "top-center",
+        autoClose: 3000,
       });
     }
 
     // password and confirm password matching
     if (input.password !== input.confPassword) {
-      return toast.error("Password and confirm password must be same", {
-        style: {
-          background: "#333",
-          color: "white",
-          width: "300px",
-        },
+      return toast.error("Password and confirm password must be same!", {
+        position: "top-center",
+        autoClose: 3000,
       });
     }
 
@@ -62,7 +56,10 @@ const Register = () => {
     const existUser = allUser.find((user) => user.email === input.email);
 
     if (existUser) {
-      return toast.error("Email already used");
+      return toast.error("user already exist!", {
+        position: "top-center",
+        autoClose: 3000,
+      });
     }
 
     const response = await axios.post(
@@ -77,7 +74,10 @@ const Register = () => {
       confPassword: "",
     });
 
-    toast.success("Thank you for registration");
+    toast.success("Registration successfully done", {
+      position: "top-center",
+      autoClose: 3000,
+    });
     navigate("/login");
   };
 
