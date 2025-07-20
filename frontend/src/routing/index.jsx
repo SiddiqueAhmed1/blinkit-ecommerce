@@ -1,11 +1,12 @@
 import About from "../pages/About";
 import Home from "../pages/Home";
 import { createBrowserRouter } from "react-router-dom";
-import Service from "../pages/Service";
 import App from "../App";
 import SearchPage from "../pages/SearchPage";
 import Register from "../pages/Register";
 import Login from "../pages/Login";
+import ForgotPasswordOtp from "../pages/ForgotPasswordOtp";
+import VerifyForgotPassword from "../pages/VerifyForgotPassword";
 
 const browserRouter = createBrowserRouter([
   {
@@ -17,10 +18,7 @@ const browserRouter = createBrowserRouter([
         path: "/about",
         element: <About />,
       },
-      {
-        path: "/service",
-        element: <Service />,
-      },
+
       {
         path: "/home",
         element: <Home />,
@@ -36,6 +34,14 @@ const browserRouter = createBrowserRouter([
       {
         path: "/login",
         element: <Login />,
+      },
+      {
+        path: "/forgot-password",
+        element: <ForgotPasswordOtp />,
+      },
+      {
+        path: "/verify-forgot-password",
+        element: <VerifyForgotPassword />,
       },
     ],
   },

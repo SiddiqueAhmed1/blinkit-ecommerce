@@ -32,7 +32,7 @@ const Login = () => {
     e.preventDefault();
 
     if (!input.email || !input.password) {
-      toast.error("All fields are required!", {
+      return toast.error("All fields are required!", {
         position: "top-center",
         autoClose: 5000,
         hideProgressBar: false,
@@ -44,26 +44,53 @@ const Login = () => {
       });
     }
 
-    const response = (
-      await axios.post("http://localhost:5050/api/v1/login", input)
-    ).data;
+    try {
+      const response = (
+        await axios.post("http://localhost:5050/api/v1/login", input)
+      ).data;
 
-    setInput({
-      email: "",
-      password: "",
-    });
+      setInput({
+        email: "",
+        password: "",
+      });
 
-    toast.success("Login successfully done", {
-      position: "top-center",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: false,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-    });
-    navigate("/home");
+      toast.success("Login successfully done", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      navigate("/home");
+    } catch (error) {
+      if (error.response.data.message === "Password is incorrect") {
+        return toast.error(error.response.data.message, {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: false,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      }
+      if (error.response.data.message === "Invalid email address") {
+        return toast.error(error.response.data.message, {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: false,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      }
+    }
   };
 
   return (
@@ -128,12 +155,12 @@ const Login = () => {
               </button>
               <div className="mt-3">
                 <p>
-                  Don't have account?{" "}
+                  Forgot password?{" "}
                   <Link
                     className="text-yellow-500 hover:text-yellow-400 text-lg font-semibold"
-                    to={"/register"}
+                    to={"/forgot-password"}
                   >
-                    Register
+                    Reset
                   </Link>
                 </p>
               </div>
