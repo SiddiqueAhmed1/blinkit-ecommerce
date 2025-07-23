@@ -50,7 +50,11 @@ const Register = () => {
     }
 
     // get all user
-    const allUser = (await axios.get("http://localhost:5050/api/v1/user")).data;
+    const allUser = (
+      await axios.get(
+        "https://blinkit-ecommerce-server.onrender.com/api/v1/user"
+      )
+    ).data;
 
     //check exist
     const existUser = allUser.find((user) => user.email === input.email);
@@ -63,7 +67,7 @@ const Register = () => {
     }
 
     const response = await axios.post(
-      "http://localhost:5050/api/v1/register",
+      "https://blinkit-ecommerce-server.onrender.com/api/v1/register",
       input
     );
 
