@@ -1,35 +1,77 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const VerifyForgotPassword = () => {
-  // const navigate = useNavigate();
+  const inputRef = useRef([]);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   //input field state
   const [data, setData] = useState(["", "", "", "", "", ""]);
 
   // form field validation
   const validatData = Object.values(data).every((el) => el);
+
+  const otpSubmit = async (e) => {
+    e.preventDefault();
+
+    console.log("location.state:", location.state); // check email exists
+    console.log("OTP:", data.join("")); // check OTP is ready
+
+    try {
+      const response = await axios.put(
+        "http://localhost:5050/api/v1/verifyForgotPasswordOtp",
+        {
+          otp: data.join(""),
+          email: location.state.email,
+        }
+      );
+
+      console.log("Server Response:", response.data);
+
+      toast.success("OTP verification done", {
+        position: "top-center",
+        autoClose: 3000,
+      });
+    } catch (err) {
+      console.log("Error:", err);
+      toast.error("Invalid OTP or Server Error!", {
+        position: "top-center",
+        autoClose: 3000,
+      });
+    }
+  };
+
   return (
     <>
       <div className="login-user xl:w-[700px] lg:w-[700px] w-[400px] md:w-[600px] mx-auto  py-16">
         <div className="login-form bg-white py-6 mt-6">
           <h1 className="mx-6 text-3xl mb-8">Verify OTP</h1>
-          <form>
+          <form onSubmit={otpSubmit}>
             <div className="flex mt-2 gap-3 lg:gap-2 justify-between mx-6">
               {data.map((item, index) => {
                 return (
                   <>
                     <input
+                      key={index + 1}
+                      ref={(ref) => {
+                        inputRef.current[index] = ref;
+                        return ref;
+                      }}
                       onChange={(e) => {
                         const value = e.target.value;
                         const newData = [...data];
                         newData[index] = value;
                         setData(newData);
+
+                        if (value && index < 5) {
+                          inputRef.current[index + 1].focus();
+                        }
                       }}
                       maxLength={1}
-                      className="border w-full text-center flex  border-gray-200 p-4 focus-within:border-green-400 outline-none mb-3 bg-gray-50"
+                      className="border text-2xl font-semibold w-full text-center flex border-gray-200 p-4 focus-within:border-green-400 outline-none mb-3 bg-gray-50"
                       type="text"
                     />
                   </>

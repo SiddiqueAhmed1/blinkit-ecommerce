@@ -14,10 +14,6 @@ const Search = () => {
     navigate("/search");
   };
 
-  if (isMobile) {
-    console.log("mobile", isMobile);
-  }
-
   return (
     <>
       {/* for desktop version */}
