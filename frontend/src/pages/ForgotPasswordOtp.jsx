@@ -2,6 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { baseUrl } from "../common/SummaryApi";
 
 const ForgotPasswordOtp = () => {
   const navigate = useNavigate();
@@ -42,7 +43,7 @@ const ForgotPasswordOtp = () => {
     }
 
     const response = (
-      await axios.put("http://localhost:5050/api/v1/forgotPasswordOtp", input)
+      await axios.put(`${baseUrl}/api/v1/forgotPasswordOtp`, input)
     ).data;
 
     setInput({

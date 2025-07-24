@@ -3,6 +3,7 @@ import { IoEye, IoEyeOff } from "react-icons/io5";
 import { toast } from "react-toastify";
 import axios, { all } from "axios";
 import { Link, useNavigate } from "react-router-dom";
+import { baseUrl } from "../common/SummaryApi";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -50,11 +51,7 @@ const Register = () => {
     }
 
     // get all user
-    const allUser = (
-      await axios.get(
-        "https://blinkit-ecommerce-server.onrender.com/api/v1/user"
-      )
-    ).data;
+    const allUser = (await axios.get(`${baseUrl}/api/v1/user`)).data;
 
     //check exist
     const existUser = allUser.find((user) => user.email === input.email);
@@ -66,10 +63,7 @@ const Register = () => {
       });
     }
 
-    const response = await axios.post(
-      "https://blinkit-ecommerce-server.onrender.com/api/v1/register",
-      input
-    );
+    const response = await axios.post(`${baseUrl}/api/v1/register`, input);
 
     setInput({
       name: "",

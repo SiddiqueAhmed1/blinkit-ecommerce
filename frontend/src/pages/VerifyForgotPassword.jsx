@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useLocation, useNavigate } from "react-router-dom";
+import { baseUrl } from "../common/SummaryApi";
 
 const VerifyForgotPassword = () => {
   const inputRef = useRef([]);
@@ -22,7 +23,7 @@ const VerifyForgotPassword = () => {
 
     try {
       const response = await axios.put(
-        "http://localhost:5050/api/v1/verifyForgotPasswordOtp",
+        `${baseUrl}/api/v1/verifyForgotPasswordOtp`,
         {
           otp: data.join(""),
           email: location.state.email,
@@ -35,6 +36,8 @@ const VerifyForgotPassword = () => {
         position: "top-center",
         autoClose: 3000,
       });
+
+      navigate("/reset-password");
     } catch (err) {
       console.log("Error:", err);
       toast.error("Invalid OTP or Server Error!", {

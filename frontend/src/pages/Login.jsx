@@ -3,6 +3,7 @@ import { IoEye, IoEyeOff } from "react-icons/io5";
 import axios, { all } from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { baseUrl } from "../common/SummaryApi";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -45,9 +46,8 @@ const Login = () => {
     }
 
     try {
-      const response = (
-        await axios.post("http://localhost:5050/api/v1/login", input)
-      ).data;
+      const response = (await axios.post(`${baseUrl}/api/v1/login`, input))
+        .data;
 
       setInput({
         email: "",
