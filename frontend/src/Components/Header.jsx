@@ -2,6 +2,7 @@ import { IoCartOutline } from "react-icons/io5";
 import Search from "./Search";
 import { Link } from "react-router-dom";
 import { FaRegUser } from "react-icons/fa";
+import logo from "../../public/images/Capture-removebg-preview.png";
 
 const Header = () => {
   return (
@@ -12,8 +13,7 @@ const Header = () => {
             <Link to={"/"} className="inline-block">
               <img
                 className="h-full lg:w-40 w-28 sm:w-32 md:w-36 object-contain"
-                src="../public/images/Capture-removebg-preview.png
-            "
+                src={logo}
                 alt=""
               />
             </Link>

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { IoEye, IoEyeOff } from "react-icons/io5";
 import { toast } from "react-toastify";
-import axios, { all } from "axios";
+import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { baseUrl } from "../common/SummaryApi";
 
@@ -64,6 +64,8 @@ const Register = () => {
     }
 
     const response = await axios.post(`${baseUrl}/api/v1/register`, input);
+
+    console.log(response);
 
     setInput({
       name: "",

@@ -1,4 +1,10 @@
-export const baseUrl = "https://blinkit-ecommerce-server.onrender.com";
+const environment = "development";
+
+export const baseUrl = `${
+  environment === "development"
+    ? "http://localhost:5050"
+    : "https://blinkit-ecommerce-server.onrender.com"
+}`;
 
 const SummaryAPi = {
   register: {

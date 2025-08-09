@@ -7,6 +7,7 @@ import { generateRefreshToken } from "../utils/generateRefereshToken.js";
 import { fileUploadCloudinary } from "../utils/cloudinary.js";
 import { otpTemplate } from "../template/otpTemplate.js";
 import generateOtp from "../utils/generateOtp.js";
+import jwt from "jsonwebtoken";
 
 // create user
 const userRegister = async (req, res) => {
@@ -339,10 +340,10 @@ export const verifyForgotPasswordOtp = async (req, res) => {
 
 // reset password
 export const resetPassWord = async (req, res) => {
-  const { email, newPass, confirmNewPass } = req.body;
+  const { email, newPassword, confirmNewPass } = req.body;
 
   // validation
-  if (!email || !newPass || !confirmNewPass) {
+  if (!email || !newPassword || !confirmNewPass) {
     return res.status(400).json({
       message: "All fields are required",
       success: false,
@@ -358,14 +359,14 @@ export const resetPassWord = async (req, res) => {
   }
 
   // check newPass & confirmPass
-  if (newPass !== confirmNewPass) {
+  if (newPassword !== confirmNewPass) {
     return res
       .status(400)
       .json({ message: "New pasword & confirm password must be equal" });
   }
 
   // password hashing before send to database
-  const hashPass = bcrypt.hash(newPass, 10);
+  const hashPass = await bcrypt.hash(newPassword, 10);
 
   // update password to databae
   const updatePass = await userModel.findByIdAndUpdate(
@@ -376,10 +377,64 @@ export const resetPassWord = async (req, res) => {
 
   return res
     .status(200)
-    .json({ message: " Password Changed Successfully", data: updatePass });
+    .json({ message: "Password Changed Successfully", data: updatePass });
 };
 
 // refresh token
-export const refreshToken = () => {};
+export const refreshToken = async (req, res) => {
+  try {
+    // take refresh token from request cookies or header
+    const refreshToken =
+      req.cookies.refreshToken || req?.headers?.authorization?.split(" ")[1];
+
+    console.log("Refresh Token:", refreshToken);
+    console.log("Type of Refresh Token:", typeof refreshToken);
+
+    if (!refreshToken) {
+      return res.status(400).json({
+        message: "RefreshToken not Available",
+        error: true,
+        success: false,
+      });
+    }
+
+    // verify refresh token
+    const verifyToken = jwt.verify(refreshToken, process.env.SECRET_KEY);
+
+    if (!verifyToken) {
+      return res.status(401).json({
+        message: "Refresh token not verified",
+        error: true,
+        success: false,
+      });
+    }
+
+    const userId = verifyToken._id;
+
+    // generate new access token
+    const newAccesToken = await generateAccessToken(userId);
+
+    // Set cookies option
+    const coockieOptions = {
+      httpOnly: true,
+      secure: true,
+      sameSite: "None",
+    };
+
+    // send to cookies
+    res.cookie("accessToken", newAccesToken, coockieOptions);
+
+    res.status(200).json({
+      message: "Access token set succesfully",
+      error: false,
+      success: true,
+      data: {
+        accessToken: newAccesToken,
+      },
+    });
+  } catch (error) {
+    res.status(400).json({ data: error, message: error.message });
+  }
+};
 
 export default userRegister;

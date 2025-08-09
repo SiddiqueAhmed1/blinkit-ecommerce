@@ -1,10 +1,10 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useLocation, useNavigate } from "react-router-dom";
 import { baseUrl } from "../common/SummaryApi";
 
-const VerifyForgotPassword = () => {
+const VerifyForgotPasswordOtp = () => {
   const inputRef = useRef([]);
   const location = useLocation();
   const navigate = useNavigate();
@@ -15,18 +15,24 @@ const VerifyForgotPassword = () => {
   // form field validation
   const validatData = Object.values(data).every((el) => el);
 
+  useEffect(() => {
+    if (!location?.state?.email) {
+      navigate("/forgot-password");
+    }
+  }, [navigate, location]);
+
+  // otp submit function
   const otpSubmit = async (e) => {
     e.preventDefault();
 
     console.log("location.state:", location.state); // check email exists
-    console.log("OTP:", data.join("")); // check OTP is ready
 
     try {
       const response = await axios.put(
         `${baseUrl}/api/v1/verifyForgotPasswordOtp`,
         {
           otp: data.join(""),
-          email: location.state.email,
+          email: location?.state?.email,
         }
       );
 
@@ -37,7 +43,12 @@ const VerifyForgotPassword = () => {
         autoClose: 3000,
       });
 
-      navigate("/reset-password");
+      navigate("/reset-password", {
+        state: {
+          data: response.data,
+          email: location?.state?.email,
+        },
+      });
     } catch (err) {
       console.log("Error:", err);
       toast.error("Invalid OTP or Server Error!", {
@@ -103,4 +114,4 @@ const VerifyForgotPassword = () => {
   );
 };
 
-export default VerifyForgotPassword;
+export default VerifyForgotPasswordOtp;

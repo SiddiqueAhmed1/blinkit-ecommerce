@@ -13,5 +13,5 @@ export const generateRefreshToken = async (userId) => {
     }
   );
 
-  return updateToken;
+  return refreshToken;
 };

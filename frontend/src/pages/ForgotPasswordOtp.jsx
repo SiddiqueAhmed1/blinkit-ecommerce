@@ -60,7 +60,7 @@ const ForgotPasswordOtp = () => {
       progress: undefined,
       theme: "light",
     });
-    navigate("/verify-forgot-password", {
+    navigate("/verify-forgot-password-otp", {
       state: input,
     });
   };
