@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { IoEye, IoEyeOff } from "react-icons/io5";
-import axios, { all } from "axios";
+import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { baseUrl } from "../common/SummaryApi";
@@ -65,6 +65,8 @@ const Login = () => {
         theme: "light",
       });
       navigate("/home");
+      localStorage.setItem("accessToken", response.data.accessToken);
+      localStorage.setItem("refreshToken", response.data.refreshToken);
     } catch (error) {
       if (error.response.data.message === "Password is incorrect") {
         return toast.error(error.response.data.message, {

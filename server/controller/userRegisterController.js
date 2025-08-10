@@ -83,14 +83,18 @@ export const userLogin = async (req, res) => {
     const refreshToken = await generateRefreshToken(userExist._id);
 
     // Set cookies
-    const coockieOptions = {
+    const cookieOptions = {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "None",
     };
 
-    res.cookie("accessToken", accessToken, coockieOptions);
-    res.cookie("refreshToken", refreshToken, coockieOptions);
+    res.cookie("accessToken", accessToken, cookieOptions);
+    res.cookie("refreshToken", refreshToken, cookieOptions);
+
+    const updateLoginDate = await userModel.findByIdAndUpdate(userExist._id, {
+      last_login_date: new Date(),
+    });
 
     // Send success response
     res.status(200).json({
@@ -334,6 +338,12 @@ export const verifyForgotPasswordOtp = async (req, res) => {
     return res.status(400).json({ message: "OTP is wrong", success: false });
   }
 
+  // empty otp and expiry key after verify otp
+  const updateOtpInfo = await userModel.findByIdAndUpdate(existEmail._id, {
+    forgot_password_otp: "",
+    forgot_password_expiry: "",
+  });
+
   // If matched, go forward
   return res.status(200).json({ message: "OTP is correct", success: true });
 };
@@ -377,7 +387,11 @@ export const resetPassWord = async (req, res) => {
 
   return res
     .status(200)
-    .json({ message: "Password Changed Successfully", data: updatePass });
+    .json({
+      message: "Password Changed Successfully",
+      data: updatePass,
+      success: true,
+    });
 };
 
 // refresh token
