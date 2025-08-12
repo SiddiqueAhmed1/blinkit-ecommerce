@@ -1,7 +1,7 @@
 const Home = () => {
   return (
     <>
-      <div className="py-[500px]">
+      <div className="py-[250px]">
         <h1 className="">Home</h1>
       </div>
     </>

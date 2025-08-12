@@ -92,9 +92,12 @@ export const userLogin = async (req, res) => {
     res.cookie("accessToken", accessToken, cookieOptions);
     res.cookie("refreshToken", refreshToken, cookieOptions);
 
-    const updateLoginDate = await userModel.findByIdAndUpdate(userExist._id, {
-      last_login_date: new Date(),
-    });
+    const updateLastLoginDate = await userModel.findByIdAndUpdate(
+      userExist._id,
+      {
+        last_login_date: new Date(),
+      }
+    );
 
     // Send success response
     res.status(200).json({
@@ -385,13 +388,11 @@ export const resetPassWord = async (req, res) => {
     { new: true }
   );
 
-  return res
-    .status(200)
-    .json({
-      message: "Password Changed Successfully",
-      data: updatePass,
-      success: true,
-    });
+  return res.status(200).json({
+    message: "Password Changed Successfully",
+    data: updatePass,
+    success: true,
+  });
 };
 
 // refresh token
@@ -400,9 +401,6 @@ export const refreshToken = async (req, res) => {
     // take refresh token from request cookies or header
     const refreshToken =
       req.cookies.refreshToken || req?.headers?.authorization?.split(" ")[1];
-
-    console.log("Refresh Token:", refreshToken);
-    console.log("Type of Refresh Token:", typeof refreshToken);
 
     if (!refreshToken) {
       return res.status(400).json({
@@ -448,6 +446,39 @@ export const refreshToken = async (req, res) => {
     });
   } catch (error) {
     res.status(400).json({ data: error, message: error.message });
+  }
+};
+
+// get user details
+export const getUserDetails = async (req, res) => {
+  try {
+    const userId = req.user.id;
+
+    console.log(userId);
+
+    // get user by id
+    const user = await userModel
+      .findById(userId)
+      .select("-password -refresh_token");
+
+    // validation to get user data
+    if (!user) {
+      return res.status(400).json({
+        message: "User data not found",
+        success: false,
+        error: true,
+      });
+    }
+
+    // send response
+    res.status(200).json({
+      message: "Get user data successfully",
+      success: true,
+      error: false,
+      data: user,
+    });
+  } catch (error) {
+    console.log(error);
   }
 };
 
