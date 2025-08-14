@@ -454,8 +454,6 @@ export const getUserDetails = async (req, res) => {
   try {
     const userId = req.user.id;
 
-    console.log(userId);
-
     // get user by id
     const user = await userModel
       .findById(userId)

@@ -18,6 +18,10 @@ const SummaryAPi = {
   verifyForgotPassword: {
     url: "",
   },
+  userDetails: {
+    url: "api/v1/user-details",
+    method: "get",
+  },
 };
 
 export default SummaryAPi;

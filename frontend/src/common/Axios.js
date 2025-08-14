@@ -1,40 +1,32 @@
 import axios from "axios";
 
-// sending AccessToken to Authorization
+// 1. Send accessToken in request
 axios.interceptors.request.use(
-  async (config) => {
+  (config) => {
     const accessToken = localStorage.getItem("accessToken");
-
     if (accessToken) {
       config.headers.Authorization = `Bearer ${accessToken}`;
     }
-
     return config;
   },
-  (error) => {
-    return Promise.reject(error);
-  }
+  (error) => Promise.reject(error)
 );
 
-// expand the lifespan of accessToken with help of refreshToken
-axios.interceptors.request.use(
-  (response) => {
-    return response;
-  },
+// 2. Handle expired token in response
+axios.interceptors.response.use(
+  (response) => response, // success hole direct return
   async (error) => {
-    let originRequest = error.config;
+    let originalRequest = error.config;
 
-    if ((error.response.status === 400) & !originRequest.retry) {
-      originRequest.retry = true;
+    if (error.response?.status === 400 && !originalRequest._retry) {
+      originalRequest._retry = true;
 
       const refreshToken = localStorage.getItem("refreshToken");
-
       if (refreshToken) {
         const newAccessToken = await refreshAccessToken(refreshToken);
-
         if (newAccessToken) {
-          originRequest.headers.Authorization = `Bearer ${newAccessToken}`;
-          return axios(originRequest);
+          originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
+          return axios(originalRequest);
         }
       }
     }
@@ -46,17 +38,18 @@ axios.interceptors.request.use(
 // refreshAccessToken
 const refreshAccessToken = async (refreshToken) => {
   try {
-    const response = await axios("http://localhost:5050/api/v1/refresh-token", {
-      headers: {
-        Authorization: `Bearer ${refreshToken}`,
-      },
-    });
+    const response = await axios.post(
+      "http://localhost:5050/api/v1/refresh-token",
+      {
+        headers: { Authorization: `Bearer ${refreshToken}` },
+      }
+    );
 
     const accessToken = response.data.data.accessToken;
-
     localStorage.setItem("accessToken", accessToken);
     return accessToken;
   } catch (error) {
-    console.log(error);
+    console.error(error);
+    return null;
   }
 };
