@@ -3,8 +3,13 @@ import Search from "./Search";
 import { Link } from "react-router-dom";
 import { FaRegUser } from "react-icons/fa";
 import logo from "../../public/images/Capture-removebg-preview.png";
+import { useSelector } from "react-redux";
 
 const Header = () => {
+  const user = useSelector((state) => state.user);
+
+  console.log("user state data", user);
+
   return (
     <>
       <header className="sticky top-0 w-full shadow pb-3 lg:pb-0 bg-white">
