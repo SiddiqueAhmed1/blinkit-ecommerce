@@ -4,11 +4,13 @@ import { Link } from "react-router-dom";
 import { FaRegUser } from "react-icons/fa";
 import logo from "../../public/images/Capture-removebg-preview.png";
 import { useSelector } from "react-redux";
+import { MdArrowDropDown, MdOutlineArrowDropUp } from "react-icons/md";
+import UserMenu from "./UserMenu";
+import { useState } from "react";
 
 const Header = () => {
   const user = useSelector((state) => state.user);
-
-  console.log("user state data", user);
+  const [openUserMenu, setOpenUserMenu] = useState(false);
 
   return (
     <>
@@ -30,10 +32,31 @@ const Header = () => {
             <button className="lg:hidden mr-5 text-neutral-600">
               <FaRegUser size={25} />
             </button>
-            <div className="header-login  hidden lg:flex gap-15">
-              <button className="text-xl">
-                <Link to={"/login"}>Login</Link>
-              </button>
+            <div className="header-account  hidden lg:flex gap-15">
+              {user._id ? (
+                <div className="flex items-center align-middle relative">
+                  <div
+                    className="flex gap-1 cursor-pointer"
+                    onClick={() => setOpenUserMenu((prevStae) => !prevStae)}
+                  >
+                    <p className="text-[22px]">Account</p>
+
+                    {openUserMenu ? (
+                      <MdOutlineArrowDropUp size={30} />
+                    ) : (
+                      <MdArrowDropDown size={30} />
+                    )}
+                  </div>
+                  <div className="absolute w-52 left-0 top-17 ">
+                    {openUserMenu && <UserMenu />}
+                  </div>
+                </div>
+              ) : (
+                <button className="text-xl">
+                  <Link to={"/login"}>Login</Link>
+                </button>
+              )}
+
               <button className="bg-green-700 flex px-8 py-2 gap-2 rounded-[10px] items-center cursor-not-allowed w-[100%]">
                 <span className="text-3xl cursor-not-allowed text-white transform animate-bounce">
                   <IoCartOutline />

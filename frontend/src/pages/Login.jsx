@@ -4,9 +4,13 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { baseUrl } from "../common/SummaryApi";
+import fetchUserDetails from "../common/FetchUserDetails";
+import { useDispatch } from "react-redux";
+import { setUserDetails } from "../features/userSlice";
 
 const Login = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   //input field state
   const [input, setInput] = useState({
@@ -64,9 +68,12 @@ const Login = () => {
         progress: undefined,
         theme: "light",
       });
+
       navigate("/home");
       localStorage.setItem("accessToken", response.data.accessToken);
       localStorage.setItem("refreshToken", response.data.refreshToken);
+      const user = await fetchUserDetails();
+      dispatch(setUserDetails(user.data));
     } catch (error) {
       if (error.response.data.message === "Password is incorrect") {
         return toast.error(error.response.data.message, {

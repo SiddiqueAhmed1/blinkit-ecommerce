@@ -132,7 +132,8 @@ export const userLogout = async (req, res) => {
 
     res.status(200).json({
       message: "User logged out successfully",
-      data: removeRefreshToken,
+      error: false,
+      success: true,
     });
   } catch (error) {
     return res.status(500).json({ message: error.message, error });

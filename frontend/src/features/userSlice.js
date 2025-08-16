@@ -33,9 +33,24 @@ const userSlice = createSlice({
       state.orderHistory = action.payload.orderHistory;
       state.shopping_cart = action.payload.shopping_cart;
     },
+    logout: (state) => {
+      state._id = "";
+      state.name = "";
+      state.email = "";
+      state.avatar = "";
+      state.mobile = "";
+      state.verify_forgot_password = "";
+      state.forgot_password_otp = "";
+      state.verify_email = "";
+      state.last_login_date = "";
+      state.forgot_password_expiry = null;
+      state.address_details = [];
+      state.orderHistory = [];
+      state.shopping_cart = [];
+    },
   },
 });
 
-export const { setUserDetails } = userSlice.actions;
+export const { setUserDetails, logout } = userSlice.actions;
 
 export default userSlice.reducer;
