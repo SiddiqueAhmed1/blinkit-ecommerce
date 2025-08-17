@@ -30,10 +30,12 @@ const Header = () => {
           </div>
           <div className="lg:w-[25%]">
             <button className="lg:hidden mr-5 text-neutral-600">
-              <FaRegUser size={25} />
+              <Link to={"/login"}>
+                <FaRegUser size={25} />
+              </Link>
             </button>
             <div className="header-account  hidden lg:flex gap-15">
-              {user._id ? (
+              {user ? (
                 <div className="flex items-center align-middle relative">
                   <div
                     className="flex gap-1 cursor-pointer"
