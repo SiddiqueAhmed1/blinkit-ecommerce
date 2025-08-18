@@ -1,4 +1,8 @@
-import { IoCartOutline } from "react-icons/io5";
+import {
+  IoCartOutline,
+  IoCloseSharp,
+  IoReorderFourSharp,
+} from "react-icons/io5";
 import Search from "./Search";
 import { Link } from "react-router-dom";
 import { FaRegUser } from "react-icons/fa";
@@ -29,13 +33,30 @@ const Header = () => {
             <Search />
           </div>
           <div className="lg:w-[25%]">
-            <button className="lg:hidden mr-5 text-neutral-600">
-              <Link to={"/login"}>
-                <FaRegUser size={25} />
-              </Link>
+            <button className="lg:hidden mr-5 text-neutral-600 ">
+              {user._id ? (
+                <div className="relative">
+                  <div onClick={() => setOpenUserMenu((prevStae) => !prevStae)}>
+                    <p>
+                      {openUserMenu ? (
+                        <IoCloseSharp size={30} />
+                      ) : (
+                        <IoReorderFourSharp size={30} />
+                      )}
+                    </p>
+                    <div className="absolute">
+                      {openUserMenu && <UserMenu />}
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <Link to={"/login"}>
+                  <FaRegUser size={25} />
+                </Link>
+              )}
             </button>
             <div className="header-account  hidden lg:flex gap-15">
-              {user ? (
+              {user._id ? (
                 <div className="flex items-center align-middle relative">
                   <div
                     className="flex gap-1 cursor-pointer"

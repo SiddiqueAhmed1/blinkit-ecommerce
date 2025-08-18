@@ -25,7 +25,21 @@ const UserMenu = () => {
 
   return (
     <>
-      <div className="text-[17px] bg-white p-4">
+      {/* for desktop */}
+      <div className="text-[17px] bg-white p-4  lg:hidden">
+        <h5 className="font-semibold mb-1">My Account</h5>
+        <p>{user.name}</p>
+
+        <Divider />
+        <div className="grid gap-2 text-[17px] ">
+          <Link> My Orders</Link>
+          <Link> Save Adress</Link>
+          <Link onClick={handleLogOut}>Log Out</Link>
+        </div>
+      </div>
+
+      {/* for mobile */}
+      <div className="text-[17px] bg-white p-4 hidden lg:block">
         <h5 className="font-semibold mb-1">My Account</h5>
         <p>{user.name}</p>
 
