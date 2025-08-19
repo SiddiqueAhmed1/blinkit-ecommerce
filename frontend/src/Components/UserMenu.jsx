@@ -26,7 +26,7 @@ const UserMenu = () => {
   return (
     <>
       {/* for desktop */}
-      <div className="text-[17px] bg-white p-4  lg:hidden">
+      <div className="text-[17px] bg-white p-4 hidden lg:block xl:block shadow">
         <h5 className="font-semibold mb-1">My Account</h5>
         <p>{user.name}</p>
 
@@ -39,7 +39,9 @@ const UserMenu = () => {
       </div>
 
       {/* for mobile */}
-      <div className="text-[17px] bg-white p-4 hidden lg:block">
+      <div
+        className={`text-[17px] text-left bg-white shadow-2xl 2 p-4 lg:hidden xl:hidden`}
+      >
         <h5 className="font-semibold mb-1">My Account</h5>
         <p>{user.name}</p>
 

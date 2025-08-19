@@ -1,5 +1,4 @@
 import axios from "axios";
-import SummaryAPi from "./SummaryApi";
 
 const fetchUserDetails = async () => {
   try {

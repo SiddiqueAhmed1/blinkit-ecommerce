@@ -5,7 +5,7 @@ import {
 } from "react-icons/io5";
 import Search from "./Search";
 import { Link } from "react-router-dom";
-import { FaRegUser } from "react-icons/fa";
+import { FaRegUser, FaRegUserCircle } from "react-icons/fa";
 import logo from "../../public/images/Capture-removebg-preview.png";
 import { useSelector } from "react-redux";
 import { MdArrowDropDown, MdOutlineArrowDropUp } from "react-icons/md";
@@ -18,7 +18,7 @@ const Header = () => {
 
   return (
     <>
-      <header className="sticky top-0 w-full shadow pb-3 lg:pb-0 bg-white">
+      <header className="sticky top-0 w-full shadow pb-3 lg:pb-0 bg-white ">
         <div className="lg:max-w-[1300px] xl:max-w-[1600px] m-auto flex justify-between items-center p-2">
           <div className="header-left lg:w-[25%]">
             <Link to={"/"} className="inline-block">
@@ -33,28 +33,39 @@ const Header = () => {
             <Search />
           </div>
           <div className="lg:w-[25%]">
-            <button className="lg:hidden mr-5 text-neutral-600 ">
-              {user._id ? (
-                <div className="relative">
-                  <div onClick={() => setOpenUserMenu((prevStae) => !prevStae)}>
-                    <p>
-                      {openUserMenu ? (
-                        <IoCloseSharp size={30} />
-                      ) : (
-                        <IoReorderFourSharp size={30} />
-                      )}
-                    </p>
-                    <div className="absolute">
-                      {openUserMenu && <UserMenu />}
+            <div className="relative">
+              <button className="lg:hidden mr-5 text-neutral-600 ">
+                {user._id ? (
+                  <div>
+                    <div
+                      onClick={() => setOpenUserMenu((prevStae) => !prevStae)}
+                    >
+                      <p>
+                        {openUserMenu ? (
+                          <IoCloseSharp size={30} />
+                        ) : (
+                          <FaRegUserCircle size={30} />
+                        )}
+                      </p>
+                      <div
+                        className={`absolute right-6 top-12 w-36 transform transition-all duration-500 origin-top ring-1 ring-black/10 ${
+                          openUserMenu
+                            ? " translate-y-6 opacity-100"
+                            : "translate-y-0 opacity-0 pointer-events-none"
+                        }`}
+                      >
+                        {openUserMenu && <UserMenu />}
+                      </div>
                     </div>
                   </div>
-                </div>
-              ) : (
-                <Link to={"/login"}>
-                  <FaRegUser size={25} />
-                </Link>
-              )}
-            </button>
+                ) : (
+                  <Link to={"/login"}>
+                    <FaRegUser size={25} />
+                  </Link>
+                )}
+              </button>
+            </div>
+
             <div className="header-account  hidden lg:flex gap-15">
               {user._id ? (
                 <div className="flex items-center align-middle relative">
