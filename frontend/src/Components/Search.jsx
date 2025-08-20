@@ -64,7 +64,7 @@ const Search = () => {
         <div className="flex w-full h-full items-center gap-3">
           {isMobile && isSearchPage ? (
             <Link
-              // onClick={(e) => e.stopPropagation()}
+              onClick={(e) => e.stopPropagation()}
               to={"/"}
               className="text-2xl group-focus-within:text-amber-500"
             >
