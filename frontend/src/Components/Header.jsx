@@ -16,10 +16,16 @@ const Header = () => {
   const user = useSelector((state) => state.user);
   const [openUserMenu, setOpenUserMenu] = useState(false);
 
+  // to close automatic user menu after logged in sucessfully
+  // const closeUserMenu = () => {
+  //   setOpenUserMenu;
+  // };
+
   return (
     <>
       <header className="sticky top-0 w-full shadow pb-3 lg:pb-0 bg-white ">
         <div className="lg:max-w-[1300px] xl:max-w-[1600px] m-auto flex justify-between items-center p-2">
+          {/* header logo part */}
           <div className="header-left lg:w-[25%]">
             <Link to={"/"} className="inline-block">
               <img
@@ -29,9 +35,13 @@ const Header = () => {
               />
             </Link>
           </div>
+
+          {/* search components */}
           <div className="w-full mr-6 hidden lg:block">
             <Search />
           </div>
+
+          {/* header right login and cart part */}
           <div className="lg:w-[25%]">
             <div className="relative">
               <button className="lg:hidden mr-5 text-neutral-600 ">
@@ -66,6 +76,7 @@ const Header = () => {
               </button>
             </div>
 
+            {/* header logged in user menu */}
             <div className="header-account  hidden lg:flex gap-15">
               {user._id ? (
                 <div className="flex items-center align-middle relative">

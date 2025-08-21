@@ -8,6 +8,10 @@ import Login from "../pages/Login";
 import ForgotPasswordOtp from "../pages/ForgotPasswordOtp";
 import ResetPassword from "../pages/ResetPassword";
 import VerifyForgotPasswordOtp from "../pages/VerifyForgotPasswordOtp";
+import Dashboard from "../pages/Dashboard";
+import Profile from "../pages/Profile";
+import MyOrders from "../pages/MyOrders";
+import Adress from "../pages/Adress";
 
 const browserRouter = createBrowserRouter([
   {
@@ -46,6 +50,24 @@ const browserRouter = createBrowserRouter([
       {
         path: "/reset-password",
         element: <ResetPassword />,
+      },
+      {
+        path: "/dashboard",
+        element: <Dashboard />,
+        children: [
+          {
+            path: "/dashboard/profile",
+            element: <Profile />,
+          },
+          {
+            path: "/dashboard/myorders",
+            element: <MyOrders />,
+          },
+          {
+            path: "/dashboard/address",
+            element: <Adress />,
+          },
+        ],
       },
     ],
   },
