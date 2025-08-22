@@ -11,7 +11,7 @@ import VerifyForgotPasswordOtp from "../pages/VerifyForgotPasswordOtp";
 import Dashboard from "../pages/Dashboard";
 import Profile from "../pages/Profile";
 import MyOrders from "../pages/MyOrders";
-import Adress from "../pages/Adress";
+import Address from "../pages/Address";
 
 const browserRouter = createBrowserRouter([
   {
@@ -56,16 +56,16 @@ const browserRouter = createBrowserRouter([
         element: <Dashboard />,
         children: [
           {
-            path: "/dashboard/profile",
+            path: "profile",
             element: <Profile />,
           },
           {
-            path: "/dashboard/myorders",
+            path: "myorders",
             element: <MyOrders />,
           },
           {
-            path: "/dashboard/address",
-            element: <Adress />,
+            path: "address",
+            element: <Address />,
           },
         ],
       },

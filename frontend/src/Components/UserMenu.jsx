@@ -4,6 +4,7 @@ import Divider from "./Divider";
 import axios from "axios";
 import { logout } from "../features/userSlice";
 import { toast } from "react-toastify";
+import { IoNavigateCircleOutline } from "react-icons/io5";
 
 const UserMenu = () => {
   const user = useSelector((state) => state.user);
@@ -29,16 +30,21 @@ const UserMenu = () => {
       {/* user menu for desktop */}
       <div
         className={`text-[17px] bg-white p-4 hidden lg:block xl:block ${
-          location.pathname === "dashboard" ? "" : "shadow"
+          location.pathname === "dashboard" ? "shadow" : ""
         } `}
       >
         <h5 className="font-semibold mb-1">My Account</h5>
-        <p>{user.name}</p>
+        <div className="flex items-center gap-1">
+          <p>{user.name}</p>
+          <Link to={"/dashboard/profile"}>
+            <IoNavigateCircleOutline />
+          </Link>
+        </div>
 
         <Divider />
         <div className="grid gap-2 text-[17px] ">
-          <Link> My Orders</Link>
-          <Link> Save Adress</Link>
+          <Link to="/dashboard/myorders"> My Orders</Link>
+          <Link to={"/dashboard/address"}> Save Adress</Link>
           <Link onClick={handleLogOut}>Log Out</Link>
         </div>
       </div>
@@ -52,7 +58,7 @@ const UserMenu = () => {
 
         <Divider />
         <div className="grid gap-2 text-[17px] ">
-          <Link to="/dashboard/myorders"> My Orders</Link>
+          <Link to="/myorders"> My Orders</Link>
           <Link> Save Adress</Link>
           <Link onClick={handleLogOut}>Log Out</Link>
         </div>

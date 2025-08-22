@@ -4,20 +4,18 @@ import UserMenu from "../Components/UserMenu";
 import { Outlet } from "react-router-dom";
 
 const Dashboard = () => {
-  const user = useSelector((state) => state.user);
-
   return (
     <>
       {/* user dashboard for desktop */}
       <section className=" bg-white">
-        <div className="dashboard grid">
+        <div className="xl:w-[1600px] lg:w-[1300px] p-4 mx-auto flex ">
           {/* dashboard left */}
-          <div className="">
+          <div className="sticky w-[20%]">
             <UserMenu />
           </div>
 
           {/* dashboard content right */}
-          <div>
+          <div className=" w-[80%]">
             <Outlet />
           </div>
         </div>
