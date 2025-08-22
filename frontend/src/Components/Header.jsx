@@ -17,9 +17,9 @@ const Header = () => {
   const [openUserMenu, setOpenUserMenu] = useState(false);
 
   // to close automatic user menu after logged in sucessfully
-  // const closeUserMenu = () => {
-  //   setOpenUserMenu;
-  // };
+  const closeUserMenu = () => {
+    setOpenUserMenu(false);
+  };
 
   return (
     <>
@@ -64,7 +64,7 @@ const Header = () => {
                             : "translate-y-0 opacity-0 pointer-events-none"
                         }`}
                       >
-                        {openUserMenu && <UserMenu />}
+                        {openUserMenu && <UserMenu close={closeUserMenu} />}
                       </div>
                     </div>
                   </div>
@@ -93,7 +93,7 @@ const Header = () => {
                     )}
                   </div>
                   <div className="absolute w-52 left-0 top-17 ">
-                    {openUserMenu && <UserMenu />}
+                    {openUserMenu && <UserMenu close={closeUserMenu} />}
                   </div>
                 </div>
               ) : (

@@ -1,9 +1,12 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import { useEffect } from "react";
 import UserMenu from "../Components/UserMenu";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 
-const Dashboard = () => {
+const Dashboard = ({ close }) => {
+  useEffect(() => {
+    close;
+  }, [close]);
+
   return (
     <>
       {/* user dashboard for desktop */}
