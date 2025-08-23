@@ -1,12 +1,7 @@
-import { useEffect } from "react";
 import UserMenu from "../Components/UserMenu";
-import { Outlet, useLocation } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 
-const Dashboard = ({ close }) => {
-  useEffect(() => {
-    close;
-  }, [close]);
-
+const Dashboard = () => {
   return (
     <>
       {/* user dashboard for desktop */}

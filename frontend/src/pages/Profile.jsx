@@ -1,5 +1,5 @@
+import { useEffect } from "react";
 import profileImg from "../../public/tim.jpg";
-import { Link } from "react-router-dom";
 
 const Profile = () => {
   return (

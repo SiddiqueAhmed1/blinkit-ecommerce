@@ -1,25 +1,24 @@
-import {
-  IoCartOutline,
-  IoCloseSharp,
-  IoReorderFourSharp,
-} from "react-icons/io5";
+import { IoCartOutline, IoCloseSharp } from "react-icons/io5";
 import Search from "./Search";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { FaRegUser, FaRegUserCircle } from "react-icons/fa";
 import logo from "../../public/images/Capture-removebg-preview.png";
 import { useSelector } from "react-redux";
 import { MdArrowDropDown, MdOutlineArrowDropUp } from "react-icons/md";
 import UserMenu from "./UserMenu";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const Header = () => {
   const user = useSelector((state) => state.user);
   const [openUserMenu, setOpenUserMenu] = useState(false);
+  const location = useLocation();
 
   // to close automatic user menu after logged in sucessfully
-  const closeUserMenu = () => {
-    setOpenUserMenu(false);
-  };
+  useEffect(() => {
+    if (openUserMenu) {
+      setOpenUserMenu(false);
+    }
+  }, [location.pathname]);
 
   return (
     <>
@@ -64,7 +63,7 @@ const Header = () => {
                             : "translate-y-0 opacity-0 pointer-events-none"
                         }`}
                       >
-                        {openUserMenu && <UserMenu close={closeUserMenu} />}
+                        {openUserMenu && <UserMenu />}
                       </div>
                     </div>
                   </div>
@@ -93,7 +92,7 @@ const Header = () => {
                     )}
                   </div>
                   <div className="absolute w-52 left-0 top-17 ">
-                    {openUserMenu && <UserMenu close={closeUserMenu} />}
+                    {openUserMenu && <UserMenu />}
                   </div>
                 </div>
               ) : (
