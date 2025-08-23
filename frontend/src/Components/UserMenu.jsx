@@ -18,7 +18,10 @@ const UserMenu = () => {
       if (response.data.success) {
         dispatch(logout());
         localStorage.clear();
-        toast.success("Logout Successfull");
+        toast.info("Logout Successfull", {
+          position: "top-center",
+          delay: "3000",
+        });
       }
     } catch (error) {
       toast.error("Logout Failed");
@@ -29,15 +32,17 @@ const UserMenu = () => {
     <>
       {/* user menu for desktop */}
       <div
-        className={`text-[17px] bg-white p-4 hidden lg:block xl:block ${
-          location.pathname === "dashboard" ? "shadow" : ""
-        } `}
+        className={`text-[17px] bg-white p-4 hidden lg:block xl:block  ${
+          location.pathname === "/dashboard/profile" ? "shadow" : ""
+        }
+            
+        `}
       >
         <h5 className="font-semibold mb-1">My Account</h5>
         <div className="flex items-center gap-1">
-          <p>{user.name}</p>
+          <p>{user.name.slice(0, 14)}..</p>
           <Link to={"/dashboard/profile"}>
-            <IoNavigateCircleOutline />
+            <IoNavigateCircleOutline color="#FFD230" size={20} />
           </Link>
         </div>
 

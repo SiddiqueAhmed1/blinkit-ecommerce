@@ -40,7 +40,7 @@ const Header = () => {
             <Search />
           </div>
 
-          {/* header right login and cart part */}
+          {/* header login part mobile */}
           <div className="lg:w-[25%]">
             <div className="relative">
               <button className="lg:hidden mr-5 text-neutral-600 ">

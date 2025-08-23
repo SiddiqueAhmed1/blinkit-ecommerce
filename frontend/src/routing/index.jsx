@@ -12,6 +12,7 @@ import Dashboard from "../pages/Dashboard";
 import Profile from "../pages/Profile";
 import MyOrders from "../pages/MyOrders";
 import Address from "../pages/Address";
+import User from "../pages/User";
 
 const browserRouter = createBrowserRouter([
   {
@@ -50,6 +51,10 @@ const browserRouter = createBrowserRouter([
       {
         path: "/reset-password",
         element: <ResetPassword />,
+      },
+      {
+        path: "/user",
+        element: <User />,
       },
       {
         path: "/dashboard",
