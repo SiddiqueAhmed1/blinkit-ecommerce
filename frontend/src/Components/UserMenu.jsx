@@ -8,6 +8,13 @@ const UserMenu = () => {
   const user = useSelector((state) => state.user);
   const handleLogOut = useLogout();
 
+  const handleShortName = (name) => {
+    if (user.name.length > 12) {
+      const shotName = name.slice(0, 12);
+      return shotName;
+    }
+  };
+
   return (
     <>
       {/* user menu for desktop */}
@@ -17,7 +24,7 @@ const UserMenu = () => {
       >
         <h5 className="font-semibold mb-1">My Account</h5>
         <div className="flex items-center gap-1">
-          <p>{user.name.slice(0, 14)}..</p>
+          <p>{handleShortName(user.name)}...</p>
           <Link to={"/dashboard/profile"}>
             <IoNavigateCircleOutline color="#FFD230" size={20} />
           </Link>

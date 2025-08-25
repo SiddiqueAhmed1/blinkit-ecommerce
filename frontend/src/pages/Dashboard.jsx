@@ -6,7 +6,7 @@ const Dashboard = () => {
     <>
       {/* user dashboard for desktop */}
       <section className=" bg-white">
-        <div className="xl:w-[1600px] lg:w-[1300px] p-4 mx-auto flex ">
+        <div className="xl:w-[1600px] lg:w-[1300px] p-4 mx-auto  flex justify-center ">
           {/* dashboard left */}
           <div className="sticky w-[20%]">
             <UserMenu />
