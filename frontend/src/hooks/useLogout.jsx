@@ -2,9 +2,11 @@ import { useDispatch } from "react-redux";
 import { logout } from "../features/userSlice";
 import { toast } from "react-toastify";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const useLogout = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   // handle the logout functionality
   const handleLogOut = async () => {
@@ -14,6 +16,7 @@ const useLogout = () => {
       if (response.data.success) {
         dispatch(logout());
         localStorage.clear();
+        navigate("/");
         toast.info("Logout Successfull", {
           position: "top-center",
           autoClose: "3000",

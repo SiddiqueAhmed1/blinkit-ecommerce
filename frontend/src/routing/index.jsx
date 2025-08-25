@@ -12,7 +12,7 @@ import Dashboard from "../pages/Dashboard";
 import Profile from "../pages/Profile";
 import MyOrders from "../pages/MyOrders";
 import Address from "../pages/Address";
-import User from "../pages/User";
+import UserMenuMobile from "../Components/UserMenuMobile";
 
 const browserRouter = createBrowserRouter([
   {
@@ -54,7 +54,7 @@ const browserRouter = createBrowserRouter([
       },
       {
         path: "/user",
-        element: <User />,
+        element: <UserMenuMobile />,
       },
       {
         path: "/dashboard",

@@ -1,23 +1,24 @@
-import { useSelector } from "react-redux";
-import { Link, useLocation } from "react-router-dom";
-import Divider from "./Divider";
-import { IoNavigateCircleOutline } from "react-icons/io5";
+import { Link } from "react-router-dom";
 import useLogout from "../hooks/useLogout";
+import Divider from "./Divider";
+import { useSelector } from "react-redux";
+import { IoNavigateCircleOutline } from "react-icons/io5";
 
-const UserMenu = () => {
-  const user = useSelector((state) => state.user);
+const UserMenuMobile = () => {
   const handleLogOut = useLogout();
+  const user = useSelector((state) => state.user);
 
   return (
     <>
-      {/* user menu for desktop */}
+      {/* user menu for mobile */}
       <div
-        className={`text-[17px] bg-white p-4 hidden lg:block xl:block        
+        className={`text-[17px] bg-white p-4 block lg:hidden xl:hidden container mx-auto       
         `}
       >
         <h5 className="font-semibold mb-1">My Account</h5>
         <div className="flex items-center gap-1">
-          <p>{user.name.slice(0, 14)}..</p>
+          <p>{user.name}</p>
+
           <Link to={"/dashboard/profile"}>
             <IoNavigateCircleOutline color="#FFD230" size={20} />
           </Link>
@@ -34,4 +35,4 @@ const UserMenu = () => {
   );
 };
 
-export default UserMenu;
+export default UserMenuMobile;

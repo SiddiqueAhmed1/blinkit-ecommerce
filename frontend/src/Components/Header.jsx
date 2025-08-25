@@ -1,7 +1,7 @@
-import { IoCartOutline, IoCloseSharp } from "react-icons/io5";
+import { IoCartOutline, IoCloseSharp, IoLogInOutline } from "react-icons/io5";
 import Search from "./Search";
 import { Link, useLocation } from "react-router-dom";
-import { FaRegUser, FaRegUserCircle } from "react-icons/fa";
+import { FaRegUserCircle } from "react-icons/fa";
 import logo from "../../public/images/Capture-removebg-preview.png";
 import { useSelector } from "react-redux";
 import { MdArrowDropDown, MdOutlineArrowDropUp } from "react-icons/md";
@@ -43,39 +43,22 @@ const Header = () => {
           {/* header login part mobile */}
           <div className="lg:w-[25%]">
             <div className="relative">
-              <button className="lg:hidden mr-5 text-neutral-600 ">
+              <button className="lg:hidden xl:hidden mr-5 text-neutral-600 ">
                 {user._id ? (
                   <div>
-                    <div
-                      onClick={() => setOpenUserMenu((prevStae) => !prevStae)}
-                    >
-                      <p>
-                        {openUserMenu ? (
-                          <IoCloseSharp size={30} />
-                        ) : (
-                          <FaRegUserCircle size={30} />
-                        )}
-                      </p>
-                      <div
-                        className={`absolute right-6 top-12 w-36 transform transition-all duration-500 origin-top ring-1 ring-black/10 ${
-                          openUserMenu
-                            ? " translate-y-6 opacity-100"
-                            : "translate-y-0 opacity-0 pointer-events-none"
-                        }`}
-                      >
-                        {openUserMenu && <UserMenu />}
-                      </div>
-                    </div>
+                    <Link to={"/user"}>
+                      <FaRegUserCircle size={28} />
+                    </Link>
                   </div>
                 ) : (
                   <Link to={"/login"}>
-                    <FaRegUser size={25} />
+                    <IoLogInOutline size={28} />
                   </Link>
                 )}
               </button>
             </div>
 
-            {/* header logged in user menu */}
+            {/* header logged in user menu for desktop */}
             <div className="header-account  hidden lg:flex gap-15">
               {user._id ? (
                 <div className="flex items-center align-middle relative">
@@ -91,7 +74,7 @@ const Header = () => {
                       <MdArrowDropDown size={30} />
                     )}
                   </div>
-                  <div className="absolute w-52 left-0 top-17 ">
+                  <div className="absolute w-52 left-0 top-17 shadow-lg">
                     {openUserMenu && <UserMenu />}
                   </div>
                 </div>
