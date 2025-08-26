@@ -34,10 +34,24 @@ const Header = () => {
               />
             </Link>
           </div>
-
           {/* Search desktop */}
-          <div className="w-full mr-6 hidden lg:block">
+          <div className="w-full mr-8 hidden lg:block">
             <Search />
+          </div>
+
+          {/* header login part mobile */}
+          <div className="flex justify-end w-full lg:hidden xl:hidden">
+            <button className=" text-neutral-600 ">
+              {user._id ? (
+                <Link to={"/user"}>
+                  <FaRegUserCircle size={28} />
+                </Link>
+              ) : (
+                <Link to={"/login"}>
+                  <IoLogInOutline size={28} />
+                </Link>
+              )}
+            </button>
           </div>
 
           {/* Right side */}
@@ -66,11 +80,11 @@ const Header = () => {
                 </Link>
               )}
 
-              <button className="bg-green-700 flex px-6 py-2 gap-2 rounded-[10px] items-center cursor-not-allowed">
+              <button className="bg-green-700 flex px-6 py-2 gap-2 rounded-[10px] items-center cursor-not-allowed ml-6 w-full">
                 <span className="text-3xl cursor-not-allowed text-white transform animate-bounce">
                   <IoCartOutline />
                 </span>
-                <p className="text-white font-semibold">My Cart</p>
+                <p className="text-white font-semibold py-3">My Cart</p>
               </button>
             </div>
           </div>
