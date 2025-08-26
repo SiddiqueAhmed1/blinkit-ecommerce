@@ -22,78 +22,62 @@ const Header = () => {
 
   return (
     <>
-      <header className="sticky top-0 w-full shadow pb-3 lg:pb-0 bg-white ">
-        <div className="lg:max-w-[1300px] xl:max-w-[1600px] m-auto flex justify-between items-center p-2">
-          {/* header logo part */}
-          <div className="header-left lg:w-[25%]">
+      <header className="sticky top-0 w-full shadow py-3 bg-white">
+        <div className="max-w-[1600px] w-full mx-auto flex justify-between items-center px-4 lg:px-8">
+          {/* Logo */}
+          <div className="lg:w-[25%]">
             <Link to={"/"} className="inline-block">
               <img
                 className="h-full lg:w-40 w-28 sm:w-32 md:w-36 object-contain"
                 src={logo}
-                alt=""
+                alt="Logo"
               />
             </Link>
           </div>
 
-          {/* search components */}
+          {/* Search desktop */}
           <div className="w-full mr-6 hidden lg:block">
             <Search />
           </div>
 
-          {/* header login part mobile */}
-          <div className="lg:w-[25%]">
-            <div className="relative">
-              <button className="lg:hidden xl:hidden mr-5 text-neutral-600 ">
-                {user._id ? (
-                  <div>
-                    <Link to={"/user"}>
-                      <FaRegUserCircle size={28} />
-                    </Link>
-                  </div>
-                ) : (
-                  <Link to={"/login"}>
-                    <IoLogInOutline size={28} />
-                  </Link>
-                )}
-              </button>
-            </div>
-
-            {/* header logged in user menu for desktop */}
-            <div className="header-account  hidden lg:flex gap-15">
+          {/* Right side */}
+          <div className="lg:w-[25%] flex justify-end">
+            <div className="hidden lg:flex items-center gap-6">
               {user._id ? (
-                <div className="flex items-center align-middle relative">
-                  <div
-                    className="flex gap-1 cursor-pointer"
-                    onClick={() => setOpenUserMenu((prevStae) => !prevStae)}
-                  >
-                    <p className="text-[22px]">Account</p>
-
-                    {openUserMenu ? (
-                      <MdOutlineArrowDropUp size={30} />
-                    ) : (
-                      <MdArrowDropDown size={30} />
-                    )}
-                  </div>
-                  <div className="absolute w-52 left-0 top-17 shadow-lg">
-                    {openUserMenu && <UserMenu />}
-                  </div>
+                <div
+                  className="relative flex items-center gap-1 cursor-pointer"
+                  onClick={() => setOpenUserMenu((prev) => !prev)}
+                >
+                  <p className="text-[22px]">Account</p>
+                  {openUserMenu ? (
+                    <MdOutlineArrowDropUp size={30} />
+                  ) : (
+                    <MdArrowDropDown size={30} />
+                  )}
+                  {openUserMenu && (
+                    <div className="absolute w-52 left-0 top-16 shadow-lg bg-white">
+                      <UserMenu />
+                    </div>
+                  )}
                 </div>
               ) : (
-                <button className="text-xl">
-                  <Link to={"/login"}>Login</Link>
-                </button>
+                <Link to={"/login"} className="text-xl">
+                  Login
+                </Link>
               )}
 
-              <button className="bg-green-700 flex px-8 py-2 gap-2 rounded-[10px] items-center cursor-not-allowed w-[100%]">
+              <button className="bg-green-700 flex px-6 py-2 gap-2 rounded-[10px] items-center cursor-not-allowed">
                 <span className="text-3xl cursor-not-allowed text-white transform animate-bounce">
                   <IoCartOutline />
                 </span>
-                <p className="text-white font-semibold w-[100%]">My Cart</p>
+                <p className="text-white font-semibold">My Cart</p>
               </button>
             </div>
           </div>
         </div>
-        <div className="lg:hidden px-4 ">
+
+        {/* Search mobile */}
+        <div className="lg:hidden px-4 mt-2">
           <Search />
         </div>
       </header>
