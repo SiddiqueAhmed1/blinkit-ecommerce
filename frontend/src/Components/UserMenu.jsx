@@ -32,9 +32,17 @@ const UserMenu = () => {
 
         <Divider />
         <div className="grid gap-2 text-[17px] ">
-          <Link to="/dashboard/myorders"> My Orders</Link>
-          <Link to={"/dashboard/address"}> Save Adress</Link>
-          <Link onClick={handleLogOut}>Log Out</Link>
+          <Link className="hover:bg-amber-300 p-1" to="/dashboard/myorders">
+            {" "}
+            My Orders
+          </Link>
+          <Link className="hover:bg-amber-300 p-1" to={"/dashboard/address"}>
+            {" "}
+            Save Adress
+          </Link>
+          <Link className="hover:bg-amber-300 p-1" onClick={handleLogOut}>
+            Log Out
+          </Link>
         </div>
       </div>
     </>

@@ -41,14 +41,14 @@ const Header = () => {
 
           {/* header login part mobile */}
           <div className="flex justify-end w-full lg:hidden xl:hidden">
-            <button className=" text-neutral-600 ">
+            <button>
               {user._id ? (
                 <Link to={"/user"}>
-                  <FaRegUserCircle size={28} />
+                  <FaRegUserCircle size={30} className=" text-neutral-600 " />
                 </Link>
               ) : (
                 <Link to={"/login"}>
-                  <IoLogInOutline size={28} />
+                  <IoLogInOutline size={30} className=" text-neutral-600 " />
                 </Link>
               )}
             </button>

@@ -18,7 +18,7 @@ const useLogout = () => {
         localStorage.clear();
         navigate("/");
         toast.info("Logout Successfull", {
-          position: "top-center",
+          position: "bottom-center",
           autoClose: "3000",
         });
       }

@@ -77,7 +77,7 @@ const Login = () => {
     } catch (error) {
       if (error.response.data.message === "Password is incorrect") {
         return toast.error(error.response.data.message, {
-          position: "top-center",
+          position: "bottom-center",
           autoClose: 5000,
           hideProgressBar: false,
           closeOnClick: false,
