@@ -40,7 +40,7 @@ const Header = () => {
           </div>
 
           {/* header login part mobile */}
-          <div className="flex justify-end w-full lg:hidden xl:hidden">
+          <div className="flex justify-end w-full lg:hidden ">
             <button>
               {user._id ? (
                 <Link to={"/user"}>
@@ -54,7 +54,7 @@ const Header = () => {
             </button>
           </div>
 
-          {/* Right side */}
+          {/* Login part for desktop */}
           <div className="lg:w-[25%] flex justify-end">
             <div className="hidden lg:flex items-center gap-6">
               {user._id ? (
