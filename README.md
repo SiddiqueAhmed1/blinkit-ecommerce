@@ -1,65 +1,52 @@
-# 🛒 Blinkit E-Commerce Backend
+# 🛒 Blinkit E-Commerce Web App
 
-A scalable and modular backend for an e-commerce platform inspired by **Blinkit**, built with **Node.js**, **Express.js**, and **MongoDB** using **Mongoose**. This backend handles user authentication, product management, orders, cart, categories, and avatar uploads.
-
----
-
-## 🚀 Features
-
-- User registration, login, logout with JWT authentication & authorization  
-- Password hashing with `bcryptjs`  
-- MongoDB connection configured with Mongoose  
-- Schemas for User, Product, CartProduct, Order, Address, Category, SubCategory  
-- Avatar image upload implemented using Multer  
-- Secure protected routes with authentication middleware  
-
----
-
-## 📦 Schemas (Mongoose Models)
-
-- **User**
-- **Product**
-- **CartProduct**
-- **Order**
-- **Address**
-- **Category**
-- **SubCategory**
-
----
+A **scalable MERN Stack E-Commerce platform** inspired by **Blinkit**, built with clean architecture and modular design.  
+✅ Secure authentication, product management, orders, cart, categories, avatar uploads, and an **Admin Dashboard** (in progress).  
 
 
----
+## ✨ Key Features
 
-## 🔧 Tech Stack
+- **Authentication:** User registration, login, logout with JWT  
+- **Security:** Password hashing using `bcryptjs`  
+- **Products & Categories:** CRUD operations with organized catalog  
+- **Cart & Orders:** Add to cart and place orders  
+- **File Uploads:** Avatar/image uploads with `Multer`  
+- **Admin Dashboard:** Responsive pages ready (Frontend 30% completed)  
+- **Clean APIs:** Protected routes and RESTful structure  
 
-- Node.js  
-- Express.js  
-- MongoDB with Mongoose  
-- JWT (JSON Web Token) for authentication  
-- bcryptjs for password hashing  
-- Multer for file (avatar) uploads  
 
----
+## 🛠️ Tech Stack
 
-## 🛠️ To Do / Upcoming Features
+**Frontend (In Progress):**  
+- React.js + Redux Toolkit  
+- React Toastify (Notifications)  
+- React Type Animation (UI effects)  
 
-- Product search by name  
-- Frontend with React.js  
-- Admin dashboard  
-- Payment gateway integration  
-- Order notifications  
+**Backend (Completed):**  
+- Node.js & Express.js  
+- MongoDB + Mongoose  
+- JWT Authentication  
+- bcryptjs for passwords  
+- Multer for file uploads  
 
----
 
-## 📌 Status
+## 📌 Progress
 
-- Backend: 🚧 In Progress (70%)  
-- Frontend: ⏳ Not started  
+- **Backend:** ✅ 100% Completed  
+- **Frontend:** ⏳ 30% Completed  
+  - Admin Dashboard and responsive pages ready  
 
----
 
-## 🙌 Stay tuned!
+## 🚀 Upcoming
 
-This project is actively being developed with clean architecture and scalable design principles. Will keep updating as new features are built!
+- Product search functionality 🔍  
+- Complete Admin Dashboard with analytics 📊  
+- Payment gateway integration 💳  
+- Real-time order notifications 🔔  
+- Full responsive frontend UI 🌐  
 
----
+
+## 🙌 Notes
+
+Project is actively developed following **clean code principles** and **scalable architecture**.  
+More features and updates will be added soon.
