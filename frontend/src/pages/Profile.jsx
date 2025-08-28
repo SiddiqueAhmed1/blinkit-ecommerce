@@ -28,7 +28,9 @@ const Profile = () => {
           </button>
         </div>
 
-        {openUserAvatarModal && <UserAvatarUpload />}
+        {openUserAvatarModal && (
+          <UserAvatarUpload close={() => setOpenUserAvatarModal(false)} />
+        )}
       </div>
     </>
   );
