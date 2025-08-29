@@ -48,9 +48,12 @@ const userSlice = createSlice({
       state.orderHistory = [];
       state.shopping_cart = [];
     },
+    uploadAvatar: (state, action) => {
+      state.avatar = action.payload.avatar;
+    },
   },
 });
 
-export const { setUserDetails, logout } = userSlice.actions;
+export const { setUserDetails, logout, uploadAvatar } = userSlice.actions;
 
 export default userSlice.reducer;

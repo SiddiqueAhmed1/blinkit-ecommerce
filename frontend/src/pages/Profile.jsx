@@ -1,5 +1,4 @@
 import { useState } from "react";
-import profileImg from "../../public/tim.jpg";
 import UserAvatarUpload from "./UserAvatarUpload";
 import { useSelector } from "react-redux";
 import { FaRegUserCircle } from "react-icons/fa";

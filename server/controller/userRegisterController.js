@@ -202,7 +202,8 @@ export const avatarUpload = async (req, res) => {
 
     return res.status(200).json({
       message: "User avatar uploaded successfully",
-      data: user,
+      success: true,
+      avatar: user.avatar,
     });
   } catch (error) {
     return res.status(500).json({ message: "Internal server error", error });
