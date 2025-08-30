@@ -49,7 +49,7 @@ const userSlice = createSlice({
       state.shopping_cart = [];
     },
     uploadAvatar: (state, action) => {
-      state.avatar = action.payload.avatar;
+      state.avatar = action.payload;
     },
   },
 });

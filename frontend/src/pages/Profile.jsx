@@ -10,9 +10,11 @@ const Profile = () => {
   return (
     <>
       <div className="my-5">
-        <div className="w-40 h-50 rounded-full text-center">
+        <div className="w-40 h-40 text-center    ">
           {user.avatar ? (
-            <img className="" src={user.avatar} alt="" />
+            <div className="">
+              <img className="rounded" src={user.avatar} alt="" />
+            </div>
           ) : (
             <div className="text-center flex justify-center">
               <FaRegUserCircle size={80} />

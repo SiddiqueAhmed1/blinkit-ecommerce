@@ -75,6 +75,19 @@ const Login = () => {
       const user = await fetchUserDetails();
       dispatch(setUserDetails(user.data));
     } catch (error) {
+      if (!error.response.data.password) {
+        return toast.error(error.response.data.message, {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: false,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      }
+
       if (error.response.data.message === "Password is incorrect") {
         return toast.error(error.response.data.message, {
           position: "bottom-center",
@@ -107,6 +120,15 @@ const Login = () => {
       <div className="login-user xl:w-[800px] lg:w-[700px] w-[400px] md:w-[600px] mx-auto  py-16 ">
         <div className="form-title text-3xl">
           <h1>Hi, Login to continue</h1>
+          <div className="mt-3 flex gap-2 items-center">
+            <p className="text-sm">or create an account </p>
+            <Link
+              className="text-yellow-500 hover:text-yellow-400  font-semibold text-sm"
+              to={"/register"}
+            >
+              Register
+            </Link>
+          </div>
         </div>
 
         <div className="login-form bg-white py-6 mt-6">

@@ -16,10 +16,8 @@ export const fileUploadCloudinary = (image, folder) => {
       { folder: folder },
       (error, result) => {
         if (error) {
-          console.error("Cloudinary upload error:", error);
           reject(error); // Reject the promise if there's an error
         } else {
-          console.log("Cloudinary upload result:", result);
           resolve(result); // Resolve the promise with the result
         }
       }

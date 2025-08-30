@@ -106,6 +106,7 @@ export const userLogin = async (req, res) => {
         accessToken,
         refreshToken,
       },
+      password: checkPass,
     });
   } catch (error) {
     res.status(500).json({ message: error.message, error });
@@ -196,14 +197,13 @@ export const avatarUpload = async (req, res) => {
     );
 
     if (!user) {
-      console.log("User not found.");
       return res.status(404).json({ message: "User not found" });
     }
 
     return res.status(200).json({
       message: "User avatar uploaded successfully",
       success: true,
-      avatar: user.avatar,
+      avatar: avatarUrl,
     });
   } catch (error) {
     return res.status(500).json({ message: "Internal server error", error });
