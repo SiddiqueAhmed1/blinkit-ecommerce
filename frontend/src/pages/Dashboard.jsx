@@ -13,7 +13,7 @@ const Dashboard = () => {
           </div>
 
           {/* dashboard content right */}
-          <div className=" lg:w-[80%]">
+          <div className=" lg:w-[80%] w-[100%]">
             <Outlet />
           </div>
         </div>

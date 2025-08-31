@@ -9,14 +9,14 @@ const Profile = () => {
 
   return (
     <>
-      <div className="my-5">
-        <div className="w-40 h-40 text-center    ">
+      <div className="w-96 lg:my-5 lg:w-[100%] ">
+        <div className="ml-5">
           {user.avatar ? (
             <div className="">
-              <img className="rounded" src={user.avatar} alt="" />
+              <img className="rounded w-52" src={user.avatar} alt="" />
             </div>
           ) : (
-            <div className="text-center flex justify-center">
+            <div className="">
               <FaRegUserCircle size={80} />
             </div>
           )}
@@ -32,6 +32,31 @@ const Profile = () => {
         {openUserAvatarModal && (
           <UserAvatarUpload close={() => setOpenUserAvatarModal(false)} />
         )}
+
+        {/* user details */}
+        <div className="my-5 text-left">
+          <h1>My Information</h1>
+          <form className="flex flex-col ">
+            <input
+              className="border border-neutral-400 rounded p-4 my-2 bg-neutral-50 inline-block  focus:border-amber-400 outline-0"
+              type="text"
+              placeholder="Type your name"
+            />
+            <input
+              className="border border-neutral-400 rounded p-4 my-2 bg-neutral-50 inline-block  focus:border-amber-400 outline-0"
+              type="text"
+              placeholder="Your email"
+            />
+            <input
+              className="border border-neutral-400 rounded p-4 my-2 bg-neutral-50 inline-block  focus:border-amber-400 outline-0"
+              type="text"
+              placeholder="your password"
+            />
+            <button type="submit" className=" bg-amber-400 ">
+              Update
+            </button>
+          </form>
+        </div>
       </div>
     </>
   );
