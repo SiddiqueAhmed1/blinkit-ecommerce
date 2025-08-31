@@ -52,7 +52,10 @@ const Profile = () => {
               type="text"
               placeholder="your password"
             />
-            <button type="submit" className=" bg-amber-400 ">
+            <button
+              type="submit"
+              className="py-4 border-amber-200 border-2 text-amber-400 font-semibold text-2xl cursor-pointer hover:bg-amber-300 hover:text-white hover:border-amber-200 outline-0 hover:outline-0"
+            >
               Update
             </button>
           </form>

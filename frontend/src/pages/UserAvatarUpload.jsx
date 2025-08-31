@@ -51,8 +51,8 @@ const UserAvatarUpload = ({ close }) => {
   return (
     <>
       <section className="fixed w-full h-full top-0 bottom-0 left-0 right-0 flex justify-center items-center bg-neutral-900/60">
-        <div className="p-4 lg:w-80 lg:h-72 w-80 h-72 sm:w-80 sm:h-72 md:w-80 md:h-72  flex-col flex justify-center items-center bg-white rounded">
-          <div className="flex justify-between w-full ">
+        <div className="p-4  lg:w-80 lg:h-80 w-80 h-80 sm:w-80 sm:h-80 md:w-80 md:h-80  flex-col flex justify-center items-center bg-white rounded">
+          <div className="flex justify-between w-full">
             <h1 className="text-lg font-semibold mb-1">Change Avatar</h1>
             <MdClose size={28} onClick={close} className="cursor-pointer" />
           </div>
