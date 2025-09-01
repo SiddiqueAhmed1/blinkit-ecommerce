@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import UserAvatarUpload from "./UserAvatarUpload";
 import { useSelector } from "react-redux";
 import { FaRegUserCircle } from "react-icons/fa";
@@ -6,14 +6,39 @@ import { FaRegUserCircle } from "react-icons/fa";
 const Profile = () => {
   const user = useSelector((state) => state.user);
   const [openUserAvatarModal, setOpenUserAvatarModal] = useState(false);
+  const [userData, setUserData] = useState({
+    name: user.name,
+    email: user.email,
+    mobile: user.mobile,
+  });
+
+  useEffect(() => {
+    setUserData({
+      name: user.name,
+      email: user.email,
+      mobile: user.mobile,
+    });
+  }, [user]);
+
+  //handleInput change
+  const handleInput = (e) => {
+    setUserData((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value,
+    }));
+  };
 
   return (
     <>
-      <div className="w-96 lg:my-5 lg:w-[100%] ">
-        <div className="ml-5">
+      <div className="lg:my-5 ">
+        <div className="lg:ml-5 text-center lg:text-left">
           {user.avatar ? (
             <div className="">
-              <img className="rounded w-52" src={user.avatar} alt="" />
+              <img
+                className="rounded w-52 mx-auto lg:m-0"
+                src={user.avatar}
+                alt=""
+              />
             </div>
           ) : (
             <div className="">
@@ -25,10 +50,11 @@ const Profile = () => {
             onClick={() => setOpenUserAvatarModal((prev) => !prev)}
             className="bg-amber-300 py-2 px-5 my-4 inline-block cursor-pointer"
           >
-            Edit
+            Change profile
           </button>
         </div>
 
+        {/* user modal open when state true */}
         {openUserAvatarModal && (
           <UserAvatarUpload close={() => setOpenUserAvatarModal(false)} />
         )}
@@ -38,19 +64,26 @@ const Profile = () => {
           <h1>My Information</h1>
           <form className="flex flex-col ">
             <input
+              onChange={handleInput}
+              name="name"
+              value={userData.name}
               className="border border-neutral-400 rounded p-4 my-2 bg-neutral-50 inline-block  focus:border-amber-400 outline-0"
               type="text"
-              placeholder="Type your name"
             />
             <input
+              onChange={handleInput}
+              name="email"
+              value={userData.email}
               className="border border-neutral-400 rounded p-4 my-2 bg-neutral-50 inline-block  focus:border-amber-400 outline-0"
               type="text"
-              placeholder="Your email"
             />
             <input
+              onChange={handleInput}
+              name="mobile"
+              value={userData.mobile}
               className="border border-neutral-400 rounded p-4 my-2 bg-neutral-50 inline-block  focus:border-amber-400 outline-0"
               type="text"
-              placeholder="your password"
+              placeholder="Your mobile"
             />
             <button
               type="submit"
