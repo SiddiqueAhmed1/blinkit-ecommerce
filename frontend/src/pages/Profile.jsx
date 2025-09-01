@@ -1,10 +1,15 @@
 import { useEffect, useState } from "react";
 import UserAvatarUpload from "./UserAvatarUpload";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { FaRegUserCircle } from "react-icons/fa";
+import axios from "axios";
+import { baseUrl } from "../common/SummaryApi";
+import { updateUserDetails } from "../features/userSlice";
+import { toast } from "react-toastify";
 
 const Profile = () => {
   const user = useSelector((state) => state.user);
+  const dispatch = useDispatch();
   const [openUserAvatarModal, setOpenUserAvatarModal] = useState(false);
   const [userData, setUserData] = useState({
     name: user.name,
@@ -19,6 +24,26 @@ const Profile = () => {
       mobile: user.mobile,
     });
   }, [user]);
+
+  // form submit for user details
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = (
+        await axios.put(`${baseUrl}/api/v1/update-user-details`, userData)
+      ).data;
+
+      console.log(response.data);
+
+      if (response.data.data.success) {
+        dispatch(updateUserDetails(response.data.data));
+        toast.success("User details updated successfully");
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 
   //handleInput change
   const handleInput = (e) => {
@@ -62,7 +87,7 @@ const Profile = () => {
         {/* user details */}
         <div className="my-5 text-left">
           <h1>My Information</h1>
-          <form className="flex flex-col ">
+          <form onSubmit={handleSubmit} className="flex flex-col ">
             <input
               onChange={handleInput}
               name="name"
@@ -82,7 +107,7 @@ const Profile = () => {
               name="mobile"
               value={userData.mobile}
               className="border border-neutral-400 rounded p-4 my-2 bg-neutral-50 inline-block  focus:border-amber-400 outline-0"
-              type="text"
+              type="number"
               placeholder="Your mobile"
             />
             <button

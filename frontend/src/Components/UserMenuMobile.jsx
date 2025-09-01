@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useLogout from "../hooks/useLogout";
 import Divider from "./Divider";
 import { useSelector } from "react-redux";
@@ -7,6 +7,7 @@ import { MdClose } from "react-icons/md";
 
 const UserMenuMobile = () => {
   const handleLogOut = useLogout();
+  const navigate = useNavigate();
   const user = useSelector((state) => state.user);
 
   return (
@@ -17,7 +18,7 @@ const UserMenuMobile = () => {
         `}
       >
         <button className="block ml-auto">
-          <MdClose size={28} />
+          <MdClose onClick={navigate(window.history.back)} size={28} />
         </button>
         <div>
           <h5 className="font-semibold mb-1">My Account</h5>

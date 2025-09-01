@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Divider from "./Divider";
 import { IoNavigateCircleOutline } from "react-icons/io5";
 import useLogout from "../hooks/useLogout";

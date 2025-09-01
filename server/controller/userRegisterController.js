@@ -212,11 +212,11 @@ export const avatarUpload = async (req, res) => {
 
 // update user details with login
 export const updateUserDetails = async (req, res) => {
-  const { name, email, mobile, password } = req.body;
+  const { name, email, mobile } = req.body;
   const user = req.user;
 
   //validation
-  if (!name || !email || !mobile || !password) {
+  if (!name || !email || !mobile) {
     return res.status(404).json({
       message: "All fields are required",
       success: false,
@@ -236,7 +236,7 @@ export const updateUserDetails = async (req, res) => {
   }
 
   // password hash
-  const hashPass = await bcrypt.hash(password, 10);
+  // const hashPass = await bcrypt.hash(password, 10);
 
   const updateUser = await userModel.findByIdAndUpdate(
     user.id,
@@ -244,7 +244,7 @@ export const updateUserDetails = async (req, res) => {
       ...(name && { name }),
       ...(email && { email }),
       ...(mobile && { mobile }),
-      ...(password && { password: hashPass }),
+      // ...(password && { password: hashPass }),
     },
     { new: true }
   );
@@ -255,7 +255,11 @@ export const updateUserDetails = async (req, res) => {
 
   res
     .status(200)
-    .json({ message: "Data updated succesfully", data: updateUser });
+    .json({
+      message: "Data updated succesfully",
+      success: true,
+      data: updateUser,
+    });
 };
 
 // forgot password
