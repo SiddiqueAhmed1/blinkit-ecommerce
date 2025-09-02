@@ -4,8 +4,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { FaRegUserCircle } from "react-icons/fa";
 import axios from "axios";
 import { baseUrl } from "../common/SummaryApi";
-import { updateUserDetails } from "../features/userSlice";
+import { setUserDetails } from "../features/userSlice";
 import { toast } from "react-toastify";
+import fetchUserDetails from "../common/FetchUserDetails";
 
 const Profile = () => {
   const user = useSelector((state) => state.user);
@@ -30,18 +31,22 @@ const Profile = () => {
     e.preventDefault();
 
     try {
-      const response = (
-        await axios.put(`${baseUrl}/api/v1/update-user-details`, userData)
-      ).data;
+      const response = await axios.put(
+        `${baseUrl}/api/v1/update-user-details`,
+        userData
+      );
 
-      console.log(response.data);
+      const { data: responseData } = response;
 
-      if (response.data.data.success) {
-        dispatch(updateUserDetails(response.data.data));
-        toast.success("User details updated successfully");
+      if (responseData.success) {
+        toast.success("User details updated successfully", {
+          position: "top-center",
+        });
+        const userData = fetchUserDetails();
+        dispatch(setUserDetails(userData.data));
       }
     } catch (error) {
-      console.log(error.message);
+      console.log(error.message, error);
     }
   };
 
@@ -107,7 +112,7 @@ const Profile = () => {
               name="mobile"
               value={userData.mobile}
               className="border border-neutral-400 rounded p-4 my-2 bg-neutral-50 inline-block  focus:border-amber-400 outline-0"
-              type="number"
+              type="text"
               placeholder="Your mobile"
             />
             <button

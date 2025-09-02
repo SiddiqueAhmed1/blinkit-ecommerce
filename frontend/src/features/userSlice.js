@@ -52,9 +52,12 @@ const userSlice = createSlice({
       state.avatar = action.payload;
     },
     updateUserDetails: (state, action) => {
-      state.name = action.payload.name;
-      state.email = action.payload.email;
-      state.mobile = action.payload.mobile;
+      [
+        ...state,
+        (state.name = action.payload.name),
+        (state.email = action.payload.email),
+        (state.mobile = action.payload.mobile),
+      ];
     },
   },
 });

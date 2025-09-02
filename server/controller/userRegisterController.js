@@ -230,10 +230,10 @@ export const updateUserDetails = async (req, res) => {
     return res.status(400).json({ message: "Email is wrong" });
   }
 
-  // check email
-  if (existUser.email === email) {
-    return res.status(400).json({ message: "email already exist" });
-  }
+  // // check email
+  // if (existUser.email === email) {
+  //   return res.status(400).json({ message: "email already exist" });
+  // }
 
   // password hash
   // const hashPass = await bcrypt.hash(password, 10);
@@ -253,13 +253,11 @@ export const updateUserDetails = async (req, res) => {
     return res.status(400).json({ message: "update not done" });
   }
 
-  res
-    .status(200)
-    .json({
-      message: "Data updated succesfully",
-      success: true,
-      data: updateUser,
-    });
+  res.status(200).json({
+    message: "Data updated succesfully",
+    success: true,
+    data: updateUser,
+  });
 };
 
 // forgot password

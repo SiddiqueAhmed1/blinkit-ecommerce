@@ -14,7 +14,6 @@ const App = () => {
   const fetchUser = async () => {
     try {
       const user = await fetchUserDetails();
-
       dispatch(setUserDetails(user.data));
     } catch (error) {
       console.log(error);
