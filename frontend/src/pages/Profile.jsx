@@ -42,8 +42,8 @@ const Profile = () => {
         toast.success("User details updated successfully", {
           position: "top-center",
         });
-        const userData = fetchUserDetails();
-        dispatch(setUserDetails(userData.data));
+        const getUserData = fetchUserDetails();
+        dispatch(setUserDetails(getUserData.data));
       }
     } catch (error) {
       console.log(error.message, error);
