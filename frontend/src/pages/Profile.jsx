@@ -18,6 +18,14 @@ const Profile = () => {
     mobile: user.mobile,
   });
 
+  //handleInput change
+  const handleInput = (e) => {
+    setUserData((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
   useEffect(() => {
     setUserData({
       name: user.name,
@@ -42,20 +50,12 @@ const Profile = () => {
         toast.success("User details updated successfully", {
           position: "top-center",
         });
-        const getUserData = fetchUserDetails();
+        const getUserData = await fetchUserDetails();
         dispatch(setUserDetails(getUserData.data));
       }
     } catch (error) {
       console.log(error.message, error);
     }
-  };
-
-  //handleInput change
-  const handleInput = (e) => {
-    setUserData((prevState) => ({
-      ...prevState,
-      [e.target.name]: e.target.value,
-    }));
   };
 
   return (
