@@ -17,13 +17,13 @@ const useLogout = () => {
         dispatch(logout());
         localStorage.clear();
         navigate("/");
-        toast.info("Logout Successfull", {
+        toast.info(response.data.message, {
           position: "top-center",
           autoClose: "3000",
         });
       }
     } catch (error) {
-      toast.error("Logout Failed");
+      toast.error(error.response.data.message);
     }
   };
 

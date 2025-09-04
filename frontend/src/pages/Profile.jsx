@@ -11,6 +11,7 @@ import fetchUserDetails from "../common/FetchUserDetails";
 const Profile = () => {
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
+  const [loader, setLoader] = useState(false);
   const [openUserAvatarModal, setOpenUserAvatarModal] = useState(false);
   const [userData, setUserData] = useState({
     name: user.name,
@@ -39,6 +40,7 @@ const Profile = () => {
     e.preventDefault();
 
     try {
+      setLoader(true);
       const response = await axios.put(
         `${baseUrl}/api/v1/update-user-details`,
         userData
@@ -47,14 +49,18 @@ const Profile = () => {
       const { data: responseData } = response;
 
       if (responseData.success) {
-        toast.success("User details updated successfully", {
+        toast.success("Updated successfully", {
           position: "top-center",
         });
         const getUserData = await fetchUserDetails();
         dispatch(setUserDetails(getUserData.data));
       }
     } catch (error) {
-      console.log(error.message, error);
+      toast.error(error.response.data.message, {
+        position: "top-center",
+      });
+    } finally {
+      setLoader(false);
     }
   };
 
@@ -96,6 +102,7 @@ const Profile = () => {
             <input
               onChange={handleInput}
               name="name"
+              required
               value={userData.name}
               className="border border-neutral-400 rounded p-4 my-2 bg-neutral-50 inline-block  focus:border-amber-400 outline-0"
               type="text"
@@ -103,6 +110,7 @@ const Profile = () => {
             <input
               onChange={handleInput}
               name="email"
+              required
               value={userData.email}
               className="border border-neutral-400 rounded p-4 my-2 bg-neutral-50 inline-block  focus:border-amber-400 outline-0"
               type="text"
@@ -110,6 +118,7 @@ const Profile = () => {
             <input
               onChange={handleInput}
               name="mobile"
+              required
               value={userData.mobile}
               className="border border-neutral-400 rounded p-4 my-2 bg-neutral-50 inline-block  focus:border-amber-400 outline-0"
               type="text"
@@ -119,7 +128,7 @@ const Profile = () => {
               type="submit"
               className="py-4 border-amber-200 border-2 text-amber-400 font-semibold text-2xl cursor-pointer hover:bg-amber-300 hover:text-white hover:border-amber-200 outline-0 hover:outline-0"
             >
-              Update
+              {loader ? "Loading..." : "Update"}
             </button>
           </form>
         </div>

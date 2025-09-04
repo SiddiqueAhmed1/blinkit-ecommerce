@@ -16,13 +16,13 @@ const App = () => {
       const user = await fetchUserDetails();
       dispatch(setUserDetails(user.data));
     } catch (error) {
-      console.log(error);
+      console.log("fetch user data error", error);
     }
   };
 
   useEffect(() => {
     fetchUser();
-  }, []);
+  });
 
   return (
     <>

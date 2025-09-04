@@ -226,8 +226,16 @@ export const updateUserDetails = async (req, res) => {
 
   const existUser = await userModel.findById({ _id: user.id });
 
-  if (!existUser) {
-    return res.status(400).json({ message: "Email is wrong" });
+  if (
+    name === existUser.name &&
+    email === existUser.email &&
+    mobile === existUser.mobile
+  ) {
+    return res.status(400).json({
+      message: "Minimum one field need to change",
+      success: false,
+      error: true,
+    });
   }
 
   // // check email

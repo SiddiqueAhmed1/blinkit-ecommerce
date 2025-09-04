@@ -63,22 +63,23 @@ const Register = () => {
       });
     }
 
-    const response = await axios.post(`${baseUrl}/api/v1/register`, input);
+    try {
+      const response = await axios.post(`${baseUrl}/api/v1/register`, input);
+      setInput({
+        name: "",
+        email: "",
+        password: "",
+        confPassword: "",
+      });
 
-    console.log(response);
-
-    setInput({
-      name: "",
-      email: "",
-      password: "",
-      confPassword: "",
-    });
-
-    toast.success("Registration successfully done", {
-      position: "top-center",
-      autoClose: 3000,
-    });
-    navigate("/login");
+      toast.success("Registration successfully done", {
+        position: "top-center",
+        autoClose: 3000,
+      });
+      navigate("/login");
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
   };
 
   return (
