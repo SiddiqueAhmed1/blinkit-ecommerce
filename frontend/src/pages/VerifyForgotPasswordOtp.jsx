@@ -25,8 +25,6 @@ const VerifyForgotPasswordOtp = () => {
   const otpSubmit = async (e) => {
     e.preventDefault();
 
-    console.log("location.state:", location.state); // check email exists
-
     try {
       const response = await axios.put(
         `${baseUrl}/api/v1/verifyForgotPasswordOtp`,
@@ -35,8 +33,6 @@ const VerifyForgotPasswordOtp = () => {
           email: location?.state?.email,
         }
       );
-
-      console.log("Server Response:", response.data);
 
       toast.success("OTP verification done", {
         position: "top-center",

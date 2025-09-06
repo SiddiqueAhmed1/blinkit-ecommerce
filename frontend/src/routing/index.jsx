@@ -13,6 +13,9 @@ import Profile from "../pages/Profile";
 import MyOrders from "../pages/MyOrders";
 import Address from "../pages/Address";
 import UserMenuMobile from "../Components/UserMenuMobile";
+import Category from "../pages/Category";
+import SubCategory from "../pages/SubCategory";
+import Product from "../pages/Product";
 
 const browserRouter = createBrowserRouter([
   {
@@ -74,6 +77,18 @@ const browserRouter = createBrowserRouter([
           {
             path: "address",
             element: <Address />,
+          },
+          {
+            path: "category",
+            element: <Category />,
+          },
+          {
+            path: "sub-category",
+            element: <SubCategory />,
+          },
+          {
+            path: "product",
+            element: <Product />,
           },
         ],
       },
