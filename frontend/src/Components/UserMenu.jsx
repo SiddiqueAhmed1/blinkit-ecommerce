@@ -33,20 +33,25 @@ const UserMenu = () => {
 
         <Divider />
         <div className="grid gap-2 text-[17px] ml-2 border-r-neutral-400">
-          <Link className="hover:bg-amber-300 p-1" to="/dashboard/myorders">
-            {" "}
+          <Link className="hover:bg-amber-300 p-1" to="/dashboard/category">
             Category
           </Link>
-          <Link className="hover:bg-amber-300 p-1" to="/dashboard/myorders">
-            {" "}
+          <Link className="hover:bg-amber-300 p-1" to="/dashboard/sub-category">
             Sub Category
           </Link>
+          <Link
+            className="hover:bg-amber-300 p-1"
+            to="/dashboard/upload-product"
+          >
+            Upload Product
+          </Link>
+          <Link className="hover:bg-amber-300 p-1" to="/dashboard/product">
+            Product
+          </Link>
           <Link className="hover:bg-amber-300 p-1" to="/dashboard/myorders">
-            {" "}
             My Orders
           </Link>
           <Link className="hover:bg-amber-300 p-1" to={"/dashboard/address"}>
-            {" "}
             Save Adress
           </Link>
           <Link className="hover:bg-amber-300 p-1" onClick={handleLogOut}>

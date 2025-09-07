@@ -1,5 +1,4 @@
 import axios from "axios";
-import { toast } from "react-toastify";
 
 const fetchUserDetails = async () => {
   try {
@@ -8,7 +7,7 @@ const fetchUserDetails = async () => {
     );
     return response.data;
   } catch (error) {
-    toast.error(error.response.data.message);
+    console.log("fetching error", error.error.data.message);
   }
 };
 

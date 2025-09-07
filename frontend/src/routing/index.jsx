@@ -16,6 +16,7 @@ import UserMenuMobile from "../Components/UserMenuMobile";
 import Category from "../pages/Category";
 import SubCategory from "../pages/SubCategory";
 import Product from "../pages/Product";
+import UploadProduct from "../pages/UploadProduct";
 
 const browserRouter = createBrowserRouter([
   {
@@ -89,6 +90,10 @@ const browserRouter = createBrowserRouter([
           {
             path: "product",
             element: <Product />,
+          },
+          {
+            path: "upload-product",
+            element: <UploadProduct />,
           },
         ],
       },
