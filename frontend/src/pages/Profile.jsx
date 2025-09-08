@@ -84,7 +84,7 @@ const Profile = () => {
 
           <button
             onClick={() => setOpenUserAvatarModal((prev) => !prev)}
-            className="bg-amber-300 py-2 px-5 my-4 inline-block cursor-pointer mx-auto"
+            className="bg-amber-300 py-2 px-5 my-4 inline-block cursor-pointer"
           >
             Change profile
           </button>

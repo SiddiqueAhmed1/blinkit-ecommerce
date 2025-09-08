@@ -31,9 +31,35 @@ const UserMenuMobile = () => {
 
           <Divider />
           <div className="grid gap-2 text-[17px] ">
-            <Link to="/dashboard/myorders"> My Orders</Link>
-            <Link to={"/dashboard/address"}> Save Adress</Link>
-            <Link onClick={handleLogOut}>Log Out</Link>
+            <Link className="hover:bg-amber-300 p-1" to="/dashboard/category">
+              Category
+            </Link>
+            <Link
+              className="hover:bg-amber-300 p-1"
+              to="/dashboard/sub-category"
+            >
+              Sub Category
+            </Link>
+            <Link
+              className="hover:bg-amber-300 p-1"
+              to="/dashboard/upload-product"
+            >
+              Upload Product
+            </Link>
+            <Link className="hover:bg-amber-300 p-1" to="/dashboard/product">
+              Product
+            </Link>
+            <Link className="p-1" to="/dashboard/myorders">
+              {" "}
+              My Orders
+            </Link>
+            <Link className="p-1" to={"/dashboard/address"}>
+              {" "}
+              Save Adress
+            </Link>
+            <Link className="p-1" onClick={handleLogOut}>
+              Log Out
+            </Link>
           </div>
         </div>
       </div>

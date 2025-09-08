@@ -20,7 +20,7 @@ const UserMenu = () => {
     <>
       {/* user menu for desktop */}
       <div
-        className={`text-[17px] bg-white p-4 hidden lg:block xl:block      
+        className={`text-[17px] bg-white p-4 hidden lg:block xl:block   
         `}
       >
         <h5 className="font-semibold mb-1">My Account</h5>
@@ -32,7 +32,7 @@ const UserMenu = () => {
         </div>
 
         <Divider />
-        <div className="grid gap-2 text-[17px] ml-2 border-r-neutral-400">
+        <div className="grid gap-2 text-[17px] ml-2 ">
           <Link className="hover:bg-amber-300 p-1" to="/dashboard/category">
             Category
           </Link>
