@@ -3,6 +3,7 @@ import Search from "./Search";
 import { Link, useLocation } from "react-router-dom";
 import { FaRegUserCircle } from "react-icons/fa";
 import logo from "../../public/images/Capture-removebg-preview.png";
+import blinkLogo from "../../public/images/Blinkit_idCmcpCDCZ_1.png";
 import { useSelector } from "react-redux";
 import { MdArrowDropDown, MdOutlineArrowDropUp } from "react-icons/md";
 import UserMenu from "./UserMenu";
@@ -28,8 +29,8 @@ const Header = () => {
           <div className="lg:w-[25%]">
             <Link to={"/"} className="inline-block">
               <img
-                className="h-full lg:w-40 w-28 sm:w-32 md:w-36 object-contain"
-                src={logo}
+                className="h-full lg:w-36 w-28 sm:w-32 md:w-36 object-contain"
+                src={blinkLogo}
                 alt="Logo"
               />
             </Link>
