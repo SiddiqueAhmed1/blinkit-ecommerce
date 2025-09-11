@@ -9,8 +9,8 @@ const UserMenu = () => {
   const handleLogOut = useLogout();
 
   const handleShortName = (name) => {
-    if (name.length > 12) {
-      return name.slice(0, 12) + "...";
+    if (name.length > 14) {
+      return name.slice(0, 14) + "...";
     } else {
       return name;
     }
@@ -20,7 +20,7 @@ const UserMenu = () => {
     <>
       {/* user menu for desktop */}
       <div
-        className={`text-[17px] bg-white p-4 hidden lg:block xl:block   
+        className={`text-[17px] bg-white hidden p-4 lg:block xl:block   
         `}
       >
         <h5 className="font-semibold mb-1">My Account</h5>
