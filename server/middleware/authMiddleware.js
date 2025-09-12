@@ -21,3 +21,5 @@ export const authMiddleware = async (req, res, next) => {
     return res.status(500).json({ message: error.message, error });
   }
 };
+
+export default authMiddleware;

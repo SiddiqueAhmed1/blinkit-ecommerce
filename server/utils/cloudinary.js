@@ -10,7 +10,6 @@ cloudinary.v2.config({
 
 // Function to upload file to Cloudinary
 export const fileUploadCloudinary = (image, folder) => {
-  console.log("Starting Cloudinary upload...");
   return new Promise((resolve, reject) => {
     const uploadStream = cloudinary.v2.uploader.upload_stream(
       { folder: folder },
@@ -25,7 +24,6 @@ export const fileUploadCloudinary = (image, folder) => {
 
     // Convert buffer to stream and pipe it to Cloudinary
     try {
-      console.log("Piping file buffer to Cloudinary...");
       streamifier.createReadStream(image.buffer).pipe(uploadStream);
     } catch (streamError) {
       console.error("Error while piping file to Cloudinary:", streamError);

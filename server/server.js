@@ -4,6 +4,7 @@ import mongoDb from "../server/config/mongoDB.js";
 import userRouter from "./routing/userRouter.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
+import uploadImageRouter from "./routing/uploadImageRouter.js";
 
 // dotenv config
 dotenv.config();
@@ -21,6 +22,7 @@ const port = process.env.PORT;
 
 // app router
 app.use("/api/v1", userRouter);
+app.use("/uploads", uploadImageRouter);
 
 // server listen
 app.listen(port, () => {
