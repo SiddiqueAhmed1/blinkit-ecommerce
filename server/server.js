@@ -5,6 +5,7 @@ import userRouter from "./routing/userRouter.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import uploadImageRouter from "./routing/uploadImageRouter.js";
+import categoryRouter from "./routing/categoryRouter.js";
 
 // dotenv config
 dotenv.config();
@@ -23,6 +24,7 @@ const port = process.env.PORT;
 // app router
 app.use("/api/v1", userRouter);
 app.use("/uploads", uploadImageRouter);
+app.use("/category", categoryRouter);
 
 // server listen
 app.listen(port, () => {

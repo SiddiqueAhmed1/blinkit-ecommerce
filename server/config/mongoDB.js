@@ -1,4 +1,4 @@
-import colors from "colors"; // should be 'colors', not 'color'
+import colors from "colors";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 
@@ -10,7 +10,7 @@ const mongoDb = async () => {
     console.log("MongoDB connection successful".bgGreen.black);
   } catch (error) {
     console.log("MongoDB connection failed".bgRed.black);
-    console.error(error.message.red);
+    console.error(error.message);
   }
 };
 
