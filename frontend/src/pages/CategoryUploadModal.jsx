@@ -2,6 +2,7 @@ import { useState } from "react";
 import { MdClose } from "react-icons/md";
 import { toast } from "react-toastify";
 import uploadImage from "../common/uploadImage";
+import axios from "axios";
 
 const CategoryUploadModal = ({ close }) => {
   const [loader, setLoader] = useState(false);
@@ -13,6 +14,25 @@ const CategoryUploadModal = ({ close }) => {
   // handle form submition
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    try {
+      setLoader(true);
+      const response = await axios.post(
+        "http://localhost:5050/category/add-category",
+        data
+      );
+
+      if (response.data.success) {
+        toast.success(response.data.message, {
+          position: "top-center",
+        });
+        close();
+      }
+    } catch (error) {
+      toast.error(error.response.data.message);
+    } finally {
+      setLoader(false);
+    }
   };
 
   // handle input field
@@ -116,7 +136,7 @@ const CategoryUploadModal = ({ close }) => {
               type="submit"
               className="bg-amber-400 px-4 py-2 rounded font-semibold cursor-pointer"
             >
-              Upload Category
+              {loader ? "Uploading..." : "Upload Category"}
             </button>
           </form>
         </div>

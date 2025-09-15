@@ -8,7 +8,7 @@ const addCategoryController = async (req, res) => {
     const categoryUpload = await categoryModel.findByIdAndUpdate(
       id,
       {
-        categoryName,
+        name: categoryName,
         image,
       },
       { new: true }
