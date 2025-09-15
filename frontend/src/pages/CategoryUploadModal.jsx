@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import uploadImage from "../common/uploadImage";
 import axios from "axios";
 
-const CategoryUploadModal = ({ close }) => {
+const CategoryUploadModal = ({ close, fetchCategory }) => {
   const [loader, setLoader] = useState(false);
   const [data, setData] = useState({
     categoryName: "",
@@ -14,6 +14,12 @@ const CategoryUploadModal = ({ close }) => {
   // handle form submition
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!data.categoryName || !data.image) {
+      return toast.error("All fields are required", {
+        position: "top-center",
+      });
+    }
 
     try {
       setLoader(true);
@@ -27,6 +33,7 @@ const CategoryUploadModal = ({ close }) => {
           position: "top-center",
         });
         close();
+        fetchCategory();
       }
     } catch (error) {
       toast.error(error.response.data.message);
@@ -57,9 +64,10 @@ const CategoryUploadModal = ({ close }) => {
       const upload = await uploadImage(file);
 
       if (upload) {
-        setData({
+        setData((prevState) => ({
+          ...prevState,
           image: upload,
-        });
+        }));
         toast.success("Image uploaded successfull", {
           position: "top-center",
         });
