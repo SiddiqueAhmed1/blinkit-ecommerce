@@ -51,19 +51,24 @@ const Category = () => {
             close={() => setOpenCategoryModal(false)}
           />
         )}
-
-        {categoryStore.map((item, index) => {
-          return (
-            <>
-              <div key={index} className="grid grid-cols-6 ">
-                <div>
-                  <img src={item.image} alt="" />
-                  <h1>{item.name}</h1>
+        <div className="my-5 grid grid-cols-6">
+          {categoryStore.map((item, index) => {
+            return (
+              <>
+                <div
+                  key={index}
+                  className="w-32 h-48 bg-red-500 shadow-lg rounded"
+                >
+                  <img
+                    className="w-32 object-scale-down"
+                    src={item.image}
+                    alt=""
+                  />
                 </div>
-              </div>
-            </>
-          );
-        })}
+              </>
+            );
+          })}
+        </div>
       </section>
     </>
   );
