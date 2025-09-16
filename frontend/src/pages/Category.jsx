@@ -51,19 +51,15 @@ const Category = () => {
             close={() => setOpenCategoryModal(false)}
           />
         )}
-        <div className="my-5 grid grid-cols-6">
+        <div className=" min-[375px]:grid-cols-2 min-[500px]:grid-cols-3 text-center my-5 grid grid-cols-3 sm:grid-cols-4 xl:grid-cols-6 lg:grid-cols-5 md:grid-cols-4">
           {categoryStore.map((item, index) => {
             return (
               <>
                 <div
                   key={index}
-                  className="w-32 h-48 bg-red-500 shadow-lg rounded"
+                  className="w-36 shadow-md rounded mb-5 border-b-4 border-red-500 hover:shadow-lg transition"
                 >
-                  <img
-                    className="w-32 object-scale-down"
-                    src={item.image}
-                    alt=""
-                  />
+                  <img className="w-36" src={item.image} alt="" />
                 </div>
               </>
             );

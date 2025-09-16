@@ -23,7 +23,7 @@ const Header = () => {
   return (
     <>
       <header className="sticky top-0 w-full shadow py-3 bg-white z-40">
-        <div className="max-w-[1600px] w-full mx-auto flex justify-between items-center px-4 lg:px-8">
+        <div className="max-w-[1600px]  w-full mx-auto flex justify-between items-center px-4 lg:px-8">
           {/* Logo */}
           <div className="lg:w-[15%]">
             <Link to={"/"} className="inline-block">
