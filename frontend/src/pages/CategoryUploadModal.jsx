@@ -5,7 +5,9 @@ import uploadImage from "../common/uploadImage";
 import axios from "axios";
 
 const CategoryUploadModal = ({ close, fetchCategory }) => {
-  const [loader, setLoader] = useState(false);
+  const [imgLoader, setImgLoader] = useState(false);
+  const [categoryUploadLoader, setCategoryUploadLoader] = useState(false);
+
   const [data, setData] = useState({
     categoryName: "",
     image: "",
@@ -22,7 +24,7 @@ const CategoryUploadModal = ({ close, fetchCategory }) => {
     }
 
     try {
-      setLoader(true);
+      setCategoryUploadLoader(true);
       const response = await axios.post(
         "http://localhost:5050/category/add-category",
         data
@@ -38,7 +40,7 @@ const CategoryUploadModal = ({ close, fetchCategory }) => {
     } catch (error) {
       toast.error(error.response.data.message);
     } finally {
-      setLoader(false);
+      setCategoryUploadLoader(false);
     }
   };
 
@@ -53,14 +55,14 @@ const CategoryUploadModal = ({ close, fetchCategory }) => {
   };
 
   // image upload handler
-  const handleCategoryUpload = async (e) => {
+  const handleCategoryImgUpload = async (e) => {
     try {
       const file = e.target.files[0];
 
       if (!file) {
         return;
       }
-      setLoader(true);
+      setImgLoader(true);
       const upload = await uploadImage(file);
 
       if (upload) {
@@ -75,7 +77,7 @@ const CategoryUploadModal = ({ close, fetchCategory }) => {
     } catch (error) {
       toast.error(error.message);
     } finally {
-      setLoader(false);
+      setImgLoader(false);
     }
   };
 
@@ -124,14 +126,14 @@ const CategoryUploadModal = ({ close, fetchCategory }) => {
                         : "bg-amber-300 hover:bg-amber-400 cursor-pointer"
                     } border-amber-300 border px-3 py-2    rounded`}
                   >
-                    {loader && data.categoryName
+                    {imgLoader && data.categoryName
                       ? "Uploading..."
                       : data.image && data
                       ? "Change image"
                       : "Upload image"}
                   </div>
                   <input
-                    onChange={handleCategoryUpload}
+                    onChange={handleCategoryImgUpload}
                     disabled={!data.categoryName}
                     type="file"
                     id="categoryImageUpload"
@@ -144,7 +146,7 @@ const CategoryUploadModal = ({ close, fetchCategory }) => {
               type="submit"
               className="bg-amber-400 px-4 py-2 rounded font-semibold cursor-pointer"
             >
-              {loader ? "Uploading..." : "Upload Category"}
+              {categoryUploadLoader ? "Uploading..." : "Upload Category"}
             </button>
           </form>
         </div>

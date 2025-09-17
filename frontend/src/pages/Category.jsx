@@ -15,7 +15,6 @@ const Category = () => {
       const response = await axios.get(
         "http://localhost:5050/category/get-category"
       );
-      console.log("eita category page", response);
 
       if (response?.data?.success) {
         setCategoryStore(() => [...response.data.data]);
