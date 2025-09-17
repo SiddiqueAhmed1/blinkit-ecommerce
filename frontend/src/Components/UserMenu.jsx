@@ -20,43 +20,50 @@ const UserMenu = () => {
     <>
       {/* user menu for desktop */}
       <div
-        className={`text-[17px] bg-white hidden p-4 lg:block xl:block   
+        className={`text-[17px] bg-white hidden lg:block xl:block   
         `}
       >
-        <h5 className="font-semibold mb-1">My Account</h5>
-        <div className="flex items-center gap-1">
-          <p>{handleShortName(user.name)}</p>
-          <Link to={"/dashboard/profile"}>
-            <IoNavigateCircleOutline color="#FFD230" size={20} />
-          </Link>
-        </div>
+        <div className="">
+          <div className="px-4">
+            <h5 className="font-semibold mb-1">My Account</h5>
+            <div className="flex items-center gap-1">
+              <p>{handleShortName(user.name)}</p>
+              <Link to={"/dashboard/profile"}>
+                <IoNavigateCircleOutline color="#FFD230" size={20} />
+              </Link>
+            </div>
+          </div>
 
-        <Divider />
-        <div className="grid gap-2 text-[17px] ml-2 ">
-          <Link className="hover:bg-amber-300 p-1" to="/dashboard/category">
-            Category
-          </Link>
-          <Link className="hover:bg-amber-300 p-1" to="/dashboard/sub-category">
-            Sub Category
-          </Link>
-          <Link
-            className="hover:bg-amber-300 p-1"
-            to="/dashboard/upload-product"
-          >
-            Upload Product
-          </Link>
-          <Link className="hover:bg-amber-300 p-1" to="/dashboard/product">
-            Product
-          </Link>
-          <Link className="hover:bg-amber-300 p-1" to="/dashboard/myorders">
-            My Orders
-          </Link>
-          <Link className="hover:bg-amber-300 p-1" to={"/dashboard/address"}>
-            Save Adress
-          </Link>
-          <Link className="hover:bg-amber-300 p-1" onClick={handleLogOut}>
-            Log Out
-          </Link>
+          <Divider />
+          <div className="grid gap-1 text-[17px] ml-2 px-2 pb-4">
+            <Link className="hover:bg-amber-300 p-1" to="/dashboard/category">
+              Category
+            </Link>
+            <Link
+              className="hover:bg-amber-300 p-1"
+              to="/dashboard/sub-category"
+            >
+              Sub Category
+            </Link>
+            <Link
+              className="hover:bg-amber-300 p-1"
+              to="/dashboard/upload-product"
+            >
+              Upload Product
+            </Link>
+            <Link className="hover:bg-amber-300 p-1" to="/dashboard/product">
+              Product
+            </Link>
+            <Link className="hover:bg-amber-300 p-1" to="/dashboard/myorders">
+              My Orders
+            </Link>
+            <Link className="hover:bg-amber-300 p-1" to={"/dashboard/address"}>
+              Save Adress
+            </Link>
+            <Link className="hover:bg-amber-300 p-1" onClick={handleLogOut}>
+              Log Out
+            </Link>
+          </div>
         </div>
       </div>
     </>
