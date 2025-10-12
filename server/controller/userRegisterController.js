@@ -45,7 +45,7 @@ const userRegister = async (req, res) => {
     // const verifyEmailUrl = `${process.env.FRONT_END}/verify_email?code=${user?._id}`;
 
     // // email send nodemailer
-    // transport.sendMail({
+    // transport.sendMail({c
     //   from: `<Blinkit>`,
     //   to: email,
     //   subject: "Blinkit Ecommrce App",
