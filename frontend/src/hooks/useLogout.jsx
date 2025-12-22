@@ -17,7 +17,7 @@ const useLogout = () => {
         dispatch(logout());
         localStorage.clear();
         navigate("/");
-        toast.info(response.data.message, {
+        toast.warning(response.data.message, {
           position: "top-center",
           autoClose: "3000",
         });
