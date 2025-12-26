@@ -4,29 +4,39 @@ import { toast } from "react-toastify";
 import uploadImage from "../common/uploadImage";
 import axios from "axios";
 
-const CategoryUploadModal = ({ close, fetchCategory }) => {
+const CategoryEditModal = ({
+  setEditCategoryModal,
+  editCategoryData,
+  fetchCategory,
+}) => {
   const [imgLoader, setImgLoader] = useState(false);
-  const [categoryUploadLoader, setCategoryUploadLoader] = useState(false);
+  const [categoryUpdateLoader, setCategoryUpdateLoader] = useState(false);
 
   const [data, setData] = useState({
-    categoryName: "",
-    image: "",
+    id: editCategoryData._id,
+    categoryName: editCategoryData.name,
+    image: editCategoryData.image,
   });
+
+  console.log("category", data);
 
   // handle form submition
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!data.categoryName || !data.image) {
-      return toast.error("All fields are required", {
+    if (
+      data.categoryName === editCategoryData.categoryName ||
+      data.image === editCategoryData.image
+    ) {
+      return toast.error("One or more fields value must be change", {
         position: "top-center",
       });
     }
 
     try {
-      setCategoryUploadLoader(true);
-      const response = await axios.post(
-        "http://localhost:5050/category/add-category",
+      setCategoryUpdateLoader(true);
+      const response = await axios.put(
+        "http://localhost:5050/category/update-category",
         data
       );
 
@@ -34,13 +44,13 @@ const CategoryUploadModal = ({ close, fetchCategory }) => {
         toast.success(response.data.message, {
           position: "top-center",
         });
-        close();
+        setEditCategoryModal(false);
         fetchCategory();
       }
     } catch (error) {
       toast.error(error.response.data.message);
     } finally {
-      setCategoryUploadLoader(false);
+      setCategoryUpdateLoader(false);
     }
   };
 
@@ -86,8 +96,11 @@ const CategoryUploadModal = ({ close, fetchCategory }) => {
       <section className="bg-neutral-800/60 absolute transition left-0 right-0 bottom-0 top-0 flex justify-center items-center ">
         <div className="bg-white md:w-[500px] w-[300px] sm:w-[380px] md:h-[400px] p-4 rounded">
           <div className="flex justify-between ">
-            <h1 className="text-lg font-semibold">Category</h1>
-            <button onClick={close} className="cursor-pointer">
+            <h1 className="text-lg font-semibold">Edit Category</h1>
+            <button
+              onClick={() => setEditCategoryModal(false)}
+              className="cursor-pointer"
+            >
               <MdClose size={26} />
             </button>
           </div>
@@ -146,7 +159,7 @@ const CategoryUploadModal = ({ close, fetchCategory }) => {
               type="submit"
               className="bg-amber-400 px-4 py-2 rounded font-semibold cursor-pointer"
             >
-              {categoryUploadLoader ? "Uploading..." : "Upload Category"}
+              {categoryUpdateLoader ? "Updating..." : "Update Category"}
             </button>
           </form>
         </div>
@@ -155,4 +168,4 @@ const CategoryUploadModal = ({ close, fetchCategory }) => {
   );
 };
 
-export default CategoryUploadModal;
+export default CategoryEditModal;

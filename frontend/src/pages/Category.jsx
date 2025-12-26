@@ -3,10 +3,16 @@ import CategoryUploadModal from "./CategoryUploadModal";
 import Loader from "../common/Loader";
 import axios from "axios";
 import notFound from "../../public/nothing here yet.webp";
+import CategoryEditModal from "../Components/CategoryEditModal";
 
 const Category = () => {
   const [openCategoryModal, setOpenCategoryModal] = useState(false);
   const [categoryStore, setCategoryStore] = useState([]);
+  const [editCategoryModal, setEditCategoryModal] = useState(false);
+  const [editCategoryData, setEditCategoryData] = useState({
+    categoryName: "",
+    image: "",
+  });
   const [loader, setLoader] = useState(false);
 
   const fetchCategory = async () => {
@@ -52,19 +58,43 @@ const Category = () => {
           />
         )}
         {categoryStore.length > 0 ? (
-          <div className="bg-neutral-50 p-4 min-[375px]:grid-cols-2 min-[500px]:grid-cols-3 text-center my-5 grid grid-cols-3 sm:grid-cols-4 xl:grid-cols-6 lg:grid-cols-5 md:grid-cols-4">
+          <div className="bg-neutral-50 p-4 min-[375px]:grid-cols-2 min-[500px]:grid-cols-3 text-center my-5 grid grid-cols-3 sm:grid-cols-4 xl:grid-cols-6 lg:grid-cols-5 md:grid-cols-4 gap-4">
             {categoryStore.map((item, index) => {
               return (
                 <>
                   <div
                     key={index}
-                    className="w-36 shadow-md rounded mb-5 border-b-4 border-red-500 hover:shadow-lg transition"
+                    className="w-full shadow-md rounded   p-3 hover:shadow-lg transition bg-white "
                   >
-                    <img className="w-36" src={item.image} alt="" />
+                    <img className="w-36 mx-auto" src={item.image} alt="" />
+                    <div className="flex justify-center gap-2 ">
+                      <button
+                        onClick={() => {
+                          setEditCategoryModal(true);
+                          setEditCategoryData(item);
+                        }}
+                        className="bg-green-200 hover:bg-green-300 px-4 py-2 border border-green-200 rounded-md cursor-pointer"
+                      >
+                        Edit
+                      </button>
+                      <button
+                        className="bg-red-200 hover:bg-red-300 px-4 py-2 border border-red-200 rounded-md 
+                      cursor-pointer"
+                      >
+                        Delete
+                      </button>
+                    </div>
                   </div>
                 </>
               );
             })}
+            {editCategoryModal && (
+              <CategoryEditModal
+                editCategoryData={editCategoryData}
+                setEditCategoryModal={setEditCategoryModal}
+                fetchCategory={fetchCategory}
+              />
+            )}
           </div>
         ) : (
           <div className="flex justify-center flex-col items-center gap-3">

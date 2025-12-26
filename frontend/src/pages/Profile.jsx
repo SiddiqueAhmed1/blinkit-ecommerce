@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { FaRegUserCircle } from "react-icons/fa";
 import axios from "axios";
 import { baseUrl } from "../common/SummaryApi";
-import { setUserDetails } from "../features/userSlice";
+import { updateUserDetails } from "../features/userSlice";
 import { toast } from "react-toastify";
 import fetchUserDetails from "../common/FetchUserDetails";
 
@@ -39,6 +39,16 @@ const Profile = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (
+      user.name === userData.name &&
+      user.email === userData.email &&
+      user.mobile === userData.mobile
+    ) {
+      return toast.error("Any one field value must be change", {
+        position: "top-center",
+      });
+    }
+
     try {
       setLoader(true);
       const response = await axios.put(
@@ -53,7 +63,7 @@ const Profile = () => {
           position: "top-center",
         });
         const getUserData = await fetchUserDetails();
-        dispatch(setUserDetails(getUserData.data));
+        dispatch(updateUserDetails(getUserData.data));
       }
     } catch (error) {
       toast.error(error.response.data.message, {

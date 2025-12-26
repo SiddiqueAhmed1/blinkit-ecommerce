@@ -34,7 +34,7 @@ const addCategoryController = async (req, res) => {
     const { categoryName, image } = req.body;
     const id = req.user.id;
 
-    const updateCategory = await categoryModel.create({
+    const addCategory = await categoryModel.create({
       name: categoryName,
       image,
     });
@@ -43,11 +43,29 @@ const addCategoryController = async (req, res) => {
       message: "Category uploaded done",
       success: true,
       error: false,
-      data: updateCategory,
+      data: addCategory,
     });
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
+};
+
+// update category
+export const updateCategoryController = async (req, res) => {
+  const { id, categoryName, image } = req.body;
+
+  const updateCategory = await categoryModel.findByIdAndUpdate(
+    id,
+    { name: categoryName, image },
+    { new: true }
+  );
+
+  res.status(200).json({
+    message: "Category updated successfully",
+    success: true,
+    error: false,
+    data: updateCategory,
+  });
 };
 
 export default addCategoryController;
