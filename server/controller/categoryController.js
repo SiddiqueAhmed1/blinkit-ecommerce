@@ -68,4 +68,11 @@ export const updateCategoryController = async (req, res) => {
   });
 };
 
+// delete category
+export const deleteCategoryController = async (req, res) => {
+  const { id } = req.body;
+
+  const deleteCategory = await categoryModel.findByIdAndDelete(id);
+};
+
 export default addCategoryController;

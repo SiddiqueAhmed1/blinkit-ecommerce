@@ -1,6 +1,7 @@
 import express from "express";
 import authMiddleware from "../middleware/authMiddleware.js";
 import addCategoryController, {
+  deleteCategoryController,
   getCategoryController,
   updateCategoryController,
 } from "../controller/categoryController.js";
@@ -13,6 +14,11 @@ categoryRouter.put(
   "/update-category",
   authMiddleware,
   updateCategoryController
+);
+categoryRouter.delete(
+  "/delete-category",
+  authMiddleware,
+  deleteCategoryController
 );
 
 export default categoryRouter;
