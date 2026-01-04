@@ -16,7 +16,7 @@ categoryRouter.put(
   updateCategoryController
 );
 categoryRouter.delete(
-  "/delete-category",
+  "/delete-category/:id",
   authMiddleware,
   deleteCategoryController
 );

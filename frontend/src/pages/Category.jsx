@@ -4,6 +4,7 @@ import Loader from "../common/Loader";
 import axios from "axios";
 import notFound from "../../public/nothing here yet.webp";
 import CategoryEditModal from "../Components/CategoryEditModal";
+import { baseUrl } from "../common/SummaryApi";
 
 const Category = () => {
   const [openCategoryModal, setOpenCategoryModal] = useState(false);
@@ -36,6 +37,21 @@ const Category = () => {
   useEffect(() => {
     fetchCategory();
   }, []);
+
+  // handle delete category
+  const handleCategoryDelete = async (id) => {
+    try {
+      const response = await axios.delete(
+        `${baseUrl}/category/delete-category/${id}`
+      );
+
+      if (response.data.success) {
+        console.log("category", response.data);
+      }
+    } catch (error) {
+      console.log("error category delete", error.message);
+    }
+  };
 
   return (
     <>
@@ -78,6 +94,7 @@ const Category = () => {
                         Edit
                       </button>
                       <button
+                        onClick={() => handleCategoryDelete(item._id)}
                         className="bg-red-200 hover:bg-red-300 px-4 py-2 border border-red-200 rounded-md 
                       cursor-pointer"
                       >
