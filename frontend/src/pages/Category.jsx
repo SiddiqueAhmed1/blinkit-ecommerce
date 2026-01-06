@@ -5,6 +5,7 @@ import axios from "axios";
 import notFound from "../../public/nothing here yet.webp";
 import CategoryEditModal from "../Components/CategoryEditModal";
 import { baseUrl } from "../common/SummaryApi";
+import { toast } from "react-toastify";
 
 const Category = () => {
   const [openCategoryModal, setOpenCategoryModal] = useState(false);
@@ -45,7 +46,9 @@ const Category = () => {
       );
 
       if (response.data.success) {
-        console.log("category", response.data);
+        toast.info(response.data.message, {
+          position: "top-center",
+        });
         fetchCategory();
       }
     } catch (error) {
