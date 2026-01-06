@@ -19,7 +19,6 @@ const Category = () => {
   const fetchCategory = async () => {
     try {
       setLoader(true);
-
       const response = await axios.get(
         "http://localhost:5050/category/get-category"
       );
@@ -47,6 +46,7 @@ const Category = () => {
 
       if (response.data.success) {
         console.log("category", response.data);
+        fetchCategory();
       }
     } catch (error) {
       console.log("error category delete", error.message);
