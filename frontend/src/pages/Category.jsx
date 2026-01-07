@@ -3,9 +3,8 @@ import CategoryUploadModal from "./CategoryUploadModal";
 import Loader from "../common/Loader";
 import axios from "axios";
 import notFound from "../../public/nothing here yet.webp";
-import CategoryEditModal from "../Components/CategoryEditModal";
 import { baseUrl } from "../common/SummaryApi";
-import { toast } from "react-toastify";
+import swal from "sweetalert2";
 
 const Category = () => {
   const [openCategoryModal, setOpenCategoryModal] = useState(false);
@@ -46,10 +45,26 @@ const Category = () => {
       );
 
       if (response.data.success) {
-        toast.info(response.data.message, {
-          position: "top-center",
-        });
-        fetchCategory();
+        swal
+          .fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!",
+          })
+          .then((result) => {
+            if (result.isConfirmed) {
+              swal.fire({
+                title: "Deleted!",
+                text: "Your file has been deleted.",
+                icon: "success",
+              });
+              fetchCategory();
+            }
+          });
       }
     } catch (error) {
       console.log("error category delete", error.message);
