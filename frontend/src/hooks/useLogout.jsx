@@ -19,7 +19,7 @@ const useLogout = () => {
         navigate("/");
         toast.warning(response.data.message, {
           position: "top-center",
-          autoClose: "3000",
+          autoClose: "2000",
         });
       }
     } catch (error) {

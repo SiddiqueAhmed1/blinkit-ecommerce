@@ -53,7 +53,6 @@ const userSlice = createSlice({
     },
     updateUserDetails: (state, action) => {
       [
-        ...state,
         (state.name = action.payload.name),
         (state.email = action.payload.email),
         (state.mobile = action.payload.mobile),

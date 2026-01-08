@@ -39,7 +39,7 @@ const Login = () => {
     if (!input.email || !input.password) {
       return toast.error("All fields are required!", {
         position: "top-center",
-        autoClose: 5000,
+        autoClose: 2000,
         hideProgressBar: false,
         closeOnClick: false,
         pauseOnHover: true,
@@ -60,7 +60,7 @@ const Login = () => {
 
       toast.success("Login successfully done", {
         position: "top-center",
-        autoClose: 5000,
+        autoClose: 2000,
         hideProgressBar: false,
         closeOnClick: false,
         pauseOnHover: true,
@@ -78,7 +78,7 @@ const Login = () => {
       if (!error.response.data.password) {
         return toast.error(error.response.data.message, {
           position: "top-center",
-          autoClose: 5000,
+          autoClose: 2000,
           hideProgressBar: false,
           closeOnClick: false,
           pauseOnHover: true,
@@ -91,7 +91,7 @@ const Login = () => {
       if (error.response.data.message === "Password is incorrect") {
         return toast.error(error.response.data.message, {
           position: "bottom-center",
-          autoClose: 5000,
+          autoClose: 2000,
           hideProgressBar: false,
           closeOnClick: false,
           pauseOnHover: true,
@@ -103,7 +103,7 @@ const Login = () => {
       if (error.response.data.message === "Invalid email address") {
         return toast.error(error.response.data.message, {
           position: "top-center",
-          autoClose: 5000,
+          autoClose: 2000,
           hideProgressBar: false,
           closeOnClick: false,
           pauseOnHover: true,

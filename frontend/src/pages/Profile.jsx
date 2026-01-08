@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { FaRegUserCircle } from "react-icons/fa";
 import axios from "axios";
 import { baseUrl } from "../common/SummaryApi";
-import { updateUserDetails } from "../features/userSlice";
+import { setUserDetails } from "../features/userSlice";
 import { toast } from "react-toastify";
 import fetchUserDetails from "../common/FetchUserDetails";
 
@@ -46,6 +46,7 @@ const Profile = () => {
     ) {
       return toast.error("Any one field value must be change", {
         position: "top-center",
+        delay: "2000",
       });
     }
 
@@ -63,7 +64,7 @@ const Profile = () => {
           position: "top-center",
         });
         const getUserData = await fetchUserDetails();
-        dispatch(updateUserDetails(getUserData.data));
+        dispatch(setUserDetails(getUserData.data));
       }
     } catch (error) {
       toast.error(error.response.data.message, {

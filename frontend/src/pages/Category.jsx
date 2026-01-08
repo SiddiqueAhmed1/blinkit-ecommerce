@@ -5,6 +5,7 @@ import axios from "axios";
 import notFound from "../../public/nothing here yet.webp";
 import { baseUrl } from "../common/SummaryApi";
 import swal from "sweetalert2";
+import CategoryEditModal from "../Components/CategoryEditModal";
 
 const Category = () => {
   const [openCategoryModal, setOpenCategoryModal] = useState(false);
@@ -14,6 +15,7 @@ const Category = () => {
     categoryName: "",
     image: "",
   });
+
   const [loader, setLoader] = useState(false);
 
   const fetchCategory = async () => {
@@ -40,32 +42,27 @@ const Category = () => {
   // handle delete category
   const handleCategoryDelete = async (id) => {
     try {
-      const response = await axios.delete(
-        `${baseUrl}/category/delete-category/${id}`
-      );
-
-      if (response.data.success) {
-        swal
-          .fire({
-            title: "Are you sure?",
-            text: "You won't be able to revert this!",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Yes, delete it!",
-          })
-          .then((result) => {
-            if (result.isConfirmed) {
-              swal.fire({
-                title: "Deleted!",
-                text: "Your file has been deleted.",
-                icon: "success",
-              });
-              fetchCategory();
-            }
-          });
-      }
+      swal
+        .fire({
+          title: "Are you sure?",
+          text: "You won't be able to revert this!",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Yes, delete it!",
+        })
+        .then((result) => {
+          if (result.isConfirmed) {
+            axios.delete(`${baseUrl}/category/delete-category/${id}`);
+            fetchCategory();
+            swal.fire({
+              title: "Deleted!",
+              text: "Your file has been deleted.",
+              icon: "success",
+            });
+          }
+        });
     } catch (error) {
       console.log("error category delete", error.message);
     }
@@ -93,7 +90,7 @@ const Category = () => {
         )}
         {categoryStore.length > 0 ? (
           <div className="bg-neutral-50 p-4 min-[375px]:grid-cols-2 min-[500px]:grid-cols-3 text-center my-5 grid grid-cols-3 sm:grid-cols-4 xl:grid-cols-6 lg:grid-cols-5 md:grid-cols-4 gap-4">
-            {categoryStore.map((item, index) => {
+            {categoryStore.reverse().map((item, index) => {
               return (
                 <>
                   <div
