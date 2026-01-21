@@ -18,8 +18,6 @@ const CategoryEditModal = ({
     image: editCategoryData.image,
   });
 
-  console.log("category", data);
-
   // handle form submition
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -30,6 +28,7 @@ const CategoryEditModal = ({
     ) {
       return toast.error("One or more fields value must be change", {
         position: "top-center",
+        autoClose: 2000,
       });
     }
 
@@ -37,18 +36,22 @@ const CategoryEditModal = ({
       setCategoryUpdateLoader(true);
       const response = await axios.put(
         "http://localhost:5050/category/update-category",
-        data
+        data,
       );
 
       if (response.data.success) {
         toast.success(response.data.message, {
           position: "top-center",
+          autoClose: 2000,
         });
         setEditCategoryModal(false);
         fetchCategory();
       }
     } catch (error) {
-      toast.error(error.response.data.message);
+      toast.error(error.response.data.message, {
+        position: "top-center",
+        autoClose: 2000,
+      });
     } finally {
       setCategoryUpdateLoader(false);
     }
@@ -82,10 +85,14 @@ const CategoryEditModal = ({
         }));
         toast.success("Image uploaded successfull", {
           position: "top-center",
+          autoClose: 2000,
         });
       }
     } catch (error) {
-      toast.error(error.message);
+      toast.error(error.message, {
+        position: "top-center",
+        autoClose: 2000,
+      });
     } finally {
       setImgLoader(false);
     }
@@ -142,8 +149,8 @@ const CategoryEditModal = ({
                     {imgLoader && data.categoryName
                       ? "Uploading..."
                       : data.image && data
-                      ? "Change image"
-                      : "Upload image"}
+                        ? "Change image"
+                        : "Upload image"}
                   </div>
                   <input
                     onChange={handleCategoryImgUpload}

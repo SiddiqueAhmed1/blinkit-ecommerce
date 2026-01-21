@@ -14,9 +14,9 @@ const Profile = () => {
   const [loader, setLoader] = useState(false);
   const [openUserAvatarModal, setOpenUserAvatarModal] = useState(false);
   const [userData, setUserData] = useState({
-    name: user.name,
-    email: user.email,
-    mobile: user.mobile,
+    name: user?.name || "",
+    email: user?.email || "",
+    mobile: user?.mobile || "",
   });
 
   //handleInput change
@@ -28,11 +28,13 @@ const Profile = () => {
   };
 
   useEffect(() => {
-    setUserData({
-      name: user.name,
-      email: user.email,
-      mobile: user.mobile,
-    });
+    if (user) {
+      setUserData({
+        name: user?.name || "",
+        email: user?.email || "",
+        mobile: user?.mobile || "",
+      });
+    }
   }, [user]);
 
   // form submit for user details
@@ -46,7 +48,7 @@ const Profile = () => {
     ) {
       return toast.error("Any one field value must be change", {
         position: "top-center",
-        delay: "2000",
+        autoClose: 2000,
       });
     }
 
@@ -54,7 +56,7 @@ const Profile = () => {
       setLoader(true);
       const response = await axios.put(
         `${baseUrl}/api/v1/update-user-details`,
-        userData
+        userData,
       );
 
       const { data: responseData } = response;
@@ -62,6 +64,7 @@ const Profile = () => {
       if (responseData.success) {
         toast.success("Updated successfully", {
           position: "top-center",
+          autoClose: 2000,
         });
         const getUserData = await fetchUserDetails();
         dispatch(setUserDetails(getUserData.data));
@@ -69,6 +72,7 @@ const Profile = () => {
     } catch (error) {
       toast.error(error.response.data.message, {
         position: "top-center",
+        autoClose: 2000,
       });
     } finally {
       setLoader(false);

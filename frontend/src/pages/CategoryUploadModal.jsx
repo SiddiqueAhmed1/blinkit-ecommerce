@@ -20,6 +20,7 @@ const CategoryUploadModal = ({ close, fetchCategory }) => {
     if (!data.categoryName || !data.image) {
       return toast.error("All fields are required", {
         position: "top-center",
+        autoClose: 2000,
       });
     }
 
@@ -33,6 +34,7 @@ const CategoryUploadModal = ({ close, fetchCategory }) => {
       if (response.data.success) {
         toast.success(response.data.message, {
           position: "top-center",
+          autoClose: 2000,
         });
         close();
         fetchCategory();
@@ -72,6 +74,7 @@ const CategoryUploadModal = ({ close, fetchCategory }) => {
         }));
         toast.success("Image uploaded successfull", {
           position: "top-center",
+          autoClose: 2000,
         });
       }
     } catch (error) {

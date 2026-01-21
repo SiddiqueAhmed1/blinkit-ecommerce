@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import CategoryUploadModal from "./CategoryUploadModal";
-import Loader from "../common/Loader";
 import axios from "axios";
 import notFound from "../../public/nothing here yet.webp";
 import { baseUrl } from "../common/SummaryApi";
 import swal from "sweetalert2";
 import CategoryEditModal from "../Components/CategoryEditModal";
+import Loader from "../common/Loader";
 
 const Category = () => {
   const [openCategoryModal, setOpenCategoryModal] = useState(false);
@@ -22,7 +22,7 @@ const Category = () => {
     try {
       setLoader(true);
       const response = await axios.get(
-        "http://localhost:5050/category/get-category"
+        "http://localhost:5050/category/get-category",
       );
 
       if (response?.data?.success) {
@@ -40,7 +40,7 @@ const Category = () => {
   }, []);
 
   // handle delete category
-  const handleCategoryDelete = async (id) => {
+  const handleCategoryDelete = (id) => {
     try {
       swal
         .fire({
@@ -52,15 +52,19 @@ const Category = () => {
           cancelButtonColor: "#d33",
           confirmButtonText: "Yes, delete it!",
         })
-        .then((result) => {
-          if (result.isConfirmed) {
-            axios.delete(`${baseUrl}/category/delete-category/${id}`);
-            fetchCategory();
-            swal.fire({
-              title: "Deleted!",
-              text: "Your file has been deleted.",
-              icon: "success",
-            });
+        .then(async (result) => {
+          try {
+            if (result.isConfirmed) {
+              await axios.delete(`${baseUrl}/category/delete-category/${id}`);
+              await fetchCategory();
+              await swal.fire({
+                title: "Deleted!",
+                text: "Your file has been deleted.",
+                icon: "success",
+              });
+            }
+          } catch (error) {
+            console.log(error);
           }
         });
     } catch (error) {
@@ -90,11 +94,11 @@ const Category = () => {
         )}
         {categoryStore.length > 0 ? (
           <div className="bg-neutral-50 p-4 min-[375px]:grid-cols-2 min-[500px]:grid-cols-3 text-center my-5 grid grid-cols-3 sm:grid-cols-4 xl:grid-cols-6 lg:grid-cols-5 md:grid-cols-4 gap-4">
-            {categoryStore.reverse().map((item, index) => {
+            {categoryStore.map((item) => {
               return (
                 <>
                   <div
-                    key={index}
+                    key={item._id}
                     className="w-full shadow-md rounded   p-3 hover:shadow-lg transition bg-white "
                   >
                     <img className="w-36 mx-auto" src={item.image} alt="" />
