@@ -19,9 +19,12 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(
   cors({
-    origin: process.env.FRONT_END,
+    origin: [
+      "http://localhost:5173",
+      "https://blinkit-ecommerce-application.vercel.app",
+    ],
     credentials: true,
-  })
+  }),
 );
 
 const port = process.env.PORT;

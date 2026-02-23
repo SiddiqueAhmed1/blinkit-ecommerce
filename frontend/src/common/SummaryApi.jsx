@@ -1,10 +1,4 @@
-const environment = "production";
-
-export const baseUrl = `${
-  environment === "development"
-    ? "http://localhost:5050"
-    : "https://blinkit-ecommerce-1a4v.onrender.com"
-}`;
+export const baseUrl = "https://blinkit-ecommerce-1a4v.onrender.com";
 
 const SummaryAPi = {
   register: {

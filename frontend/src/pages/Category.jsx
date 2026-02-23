@@ -21,9 +21,7 @@ const Category = () => {
   const fetchCategory = async () => {
     try {
       setLoader(true);
-      const response = await axios.get(
-        "http://localhost:5050/category/get-category",
-      );
+      const response = await axios.get(`${baseUrl}/category/get-category`);
 
       if (response?.data?.success) {
         setCategoryStore(() => [...response.data.data]);
