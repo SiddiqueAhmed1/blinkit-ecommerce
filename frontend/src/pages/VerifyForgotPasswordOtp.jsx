@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useLocation, useNavigate } from "react-router-dom";
-import { baseUrl } from "../common/SummaryApi";
 
 const VerifyForgotPasswordOtp = () => {
   const inputRef = useRef([]);
@@ -27,11 +26,11 @@ const VerifyForgotPasswordOtp = () => {
 
     try {
       const response = await axios.put(
-        `${baseUrl}/api/v1/verifyForgotPasswordOtp`,
+        `${import.meta.env.VITE_API_URL}/api/v1/verifyForgotPasswordOtp`,
         {
           otp: data.join(""),
           email: location?.state?.email,
-        }
+        },
       );
 
       toast.success("OTP verification done", {

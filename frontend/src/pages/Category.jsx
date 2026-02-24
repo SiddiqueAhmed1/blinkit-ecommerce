@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import CategoryUploadModal from "./CategoryUploadModal";
 import axios from "axios";
 import notFound from "../../public/nothing here yet.webp";
-import { baseUrl } from "../common/SummaryApi";
 import swal from "sweetalert2";
 import CategoryEditModal from "../Components/CategoryEditModal";
 import Loader from "../common/Loader";
@@ -21,7 +20,9 @@ const Category = () => {
   const fetchCategory = async () => {
     try {
       setLoader(true);
-      const response = await axios.get(`${baseUrl}/category/get-category`);
+      const response = await axios.get(
+        `${import.meta.env.VITE_API_URL}/category/get-category`,
+      );
 
       if (response?.data?.success) {
         setCategoryStore(() => [...response.data.data]);
@@ -53,7 +54,9 @@ const Category = () => {
         .then(async (result) => {
           try {
             if (result.isConfirmed) {
-              await axios.delete(`${baseUrl}/category/delete-category/${id}`);
+              await axios.delete(
+                `${import.meta.env.VITE_API_URL}/category/delete-category/${id}`,
+              );
               await fetchCategory();
               await swal.fire({
                 title: "Deleted!",

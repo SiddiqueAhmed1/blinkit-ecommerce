@@ -3,7 +3,6 @@ import { IoEye, IoEyeOff } from "react-icons/io5";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-import { baseUrl } from "../common/SummaryApi";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -51,7 +50,9 @@ const Register = () => {
     }
 
     // get all user
-    const allUser = (await axios.get(`${baseUrl}/api/v1/user`)).data;
+    const allUser = (
+      await axios.get(`${import.meta.env.VITE_API_URL}/api/v1/user`)
+    ).data;
 
     //check exist
     const existUser = allUser.find((user) => user.email === input.email);
@@ -64,7 +65,10 @@ const Register = () => {
     }
 
     try {
-      await axios.post(`${baseUrl}/api/v1/register`, input);
+      await axios.post(
+        `${import.meta.env.VITE_API_URL}/api/v1/register`,
+        input,
+      );
       setInput({
         name: "",
         email: "",

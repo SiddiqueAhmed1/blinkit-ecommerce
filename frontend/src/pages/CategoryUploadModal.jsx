@@ -27,8 +27,8 @@ const CategoryUploadModal = ({ close, fetchCategory }) => {
     try {
       setCategoryUploadLoader(true);
       const response = await axios.post(
-        "http://localhost:5050/category/add-category",
-        data
+        `${import.meta.env.VITE_API_URL}/category/add-category`,
+        data,
       );
 
       if (response.data.success) {
@@ -132,8 +132,8 @@ const CategoryUploadModal = ({ close, fetchCategory }) => {
                     {imgLoader && data.categoryName
                       ? "Uploading..."
                       : data.image && data
-                      ? "Change image"
-                      : "Upload image"}
+                        ? "Change image"
+                        : "Upload image"}
                   </div>
                   <input
                     onChange={handleCategoryImgUpload}

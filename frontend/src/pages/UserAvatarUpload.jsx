@@ -26,8 +26,8 @@ const UserAvatarUpload = ({ close }) => {
     try {
       setLoader(true);
       const response = await axios.put(
-        "http://localhost:5050/api/v1/avatar",
-        formdata
+        `${import.meta.env.VITE_API_URL}/api/v1/avatar`,
+        formdata,
       );
       dispatch(uploadAvatar(response.data.avatar));
       close();

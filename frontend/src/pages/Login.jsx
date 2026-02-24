@@ -3,7 +3,6 @@ import { IoEye, IoEyeOff } from "react-icons/io5";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { baseUrl } from "../common/SummaryApi";
 import fetchUserDetails from "../common/FetchUserDetails";
 import { useDispatch } from "react-redux";
 import { setUserDetails } from "../features/userSlice";
@@ -50,8 +49,9 @@ const Login = () => {
     }
 
     try {
-      const response = (await axios.post(`${baseUrl}/api/v1/login`, input))
-        .data;
+      const response = (
+        await axios.post(`${import.meta.env.VITE_API_URL}/api/v1/login`, input)
+      ).data;
 
       setInput({
         email: "",

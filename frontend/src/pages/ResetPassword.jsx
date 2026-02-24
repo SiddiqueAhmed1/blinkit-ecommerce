@@ -3,7 +3,6 @@ import { IoEye, IoEyeOff } from "react-icons/io5";
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { baseUrl } from "../common/SummaryApi";
 
 const ResetPassword = () => {
   const navigate = useNavigate();
@@ -75,10 +74,13 @@ const ResetPassword = () => {
     }
 
     try {
-      const response = await axios.put(`${baseUrl}/api/v1/resetPassword`, {
-        ...input,
-        email: location?.state?.email,
-      });
+      const response = await axios.put(
+        `${import.meta.env.VITE_API_URL}/api/v1/resetPassword`,
+        {
+          ...input,
+          email: location?.state?.email,
+        },
+      );
 
       console.log("data", response);
 

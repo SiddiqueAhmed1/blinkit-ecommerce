@@ -3,7 +3,6 @@ import UserAvatarUpload from "./UserAvatarUpload";
 import { useDispatch, useSelector } from "react-redux";
 import { FaRegUserCircle } from "react-icons/fa";
 import axios from "axios";
-import { baseUrl } from "../common/SummaryApi";
 import { setUserDetails } from "../features/userSlice";
 import { toast } from "react-toastify";
 import fetchUserDetails from "../common/FetchUserDetails";
@@ -55,7 +54,7 @@ const Profile = () => {
     try {
       setLoader(true);
       const response = await axios.put(
-        `${baseUrl}/api/v1/update-user-details`,
+        `${import.meta.env.VITE_API_URL}/api/v1/update-user-details`,
         userData,
       );
 
