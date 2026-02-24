@@ -11,7 +11,9 @@ const useLogout = () => {
   // handle the logout functionality
   const handleLogOut = async () => {
     try {
-      const response = await axios.get("http://localhost:5050/api/v1/logout");
+      const response = await axios.get(
+        `${import.meta.env.VITE_API_URL}/api/v1/logout`,
+      );
 
       if (response.data.success) {
         dispatch(logout());

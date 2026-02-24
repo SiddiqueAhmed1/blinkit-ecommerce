@@ -120,7 +120,7 @@ export const userLogout = async (req, res) => {
 
     const coockieOptions = {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
+      secure: true,
       sameSite: "None",
     };
 
