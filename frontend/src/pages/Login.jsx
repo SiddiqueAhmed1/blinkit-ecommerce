@@ -75,8 +75,8 @@ const Login = () => {
       const user = await fetchUserDetails();
       dispatch(setUserDetails(user.data));
     } catch (error) {
-      if (!error.response.data.password) {
-        return toast.error(error.response.data.message, {
+      if (!error?.response?.data?.password) {
+        return toast.error(error?.response?.message || error.message, {
           position: "top-center",
           autoClose: 2000,
           hideProgressBar: false,
@@ -89,7 +89,9 @@ const Login = () => {
       }
 
       if (error.response.data.message === "Password is incorrect") {
-        return toast.error(error.response.data.message, {
+        console.log("error ta ki", error.message);
+
+        return toast.error(error?.response?.message || error.message, {
           position: "bottom-center",
           autoClose: 2000,
           hideProgressBar: false,
