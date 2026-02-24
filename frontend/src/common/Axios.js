@@ -1,5 +1,7 @@
 import axios from "axios";
 
+axios.defaults.withCredentials = true;
+
 // 1. Send accessToken in request
 axios.interceptors.request.use(
   (config) => {
@@ -9,7 +11,7 @@ axios.interceptors.request.use(
     }
     return config;
   },
-  (error) => Promise.reject(error)
+  (error) => Promise.reject(error),
 );
 
 // 2. Handle expired token in response
@@ -32,7 +34,7 @@ axios.interceptors.response.use(
     }
 
     return Promise.reject(error);
-  }
+  },
 );
 
 // refreshAccessToken
@@ -42,7 +44,7 @@ const refreshAccessToken = async (refreshToken) => {
       "http://localhost:5050/api/v1/refresh-token",
       {
         headers: { Authorization: `Bearer ${refreshToken}` },
-      }
+      },
     );
 
     const accessToken = response.data.data.accessToken;

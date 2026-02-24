@@ -85,7 +85,7 @@ export const userLogin = async (req, res) => {
     // Set cookies
     const cookieOptions = {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
+      secure: true,
       sameSite: "None",
     };
 
@@ -96,7 +96,7 @@ export const userLogin = async (req, res) => {
       userExist._id,
       {
         last_login_date: new Date(),
-      }
+      },
     );
 
     // Send success response
@@ -154,7 +154,7 @@ export const verifyEmail = async (req, res) => {
       { _id: code },
       {
         verify_email: true,
-      }
+      },
     );
     res.status(200).json({ message: updateUser });
   }
@@ -193,7 +193,7 @@ export const avatarUpload = async (req, res) => {
     const user = await userModel.findByIdAndUpdate(
       userId,
       { avatar: avatarUrl },
-      { new: true }
+      { new: true },
     );
 
     if (!user) {
@@ -254,7 +254,7 @@ export const updateUserDetails = async (req, res) => {
       ...(mobile && { mobile }),
       // ...(password && { password: hashPass }),
     },
-    { new: true }
+    { new: true },
   );
 
   if (!updateUser) {
@@ -313,7 +313,7 @@ export const forgotPasswordOtp = async (req, res) => {
         forgot_password_otp: otp,
         forgot_password_expiry: expiryTime,
       },
-      { new: true }
+      { new: true },
     );
 
     res.status(200).json({ message: "OTP send successfully", data: updateOtp });
@@ -397,7 +397,7 @@ export const resetPassWord = async (req, res) => {
   const updatePass = await userModel.findByIdAndUpdate(
     userExist._id,
     { password: hashPass },
-    { new: true }
+    { new: true },
   );
 
   return res.status(200).json({
