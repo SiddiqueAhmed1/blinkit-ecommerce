@@ -77,7 +77,7 @@ const Category = () => {
     <>
       {loader ? <Loader /> : ""}
       <section>
-        <div className="shadow p-2 rounded flex justify-between items-center ">
+        <div className="shadow p-2 rounded flex justify-between items-center gap-3 lg:gap-0">
           <h1 className="font-semibold text-2xl">Add Category</h1>
           <button
             onClick={() => setOpenCategoryModal(true)}

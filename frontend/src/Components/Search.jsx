@@ -19,7 +19,7 @@ const Search = () => {
       {/* for desktop version */}
       <div
         onClick={redirectSearchPage}
-        className="lg:block  hidden header-search cursor-text w-full border-2 border-gray-200 focus-within:border-amber-500 rounded-[10px] bg-neutral-50 h-14 px-5 group "
+        className="lg:block  hidden w-[80%] header-search cursor-text border-2 border-gray-200 focus-within:border-amber-500 rounded-[10px] bg-neutral-50 h-14 px-5 group "
       >
         <div className="flex w-full h-full items-center gap-4 ">
           <span className="text-2xl group-focus-within:text-amber-500">

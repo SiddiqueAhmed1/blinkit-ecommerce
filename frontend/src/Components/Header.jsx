@@ -25,7 +25,7 @@ const Header = () => {
       <header className="sticky top-0 w-full shadow py-3 bg-white z-40">
         <div className="max-w-[1600px]  w-full mx-auto flex justify-between items-center px-4 lg:px-8">
           {/* Logo */}
-          <div className="lg:w-[15%] px-4">
+          <div className="flex-shrink-0 px-4">
             <Link to={"/"} className="inline-block">
               <img
                 className="h-full lg:w-36 w-28 sm:w-32 md:w-36 object-contain"
@@ -36,7 +36,7 @@ const Header = () => {
           </div>
 
           {/* Search desktop */}
-          <div className="w-[65%] hidden lg:block">
+          <div className="flex-1 hidden lg:flex justify-center">
             <Search />
           </div>
 
@@ -56,7 +56,7 @@ const Header = () => {
           </div>
 
           {/* Login part for desktop */}
-          <div className="lg:w-[20%] flex justify-center px-4 ">
+          <div className="flex-shirnk-0 justify-center px-4 ">
             <div className="hidden lg:flex lg:gap-3 xl:gap-5 ">
               <div className="flex items-center justify-center min-w-[80px]">
                 {user._id ? (
