@@ -10,6 +10,7 @@ const initialState = {
   forgot_password_otp: "",
   verify_email: "",
   last_login_date: "",
+  role: "",
   forgot_password_expiry: null,
   address_details: [],
   orderHistory: [],
@@ -26,6 +27,7 @@ const userSlice = createSlice({
       state.email = action.payload.email;
       state.avatar = action.payload.avatar;
       state.mobile = action.payload.mobile;
+      state.role = action.payload.role;
       state.verify_forgot_password = action.payload.verify_forgot_password;
       state.forgot_password_expiry = action.payload.forgot_password_expiry;
       state.verify_email = action.payload.verify_email;

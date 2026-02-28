@@ -16,18 +16,30 @@ const UserMenu = () => {
     }
   };
 
+  console.log(user);
+
   return (
     <>
       {/* user menu for desktop */}
       <div
-        className={`text-[17px] bg-white hidden lg:block xl:block   
+        className={`text-[17px] bg-white hidden lg:block xl:block pt-4
         `}
       >
         <div className="">
           <div className="px-4">
-            <h5 className="font-semibold mb-1">My Account</h5>
+            <h5 className="font-semibold mb-1 ">My Account</h5>
             <div className="flex items-center gap-1">
-              <p>{handleShortName(user.name)}</p>
+              {user.role === "ADMIN" ? (
+                <p>
+                  {handleShortName(user.name)}{" "}
+                  <span className="text-green-500 font-semibold text-sm">
+                    (Admin)
+                  </span>
+                </p>
+              ) : (
+                <p>{handleShortName(user.name)}</p>
+              )}
+
               <Link to={"/dashboard/profile"}>
                 <IoNavigateCircleOutline color="#FFD230" size={20} />
               </Link>
@@ -36,21 +48,30 @@ const UserMenu = () => {
 
           <Divider />
           <div className="grid gap-1 text-[17px] ml-2 px-2 pb-4">
-            <Link className="hover:bg-amber-300 p-1" to="/dashboard/category">
-              Category
-            </Link>
-            <Link
-              className="hover:bg-amber-300 p-1"
-              to="/dashboard/sub-category"
-            >
-              Sub Category
-            </Link>
-            <Link
-              className="hover:bg-amber-300 p-1"
-              to="/dashboard/upload-product"
-            >
-              Upload Product
-            </Link>
+            {user.role === "ADMIN" && (
+              <Link className="hover:bg-amber-300 p-1" to="/dashboard/category">
+                Category
+              </Link>
+            )}
+
+            {user.role === "ADMIN" && (
+              <Link
+                className="hover:bg-amber-300 p-1"
+                to="/dashboard/sub-category"
+              >
+                Sub Category
+              </Link>
+            )}
+
+            {user.role === "ADMIN" && (
+              <Link
+                className="hover:bg-amber-300 p-1"
+                to="/dashboard/upload-product"
+              >
+                Upload Product
+              </Link>
+            )}
+
             <Link className="hover:bg-amber-300 p-1" to="/dashboard/product">
               Product
             </Link>
