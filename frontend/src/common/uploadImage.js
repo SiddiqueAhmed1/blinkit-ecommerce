@@ -5,8 +5,8 @@ const uploadImage = async (image) => {
   formdata.append("image", image);
   try {
     const response = await axios.post(
-      "http://localhost:5050/uploads/upload-img",
-      formdata
+      `${import.meta.env.VITE_API_URL}/uploads/upload-img`,
+      formdata,
     );
 
     return response.data.image;
