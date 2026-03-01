@@ -86,7 +86,7 @@ const CategoryUploadModal = ({ close, fetchCategory }) => {
 
   return (
     <>
-      <section className="bg-neutral-800/60 absolute transition left-0 right-0 bottom-0 top-0 flex justify-center items-center ">
+      <section className="bg-neutral-800/60 fixed transition left-0 right-0 bottom-0 top-0 flex justify-center items-center ">
         <div className="bg-white md:w-[500px] w-[300px] sm:w-[380px] md:h-[400px] p-4 rounded">
           <div className="flex justify-between ">
             <h1 className="text-lg font-semibold">Category</h1>

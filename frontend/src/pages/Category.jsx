@@ -15,6 +15,18 @@ const Category = () => {
     image: "",
   });
 
+  useEffect(() => {
+    if (openCategoryModal || editCategoryModal) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [openCategoryModal, editCategoryModal]);
+
   const [loader, setLoader] = useState(false);
 
   const fetchCategory = async () => {
@@ -100,9 +112,15 @@ const Category = () => {
                 <>
                   <div
                     key={item._id}
-                    className="w-full shadow-md rounded   p-3 hover:shadow-lg transition bg-white "
+                    className="w-full shadow-md rounded border border-amber-200   p-3 hover:shadow-lg transition bg-white "
                   >
-                    <img className="w-36 mx-auto" src={item.image} alt="" />
+                    <div className="h-52">
+                      <img
+                        className="w-36 mx-auto object-cover"
+                        src={item.image}
+                        alt=""
+                      />
+                    </div>
                     <div className="flex justify-center gap-2 ">
                       <button
                         onClick={() => {

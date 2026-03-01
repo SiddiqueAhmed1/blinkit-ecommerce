@@ -35,7 +35,7 @@ const CategoryEditModal = ({
     try {
       setCategoryUpdateLoader(true);
       const response = await axios.put(
-        "http://localhost:5050/category/update-category",
+        `${import.meta.env.VITE_API_URL}/category/update-category`,
         data,
       );
 
@@ -124,9 +124,9 @@ const CategoryEditModal = ({
 
             <div className="flex flex-col justify-center items-center gap-3 md:flex md:flex-row md:justify-center md:gap-3 md:items-center my-3">
               {data.image ? (
-                <div className="w-48 h-48 bg-neutral-200 flex justify-center items-center text-neutral-500 font-semibold">
+                <div className="w-48 h-48 border border-amber-500 bg-white flex justify-center items-center text-neutral-500 font-semibold">
                   <img
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-contain"
                     src={data.image}
                     alt=""
                   />
