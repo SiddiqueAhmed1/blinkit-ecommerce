@@ -10,25 +10,13 @@ const Category = () => {
   const [openCategoryModal, setOpenCategoryModal] = useState(false);
   const [categoryStore, setCategoryStore] = useState([]);
   const [editCategoryModal, setEditCategoryModal] = useState(false);
+  const [loader, setLoader] = useState(false);
   const [editCategoryData, setEditCategoryData] = useState({
     categoryName: "",
     image: "",
   });
 
-  useEffect(() => {
-    if (openCategoryModal || editCategoryModal) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "auto";
-    }
-
-    return () => {
-      document.body.style.overflow = "auto";
-    };
-  }, [openCategoryModal, editCategoryModal]);
-
-  const [loader, setLoader] = useState(false);
-
+  // get the category from DB
   const fetchCategory = async () => {
     try {
       setLoader(true);

@@ -4,7 +4,7 @@ const Footer = () => {
   return (
     <>
       {/* footer for desktop */}
-      <footer className="lg:container mx-auto h-100 hidden lg:block xl:block">
+      <footer className="lg:container mx-auto h-100 hidden lg:block xl:block pt-5">
         <div className="footer-header container flex gap-10 ">
           <div className="footer-top-left sm:-w-[30%] w-[35%] mb-5 font-semibold text-[22px]">
             <h3>Useful Links</h3>

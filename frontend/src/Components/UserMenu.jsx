@@ -9,14 +9,12 @@ const UserMenu = () => {
   const handleLogOut = useLogout();
 
   const handleShortName = (name) => {
-    if (name.length > 14) {
-      return name.slice(0, 14) + "...";
+    if (name.length > 10) {
+      return name.slice(0, 8) + "...";
     } else {
       return name;
     }
   };
-
-  console.log(user);
 
   return (
     <>
@@ -25,7 +23,7 @@ const UserMenu = () => {
         className={`text-[17px] bg-white hidden lg:block xl:block pt-4
         `}
       >
-        <div className="">
+        <div>
           <div className="px-4">
             <h5 className="font-semibold mb-1 ">My Account</h5>
             <div className="flex items-center gap-1">
