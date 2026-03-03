@@ -1,11 +1,13 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 import Loader from "../common/Loader";
+import { setLoading } from "../features/userSlice";
 
 const IsPermission = ({ children }) => {
   const user = useSelector((state) => state.user);
+  const dispatch = useDispatch();
   if (user.loader) {
-    return <Loader />;
+    dispatch(setLoading(true));
   }
 
   const isAuthenticated = user._id !== "";

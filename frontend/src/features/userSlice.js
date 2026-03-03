@@ -16,7 +16,7 @@ const initialState = {
   address_details: [],
   orderHistory: [],
   shopping_cart: [],
-  loader: true,
+  loader: null,
 };
 
 const userSlice = createSlice({
@@ -37,7 +37,10 @@ const userSlice = createSlice({
       state.address_details = action.payload.orderHistory;
       state.orderHistory = action.payload.orderHistory;
       state.shopping_cart = action.payload.shopping_cart;
-      state.loader = false;
+      state.loader = action.payload;
+    },
+    setLoading: (state, action) => {
+      state.loader = action.payload;
     },
     logout: (state) => {
       state._id = "";
@@ -54,6 +57,7 @@ const userSlice = createSlice({
       state.address_details = [];
       state.orderHistory = [];
       state.shopping_cart = [];
+      state.loader = false;
     },
     uploadAvatar: (state, action) => {
       state.avatar = action.payload;
@@ -68,7 +72,12 @@ const userSlice = createSlice({
   },
 });
 
-export const { setUserDetails, logout, uploadAvatar, updateUserDetails } =
-  userSlice.actions;
+export const {
+  setUserDetails,
+  logout,
+  uploadAvatar,
+  updateUserDetails,
+  setLoading,
+} = userSlice.actions;
 
 export default userSlice.reducer;
