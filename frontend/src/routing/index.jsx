@@ -17,6 +17,7 @@ import Category from "../pages/Category";
 import SubCategory from "../pages/SubCategory";
 import Product from "../pages/Product";
 import UploadProduct from "../pages/UploadProduct";
+import IsPermission from "../Components/IsPermission";
 
 const browserRouter = createBrowserRouter([
   {
@@ -69,7 +70,11 @@ const browserRouter = createBrowserRouter([
         children: [
           {
             path: "profile",
-            element: <Profile />,
+            element: (
+              <IsPermission>
+                <Profile />,
+              </IsPermission>
+            ),
           },
           {
             path: "myorders",

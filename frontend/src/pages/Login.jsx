@@ -69,7 +69,9 @@ const Login = () => {
         theme: "light",
       });
 
-      navigate("/dashboard/profile");
+      navigate("/dashboard/profile", {
+        state: "Active",
+      });
       localStorage.setItem("accessToken", response.data.accessToken);
       localStorage.setItem("refreshToken", response.data.refreshToken);
       const user = await fetchUserDetails();

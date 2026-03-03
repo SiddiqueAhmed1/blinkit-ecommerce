@@ -70,9 +70,12 @@ const UserMenu = () => {
               </Link>
             )}
 
-            <Link className="hover:bg-amber-300 p-1" to="/dashboard/product">
-              Product
-            </Link>
+            {user.role === "ADMIN" && (
+              <Link className="hover:bg-amber-300 p-1" to="/dashboard/product">
+                Product
+              </Link>
+            )}
+
             <Link className="hover:bg-amber-300 p-1" to="/dashboard/myorders">
               My Orders
             </Link>
