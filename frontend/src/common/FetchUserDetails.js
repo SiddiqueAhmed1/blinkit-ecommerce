@@ -4,6 +4,7 @@ const fetchUserDetails = async () => {
   try {
     const response = await axios.get(
       `${import.meta.env.VITE_API_URL}/api/v1/user-details`,
+      { withCredentials: true },
     );
     return response.data;
   } catch (error) {

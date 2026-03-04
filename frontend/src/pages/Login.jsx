@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import fetchUserDetails from "../common/FetchUserDetails";
 import { useDispatch } from "react-redux";
-import { setUserDetails } from "../features/userSlice";
+import { setAuthLoading, setUserDetails } from "../features/userSlice";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -47,7 +47,7 @@ const Login = () => {
         theme: "dark",
       });
     }
-
+    setAuthLoading(true);
     try {
       const response = (
         await axios.post(`${import.meta.env.VITE_API_URL}/api/v1/login`, input)
@@ -58,6 +58,12 @@ const Login = () => {
         password: "",
       });
 
+      localStorage.setItem("accessToken", response.data.accessToken);
+      localStorage.setItem("refreshToken", response.data.refreshToken);
+      const user = await fetchUserDetails();
+      dispatch(setUserDetails(user.data));
+
+      navigate("/dashboard/profile");
       toast.success("Login successfully done", {
         position: "top-center",
         autoClose: 2000,
@@ -68,14 +74,6 @@ const Login = () => {
         progress: undefined,
         theme: "light",
       });
-
-      navigate("/dashboard/profile", {
-        state: "Active",
-      });
-      localStorage.setItem("accessToken", response.data.accessToken);
-      localStorage.setItem("refreshToken", response.data.refreshToken);
-      const user = await fetchUserDetails();
-      dispatch(setUserDetails(user.data));
     } catch (error) {
       if (!error?.response?.data?.password) {
         return toast.error(error?.response?.message || error.message, {
@@ -116,6 +114,8 @@ const Login = () => {
           theme: "light",
         });
       }
+    } finally {
+      setAuthLoading(false);
     }
   };
 

@@ -66,7 +66,12 @@ const browserRouter = createBrowserRouter([
       },
       {
         path: "/dashboard",
-        element: <Dashboard />,
+
+        element: (
+          <IsPermission>
+            <Dashboard />
+          </IsPermission>
+        ),
         children: [
           {
             path: "profile",

@@ -473,7 +473,7 @@ export const getUserDetails = async (req, res) => {
 
     // validation to get user data
     if (!user) {
-      return res.status(400).json({
+      return res.status(404).json({
         message: "User data not found",
         success: false,
         error: true,
@@ -489,6 +489,11 @@ export const getUserDetails = async (req, res) => {
     });
   } catch (error) {
     console.log(error);
+    return res.status(500).json({
+      message: "Internal server error",
+      success: false,
+      error: true,
+    });
   }
 };
 

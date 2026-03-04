@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-
 const initialState = {
   _id: "",
   name: "",
@@ -16,58 +15,47 @@ const initialState = {
   address_details: [],
   orderHistory: [],
   shopping_cart: [],
-  loader: null,
+  isInitializing: true,
+  isAuthLoader: false,
 };
 
 const userSlice = createSlice({
   name: "user",
-  initialState: initialState,
+  initialState,
   reducers: {
     setUserDetails: (state, action) => {
-      state._id = action.payload._id;
-      state.name = action.payload.name;
-      state.email = action.payload.email;
-      state.avatar = action.payload.avatar;
-      state.mobile = action.payload.mobile;
-      state.role = action.payload.role;
-      state.refresh_token = action.payload.refresh_token;
-      state.verify_forgot_password = action.payload.verify_forgot_password;
-      state.forgot_password_expiry = action.payload.forgot_password_expiry;
-      state.verify_email = action.payload.verify_email;
-      state.address_details = action.payload.orderHistory;
-      state.orderHistory = action.payload.orderHistory;
-      state.shopping_cart = action.payload.shopping_cart;
-      state.loader = action.payload;
+      const payload = action.payload || {}; // avoid crash if null
+
+      state._id = payload._id || "";
+      state.name = payload.name || "";
+      state.email = payload.email || "";
+      state.avatar = payload.avatar || "";
+      state.mobile = payload.mobile || "";
+      state.role = payload.role || "";
+      state.refresh_token = payload.refresh_token || "";
+      state.verify_forgot_password = payload.verify_forgot_password || "";
+      state.forgot_password_expiry = payload.forgot_password_expiry || null;
+      state.verify_email = payload.verify_email || "";
+      state.address_details = payload.address_details || [];
+      state.orderHistory = payload.orderHistory || [];
+      state.shopping_cart = payload.shopping_cart || [];
     },
-    setLoading: (state, action) => {
-      state.loader = action.payload;
+    setIsInitilizing: (state, action) => {
+      state.isInitializing = action.payload;
+    },
+    setAuthLoading: (state, action) => {
+      state.isAuthLoader = action.payload;
     },
     logout: (state) => {
-      state._id = "";
-      state.name = "";
-      state.email = "";
-      state.avatar = "";
-      state.mobile = "";
-      state.refresh_token = "";
-      state.verify_forgot_password = "";
-      state.forgot_password_otp = "";
-      state.verify_email = "";
-      state.last_login_date = "";
-      state.forgot_password_expiry = null;
-      state.address_details = [];
-      state.orderHistory = [];
-      state.shopping_cart = [];
-      state.loader = false;
+      Object.assign(state, initialState);
     },
     uploadAvatar: (state, action) => {
       state.avatar = action.payload;
     },
     updateUserDetails: (state, action) => {
-      [
-        (state.name = action.payload.name),
-        (state.email = action.payload.email),
-        (state.mobile = action.payload.mobile),
-      ];
+      state.name = action.payload.name || state.name;
+      state.email = action.payload.email || state.email;
+      state.mobile = action.payload.mobile || state.mobile;
     },
   },
 });
@@ -77,7 +65,7 @@ export const {
   logout,
   uploadAvatar,
   updateUserDetails,
-  setLoading,
+  setIsInitilizing,
+  setAuthLoading,
 } = userSlice.actions;
-
 export default userSlice.reducer;
