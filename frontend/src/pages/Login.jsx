@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import fetchUserDetails from "../common/FetchUserDetails";
 import { useDispatch } from "react-redux";
-import { setAuthLoading, setUserDetails } from "../features/userSlice";
+import { setLoading, setUserDetails } from "../features/userSlice";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -47,7 +47,7 @@ const Login = () => {
         theme: "dark",
       });
     }
-    setAuthLoading(true);
+    dispatch(setLoading(true));
     try {
       const response = (
         await axios.post(`${import.meta.env.VITE_API_URL}/api/v1/login`, input)
@@ -115,7 +115,7 @@ const Login = () => {
         });
       }
     } finally {
-      setAuthLoading(false);
+      dispatch(setLoading(false));
     }
   };
 

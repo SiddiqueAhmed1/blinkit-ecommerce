@@ -5,15 +5,15 @@ import { ToastContainer } from "react-toastify";
 import fetchUserDetails from "./common/FetchUserDetails";
 import { useEffect } from "react";
 import "./common/Axios";
-import { setIsInitilizing, setUserDetails } from "./features/userSlice";
+import { setLoading, setUserDetails } from "./features/userSlice";
 import { useDispatch } from "react-redux";
 
 const App = () => {
   const dispatch = useDispatch();
 
   const fetchUser = async () => {
-    dispatch(setIsInitilizing(true));
     try {
+      dispatch(setLoading(true));
       const user = await fetchUserDetails();
 
       if (user) {
@@ -25,7 +25,7 @@ const App = () => {
       console.log("fetch user data error", error);
       dispatch(setUserDetails(null));
     } finally {
-      dispatch(setIsInitilizing(false));
+      dispatch(setLoading(false));
     }
   };
 

@@ -15,8 +15,7 @@ const initialState = {
   address_details: [],
   orderHistory: [],
   shopping_cart: [],
-  isInitializing: true,
-  isAuthLoader: false,
+  loader: true,
 };
 
 const userSlice = createSlice({
@@ -40,12 +39,10 @@ const userSlice = createSlice({
       state.orderHistory = payload.orderHistory || [];
       state.shopping_cart = payload.shopping_cart || [];
     },
-    setIsInitilizing: (state, action) => {
-      state.isInitializing = action.payload;
+    setLoading: (state, action) => {
+      state.loader = action.payload;
     },
-    setAuthLoading: (state, action) => {
-      state.isAuthLoader = action.payload;
-    },
+
     logout: (state) => {
       Object.assign(state, initialState);
     },
@@ -65,7 +62,6 @@ export const {
   logout,
   uploadAvatar,
   updateUserDetails,
-  setIsInitilizing,
-  setAuthLoading,
+  setLoading,
 } = userSlice.actions;
 export default userSlice.reducer;

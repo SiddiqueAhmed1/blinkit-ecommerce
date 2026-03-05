@@ -3,9 +3,9 @@ import { Navigate } from "react-router-dom";
 import Loader from "../common/Loader";
 
 const IsPermission = ({ children }) => {
-  const { isInitializing, _id } = useSelector((state) => state.user);
+  const { loader, _id } = useSelector((state) => state.user);
 
-  if (isInitializing === null) return <Loader />;
+  if (loader) return <Loader />;
 
   const isAuthenticated = !!_id;
   console.log(isAuthenticated);
