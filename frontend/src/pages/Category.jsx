@@ -102,7 +102,7 @@ const Category = () => {
                     key={item._id}
                     className="w-full shadow-md rounded border border-amber-200   p-3 hover:shadow-lg transition bg-white "
                   >
-                    <div className="h-52">
+                    <div className="h-52 flex items-center">
                       <img
                         className="w-36 mx-auto object-cover"
                         src={item.image}
