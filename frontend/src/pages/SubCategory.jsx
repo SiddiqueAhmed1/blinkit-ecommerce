@@ -7,7 +7,7 @@ const SubCategory = () => {
 
   return (
     <>
-      <section onClick={() => setOpenSubCategoryModal(false)}>
+      <section>
         <div className="shadow p-2 rounded flex justify-between items-center gap-3 lg:gap-0">
           <h1 className="font-semibold text-2xl">Add Sub-Category</h1>
           <button
@@ -18,7 +18,11 @@ const SubCategory = () => {
           </button>
         </div>
 
-        {openSubCategoryModal && <SubCategoryUploadModal />}
+        {openSubCategoryModal && (
+          <SubCategoryUploadModal
+            close={() => setOpenSubCategoryModal(false)}
+          />
+        )}
       </section>
     </>
   );
