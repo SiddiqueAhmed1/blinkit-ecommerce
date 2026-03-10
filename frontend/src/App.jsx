@@ -7,9 +7,28 @@ import { useEffect } from "react";
 import "./common/Axios";
 import { setLoading, setUserDetails } from "./features/userSlice";
 import { useDispatch } from "react-redux";
+import axios from "axios";
+import { setAllCategory } from "./features/productSlice";
 
 const App = () => {
   const dispatch = useDispatch();
+
+  const fetchCategory = async () => {
+    try {
+      const response = await axios.get(
+        `${import.meta.env.VITE_API_URL}/category/get-category`,
+      );
+      if (response?.data?.success) {
+        dispatch(setAllCategory(response?.data?.data));
+      }
+    } catch (error) {
+      console.log("get data error", error || error?.response?.data?.message);
+    }
+  };
+
+  useEffect(() => {
+    fetchCategory();
+  }, []);
 
   const fetchUser = async () => {
     try {
@@ -31,6 +50,7 @@ const App = () => {
 
   useEffect(() => {
     fetchUser();
+    fetchCategory();
   }, []);
 
   return (

@@ -5,38 +5,22 @@ import notFound from "../../public/nothing here yet.webp";
 import swal from "sweetalert2";
 import CategoryEditModal from "../Components/CategoryEditModal";
 import Loader from "../common/Loader";
+import { useSelector } from "react-redux";
 
 const Category = () => {
   const [openCategoryModal, setOpenCategoryModal] = useState(false);
   const [categoryStore, setCategoryStore] = useState([]);
   const [editCategoryModal, setEditCategoryModal] = useState(false);
-  const [loader, setLoader] = useState(false);
   const [editCategoryData, setEditCategoryData] = useState({
     categoryName: "",
     image: "",
   });
 
-  // get the category from DB
-  const fetchCategory = async () => {
-    try {
-      setLoader(true);
-      const response = await axios.get(
-        `${import.meta.env.VITE_API_URL}/category/get-category`,
-      );
-
-      if (response?.data?.success) {
-        setCategoryStore(() => [...response.data.data]);
-      }
-    } catch (error) {
-      console.log("get data error", error || error?.response?.data?.message);
-    } finally {
-      setLoader(false);
-    }
-  };
+  const allCategory = useSelector((state) => state.product.allCategory);
 
   useEffect(() => {
-    fetchCategory();
-  }, []);
+    setCategoryStore(allCategory);
+  }, [allCategory]); // only runs when allCategory changes
 
   // handle delete category
   const handleCategoryDelete = (id) => {
@@ -57,7 +41,7 @@ const Category = () => {
               await axios.delete(
                 `${import.meta.env.VITE_API_URL}/category/delete-category/${id}`,
               );
-              await fetchCategory();
+
               await swal.fire({
                 title: "Deleted!",
                 text: "Your file has been deleted.",
@@ -75,7 +59,6 @@ const Category = () => {
 
   return (
     <>
-      {loader ? <Loader /> : ""}
       <section>
         <div className="shadow p-2 rounded flex justify-between items-center gap-3 lg:gap-0">
           <h1 className="font-semibold text-2xl">Add Category</h1>
@@ -94,7 +77,7 @@ const Category = () => {
           />
         )}
         {categoryStore.length > 0 ? (
-          <div className="bg-neutral-50 p-4 min-[375px]:grid-cols-2 min-[500px]:grid-cols-3 text-center my-5 grid grid-cols-3 sm:grid-cols-4 xl:grid-cols-6 lg:grid-cols-5 md:grid-cols-4 gap-4">
+          <div className="bg-neutral-50 p-4 min-[375px]:grid-cols-2 min-[500px]:grid-cols-2 text-center my-5 grid grid-cols-1 sm:grid-cols-3 xl:grid-cols-6 lg:grid-cols-4 md:grid-cols-4 gap-4">
             {categoryStore.map((item) => {
               return (
                 <>

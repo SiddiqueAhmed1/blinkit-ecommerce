@@ -45,7 +45,10 @@ const Header = () => {
             <button>
               {user._id ? (
                 <Link to={"/user"}>
-                  <FaRegUserCircle size={30} className=" text-neutral-600 " />
+                  <FaRegUserCircle
+                    size={30}
+                    className=" text-neutral-600 mr-0"
+                  />
                 </Link>
               ) : (
                 <Link to={"/login"}>
