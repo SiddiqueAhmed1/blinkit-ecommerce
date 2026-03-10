@@ -41,7 +41,7 @@ axios.interceptors.response.use(
 const refreshAccessToken = async (refreshToken) => {
   try {
     const response = await axios.post(
-      "http://localhost:5050/api/v1/refresh-token",
+      `${import.meta.env.VITE_API_URL}/api/v1/refresh-token`,
       {
         headers: { Authorization: `Bearer ${refreshToken}` },
       },
