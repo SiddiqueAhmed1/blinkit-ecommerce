@@ -127,7 +127,7 @@ const CategoryUploadModal = ({ close, fetchCategory }) => {
                       !data.categoryName
                         ? "bg-neutral-400 border border-neutral-400"
                         : "bg-amber-300 hover:bg-amber-400 cursor-pointer"
-                    } border-amber-300 border px-3 py-2    rounded`}
+                    } border-amber-300 border px-3 py-2 rounded`}
                   >
                     {imgLoader && data.categoryName
                       ? "Uploading..."
