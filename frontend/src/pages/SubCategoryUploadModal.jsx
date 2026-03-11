@@ -18,7 +18,7 @@ const SubCategoryUploadModal = ({ close }) => {
 
   return (
     <>
-      <section className="bg-neutral-800/60 fixed flex left-0 bottom-0 right-0 top-0 transition justify-center items-center mt-10 lg:m-0">
+      <section className="bg-neutral-800/60 fixed flex left-0 bottom-0 right-0 top-0 transition justify-center items-center">
         <div className="w-[500px] h-[450px] rounded p-4 bg-white  m-5">
           <div className=" flex justify-between ">
             <h1 className="text-lg font-semibold">Sub Category</h1>
