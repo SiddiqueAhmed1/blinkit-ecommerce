@@ -26,10 +26,6 @@ const App = () => {
     }
   };
 
-  useEffect(() => {
-    fetchCategory();
-  }, []);
-
   const fetchUser = async () => {
     try {
       dispatch(setLoading(true));

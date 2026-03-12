@@ -3,10 +3,13 @@ import { MdClose } from "react-icons/md";
 import { toast } from "react-toastify";
 import uploadImage from "../common/uploadImage";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { setAddCategory } from "../features/productSlice";
 
-const CategoryUploadModal = ({ close, fetchCategory }) => {
+const CategoryUploadModal = ({ close }) => {
   const [imgLoader, setImgLoader] = useState(false);
   const [categoryUploadLoader, setCategoryUploadLoader] = useState(false);
+  const dispatch = useDispatch();
 
   const [data, setData] = useState({
     categoryName: "",
@@ -36,8 +39,10 @@ const CategoryUploadModal = ({ close, fetchCategory }) => {
           position: "top-center",
           autoClose: 2000,
         });
+        console.log("response from categorymodal", response.data.data);
+
         close();
-        fetchCategory();
+        dispatch(setAddCategory(response.data.data));
       }
     } catch (error) {
       toast.error(error.response.data.message);

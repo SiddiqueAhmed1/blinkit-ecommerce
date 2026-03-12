@@ -5,7 +5,8 @@ import notFound from "../../public/nothing here yet.webp";
 import swal from "sweetalert2";
 import CategoryEditModal from "../Components/CategoryEditModal";
 import Loader from "../common/Loader";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setDeleteCategory } from "../features/productSlice";
 
 const Category = () => {
   const [openCategoryModal, setOpenCategoryModal] = useState(false);
@@ -17,6 +18,7 @@ const Category = () => {
   });
 
   const allCategory = useSelector((state) => state.product.allCategory);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     setCategoryStore(allCategory);
@@ -41,7 +43,7 @@ const Category = () => {
               await axios.delete(
                 `${import.meta.env.VITE_API_URL}/category/delete-category/${id}`,
               );
-
+              dispatch(setDeleteCategory(id));
               await swal.fire({
                 title: "Deleted!",
                 text: "Your file has been deleted.",
@@ -72,7 +74,7 @@ const Category = () => {
 
         {openCategoryModal && (
           <CategoryUploadModal
-            fetchCategory={fetchCategory}
+            fetchCategory={categoryStore}
             close={() => setOpenCategoryModal(false)}
           />
         )}
@@ -118,7 +120,7 @@ const Category = () => {
               <CategoryEditModal
                 editCategoryData={editCategoryData}
                 setEditCategoryModal={setEditCategoryModal}
-                fetchCategory={fetchCategory}
+                fetchCategory={categoryStore}
               />
             )}
           </div>
