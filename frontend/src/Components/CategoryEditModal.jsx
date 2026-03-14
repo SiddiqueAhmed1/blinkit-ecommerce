@@ -3,14 +3,13 @@ import { MdClose } from "react-icons/md";
 import { toast } from "react-toastify";
 import uploadImage from "../common/uploadImage";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { setEditCategory } from "../features/productSlice";
 
-const CategoryEditModal = ({
-  setEditCategoryModal,
-  editCategoryData,
-  fetchCategory,
-}) => {
+const CategoryEditModal = ({ setEditCategoryModal, editCategoryData }) => {
   const [imgLoader, setImgLoader] = useState(false);
   const [categoryUpdateLoader, setCategoryUpdateLoader] = useState(false);
+  const dispatch = useDispatch();
 
   const [data, setData] = useState({
     id: editCategoryData._id,
@@ -23,7 +22,7 @@ const CategoryEditModal = ({
     e.preventDefault();
 
     if (
-      data.categoryName === editCategoryData.categoryName ||
+      data.categoryName === editCategoryData.categoryName &&
       data.image === editCategoryData.image
     ) {
       return toast.error("One or more fields value must be change", {
@@ -45,7 +44,7 @@ const CategoryEditModal = ({
           autoClose: 2000,
         });
         setEditCategoryModal(false);
-        fetchCategory();
+        dispatch(setEditCategory(response.data.data));
       }
     } catch (error) {
       toast.error(error.response.data.message, {

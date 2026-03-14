@@ -21,10 +21,20 @@ const productSlice = createSlice({
     setAddCategory: (state, action) => {
       state.allCategory = [...state.allCategory, action.payload];
     },
+    setEditCategory: (state, action) => {
+      state.allCategory = [
+        ...state.allCategory,
+        state.allCategory.find((item) => item._id === action.payload._id),
+      ];
+    },
   },
 });
 
-export const { setAllCategory, setDeleteCategory, setAddCategory } =
-  productSlice.actions;
+export const {
+  setAllCategory,
+  setDeleteCategory,
+  setAddCategory,
+  setEditCategory,
+} = productSlice.actions;
 
 export default productSlice.reducer;
