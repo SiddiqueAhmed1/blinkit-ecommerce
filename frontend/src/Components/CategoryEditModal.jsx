@@ -22,7 +22,7 @@ const CategoryEditModal = ({ setEditCategoryModal, editCategoryData }) => {
     e.preventDefault();
 
     if (
-      data.categoryName === editCategoryData.categoryName &&
+      data.categoryName === editCategoryData.categoryName ||
       data.image === editCategoryData.image
     ) {
       return toast.error("One or more fields value must be change", {
@@ -45,6 +45,7 @@ const CategoryEditModal = ({ setEditCategoryModal, editCategoryData }) => {
         });
         setEditCategoryModal(false);
         dispatch(setEditCategory(response.data.data));
+        console.log("edit category from edit modal", response.data.data);
       }
     } catch (error) {
       toast.error(error.response.data.message, {
