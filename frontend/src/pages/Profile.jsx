@@ -47,7 +47,7 @@ const Profile = () => {
     ) {
       return toast.error("Any one field value must be change", {
         position: "top-center",
-        autoClose: 2000,
+        autoClose: 1500,
       });
     }
 
@@ -63,7 +63,7 @@ const Profile = () => {
       if (responseData.success) {
         toast.success("Updated successfully", {
           position: "top-center",
-          autoClose: 2000,
+          autoClose: 1500,
         });
         const getUserData = await fetchUserDetails();
         dispatch(setUserDetails(getUserData.data));
@@ -71,7 +71,7 @@ const Profile = () => {
     } catch (error) {
       toast.error(error.response.data.message, {
         position: "top-center",
-        autoClose: 2000,
+        autoClose: 1500,
       });
     } finally {
       setLoader(false);

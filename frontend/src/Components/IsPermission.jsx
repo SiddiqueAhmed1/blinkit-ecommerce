@@ -8,7 +8,6 @@ const IsPermission = ({ children }) => {
   if (loader) return <Loader />;
 
   const isAuthenticated = !!_id;
-  console.log(isAuthenticated);
 
   if (!isAuthenticated) return <Navigate to={"/login"} replace />;
 
