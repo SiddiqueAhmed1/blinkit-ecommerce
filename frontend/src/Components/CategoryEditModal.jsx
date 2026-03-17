@@ -27,7 +27,7 @@ const CategoryEditModal = ({ setEditCategoryModal, editCategoryData }) => {
     ) {
       return toast.error("One or more fields value must be change", {
         position: "top-center",
-        autoClose: 2000,
+        autoClose: 1500,
       });
     }
 
