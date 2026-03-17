@@ -22,10 +22,16 @@ const productSlice = createSlice({
       state.allCategory = [...state.allCategory, action.payload];
     },
     setEditCategory: (state, action) => {
-      state.allCategory = [
-        ...state.allCategory,
-        state.allCategory.find((item) => item._id === action.payload._id),
-      ];
+      const index = state.allCategory.findIndex(
+        (item) => item._id === action.payload._id,
+      );
+
+      if (index !== -1) {
+        state.allCategory[index] = {
+          ...state.allCategory[index],
+          ...action.payload,
+        };
+      }
     },
   },
 });

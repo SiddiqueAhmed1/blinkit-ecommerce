@@ -84,7 +84,7 @@ const Category = () => {
               return (
                 <>
                   <div
-                    key={item._id}
+                    key={item?._id}
                     className="w-full shadow-md rounded border border-amber-200   p-3 hover:shadow-lg transition bg-white "
                   >
                     <div className="h-52 flex items-center">
